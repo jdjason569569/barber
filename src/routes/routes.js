@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 
 import Login from '../components/login/login';
 import SignUp from '../components/signUp/signUp';
+import Home from '../components/home/home';
+import { ProtectedRoute } from '../components/shared/protectedRoute';
 
 
 
@@ -25,6 +27,9 @@ export function MyRoutes() {
          <Router>
              <Routes>
                  <Route exact path='/' element={<Login />}></Route>
+                 <Route element={<ProtectedRoute name={userName} />}>
+                     <Route exact path='/home' element={<Home name={userName} />}></Route>
+                 </Route>
                  <Route exact path='/signup'  element={<SignUp />}></Route>
              </Routes>
          </Router>

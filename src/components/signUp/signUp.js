@@ -43,17 +43,16 @@ export default function SignUp() {
                 displayName: values.name,
             });
             if(apiUrl){
-                console.log('autenticated');
-                // await fetch(`${apiUrl}/user`, {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json'
-                //     },
-                //     body: JSON.stringify({
-                //         id_firebase: user.uid,
-                //         email: values.email
-                //     })
-                // });
+                 await fetch(`${apiUrl}/user`, {
+                     method: 'POST',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     },
+                     body: JSON.stringify({
+                         id_firebase: user.uid,
+                         email: values.email
+                     })
+                 });
             }
             
         } catch (error) {
