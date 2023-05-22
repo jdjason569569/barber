@@ -1,0 +1,21 @@
+
+.container-turn{
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    justify-content: center;
+    box-shadow: 2px 10px 15px 1px black;
+    
+}
+
+.turn-list-content{
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    overflow-y: auto;
+}
+
+
+

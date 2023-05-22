@@ -1,14 +1,17 @@
-.btn-style{
-    box-shadow: 2px 2px 5px 1px gray;
-}
 
 .container-home {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 100px;
     box-shadow: 2px 10px 15px 1px gray;
     padding: 10px;
-    margin-top:350px;
+    height: 20%;
+}
+.turn-botton{
+    box-shadow: 2px 2px 5px 1px black;
+    background: blue;
+    border: none;
+    color: white;
+    margin-top: 15px;
 }
