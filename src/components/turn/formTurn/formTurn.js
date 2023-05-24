@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import './formTurn.css';
 
-export default function Formturn({ addturn, turnEdit }) {
+export default function Formturn({ addTurn, turnEdit }) {
 
     const [input, setInput] = useState(null);
     const [isEnabledButton, setIsEnabledButton] = useState(true);
-    const [isEditturn, setIsEditturn] = useState(false);
+    const [isEditturn, setIsEditTurn] = useState(false);
 
     useEffect(() => {
         if (turnEdit) {
             setInput(turnEdit.name);
             setIsEnabledButton(false);
-            setIsEditturn(true);
+            setIsEditTurn(true);
         }
     }, [turnEdit])
 
@@ -25,14 +25,14 @@ export default function Formturn({ addturn, turnEdit }) {
     const handleSend = e => {
         e.preventDefault();
         if (input !== '') {
-            addturn(createturn());
+            addTurn(createTurn());
             setInput('');
             setIsEnabledButton(true);
 
         }
     }
 
-    const createturn = () => {
+    const createTurn = () => {
         if (isEditturn) {
             return {
                 name: input,
