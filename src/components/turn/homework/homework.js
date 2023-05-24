@@ -12,9 +12,6 @@ export default function Homeworks({ id, text, completed, deleteTurn, completeTur
                     {text}
                     <div className='text-date '>{moment(turnDate).format('LL')}</div>
                 </div>
-                <div className='icons' onClick={() => editTurn(id)}>
-                <i className="material-icons">edit</i>
-                </div>
                 <div className='icons' onClick={() => deleteTurn(id)}>
                 <i className="material-icons">delete</i>
                 </div>

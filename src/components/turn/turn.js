@@ -4,7 +4,7 @@ import './turn.css'
 import FormTurn from './formTurn/formTurn';
 import { useEffect, useState } from 'react';
 import Homeworks from './homework/homework';
-import { ToastContainer, toast } from 'react-toastify';
+//import { ToastContainer, toast } from 'react-toastify';
 
 export default function Turn() {
 
@@ -59,7 +59,7 @@ export default function Turn() {
     if (turn) {
         const responseTurn = await saveTurn(turn);
         setTurnResponse(responseTurn);
-        toast.success('Agregaste una tarea', { autoClose: 1000 }, { position: toast.POSITION.TOP_CENTER });
+        //toast.success('Agregaste una tarea', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
       }
   }
 
@@ -72,7 +72,7 @@ export default function Turn() {
     });
     const responseDeleteTurn = deleteTurn.json();
     setTurnResponse(responseDeleteTurn);
-    toast.error('Eliminaste una tarea', { autoClose: 1000 }, { position: toast.POSITION.TOP_CENTER });
+    //toast.error('Eliminaste una tarea', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
   }
 
   const completeTurn = async (id) => {
@@ -89,21 +89,16 @@ export default function Turn() {
     const responseUpdateTurn = UpdateTurn.json();
     setTurnResponse(responseUpdateTurn);
     if (turn.completed) {
-      toast.success('Completaste una tarea', { autoClose: 1000 }, { position: toast.POSITION.TOP_CENTER });
+      //toast.success('Completaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
     } else {
-      toast.warning('Desmarcaste una tarea', { autoClose: 1000 }, { position: toast.POSITION.TOP_CENTER });
+      //toast.warning('Desmarcaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
     }
-
   }
 
-  const editTurn = id => {
-    const turn = turns.find(turn => turn.id_turn === id);
-    setturnEdit(turn);
-  }
+  
 
   return (
     <div className='container-turn'>
-       <ToastContainer />
       {isLoading ? (<p>Cargando informacion...</p>) : (<><FormTurn addTurn={addTurn} turnEdit={turnEdit}></FormTurn>
         <div className='turn-list-content'>
           {
@@ -115,8 +110,7 @@ export default function Turn() {
                 turnDate={turn.date_register}
                 completed={turn.completed}
                 deleteTurn={deleteTurn}
-                completeTurn={completeTurn}
-                editTurn={editTurn} />)
+                completeTurn={completeTurn}/>)
           }
         </div>
       </>)}
