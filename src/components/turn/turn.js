@@ -5,6 +5,12 @@ import FormTurn from './formTurn/formTurn';
 import { useEffect, useState } from 'react';
 import Homeworks from './homework/homework';
 //import { ToastContainer, toast } from 'react-toastify';
+import { DndContext, closestCenter, Draggable} from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy
+} from "@dnd-kit/sortable";
 
 export default function Turn() {
 
@@ -76,10 +82,10 @@ export default function Turn() {
   }
 
   const completeTurn = async (id) => {
-    const turn = turns.find(turn => turn.id_turn === id);
+    const turn = turns.find(turn => turn.id === id);
     turn.completed = !turn.completed;
 
-    const UpdateTurn = await fetch(`${apiUrl}/turns/${turn.id_turn}`, {
+    const UpdateTurn = await fetch(`${apiUrl}/turns/${turn.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -95,24 +101,41 @@ export default function Turn() {
     }
   }
 
-  
+  const handleDragEnd = (event) =>{
+    const {active, over} = event;
+    setTurns((turn)=>{
+        const oldIndex = turns.findIndex(turn => turn.id === active.id);
+        const newIndex = turns.findIndex(turn => turn.id === over.id);
+        return arrayMove(turns, oldIndex, newIndex);
+    });
+  }
+
 
   return (
     <div className='container-turn'>
+      <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
       {isLoading ? (<p>Cargando informacion...</p>) : (<><FormTurn addTurn={addTurn} turnEdit={turnEdit}></FormTurn>
         <div className='turn-list-content'>
+        <SortableContext
+            items={turns} strategy={verticalListSortingStrategy}>
           {
             turns.map((turn) =>
               <Homeworks
-                key={turn.id_turn}
-                id={turn.id_turn}
+                key={turn.id}
+                id={turn.id}
                 text={turn.name}
                 turnDate={turn.date_register}
                 completed={turn.completed}
                 deleteTurn={deleteTurn}
-                completeTurn={completeTurn}/>)
+                completeTurn={completeTurn}/>
+                )
           }
+          </SortableContext>
         </div>
       </>)}
+      </DndContext>
     </div>)
 }
