@@ -5,7 +5,7 @@ import FormTurn from './formTurn/formTurn';
 import { useEffect, useState } from 'react';
 import Homeworks from './homework/homework';
 //import { ToastContainer, toast } from 'react-toastify';
-import { DndContext, closestCenter, Draggable} from "@dnd-kit/core";
+import { DndContext, closestCenter} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
@@ -34,6 +34,7 @@ export default function Turn() {
   useEffect(() => {
      const getturnById = async () => {
        try {
+        console.log('actualizando use efect');
          setIsLoading(true);
          const responseturnByUser = await fetch(`${apiUrl}/turns`);
          const responseturnByUserJson = await responseturnByUser.json();
@@ -81,34 +82,51 @@ export default function Turn() {
     //toast.error('Eliminaste una tarea', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
   }
 
-  const completeTurn = async (id) => {
-    const turn = turns.find(turn => turn.id === id);
-    turn.completed = !turn.completed;
+  // const completeTurn = async (id) => {
+  //   const turn = turns.find(turn => turn.id === id);
+  //   turn.completed = !turn.completed;
 
-    const UpdateTurn = await fetch(`${apiUrl}/turns/${turn.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(turn)
-    });
-    const responseUpdateTurn = UpdateTurn.json();
-    setTurnResponse(responseUpdateTurn);
-    if (turn.completed) {
-      //toast.success('Completaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
-    } else {
-      //toast.warning('Desmarcaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
-    }
-  }
+  //   const UpdateTurn = await fetch(`${apiUrl}/turns/${turn.id}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(turn)
+  //   });
+  //   const responseUpdateTurn = UpdateTurn.json();
+  //   setTurnResponse(responseUpdateTurn);
+  //   if (turn.completed) {
+  //     //toast.success('Completaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
+  //   } else {
+  //     //toast.warning('Desmarcaste una tarea', { autoClose: 1000 ,  position: toast.POSITION.TOP_CENTER });
+  //   }
+  // }
 
-  const handleDragEnd = (event) =>{
+  const handleDragEnd =async (event) =>{
     const {active, over} = event;
-    setTurns((turn)=>{
+    console.log('active->',active.id);
+    console.log('over->',over.id);
+    if (!active.id !== over.id) {
         const oldIndex = turns.findIndex(turn => turn.id === active.id);
         const newIndex = turns.findIndex(turn => turn.id === over.id);
-        return arrayMove(turns, oldIndex, newIndex);
-    });
+        console.log('oldIndex->',oldIndex);
+        console.log('newIndex->',newIndex);
+        const arrayOrder = arrayMove(turns, oldIndex ,newIndex)
+
+        const updateArray = await fetch(`${apiUrl}/turns/order/create`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(arrayOrder)
+        });
+        const responseUpdateTask = updateArray.json();
+        setTurnResponse(responseUpdateTask);
+        
+        
+    };
   }
+   
 
 
   return (
@@ -128,9 +146,7 @@ export default function Turn() {
                 id={turn.id}
                 text={turn.name}
                 turnDate={turn.date_register}
-                completed={turn.completed}
-                deleteTurn={deleteTurn}
-                completeTurn={completeTurn}/>
+                deleteTurn={deleteTurn}/>
                 )
           }
           </SortableContext>

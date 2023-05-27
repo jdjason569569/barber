@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-export default function Homeworks({ id, text, completed, deleteTurn, completeTurn, turnDate }) {
+export default function Homeworks({ id, text, deleteTurn, turnDate }) {
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -21,15 +21,14 @@ export default function Homeworks({ id, text, completed, deleteTurn, completeTur
                {...listeners}>
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
                 rel="stylesheet" />
-
-            <div className={completed ? "turn-container completed" : 'turn-container'}>
-                <div className="turn-text" onMouseDown={() => completeTurn(id)}>
+            <div className={'turn-container'}>
+                <div className="turn-text">
                     {text}
                     <div className='text-date '>{moment(turnDate).format('LL')}</div>
                 </div>
-                <div className='icons' onMouseDown={() => deleteTurn(id)}>
+                {/* <div className='icons' onMouseDown={() => deleteTurn(id)}>
                 <i className="material-icons">delete</i>
-                </div>
+                </div> */}
             </div>
         </div>
     )
