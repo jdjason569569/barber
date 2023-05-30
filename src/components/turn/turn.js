@@ -81,31 +81,32 @@ export default function Turn() {
   const handleDragEnd = async (event) => {
     try {
       const { active, over } = event;
-      console.log("active.id", active.id);
-      console.log("over.id", over.id);
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
       console.log("oldIndex", oldIndex);
       console.log("newIndex", newIndex);
       const arrayOrder = arrayMove(turns, oldIndex, newIndex);
-
-      if (arrayOrder.length > 0) {
-        let count = 1;
-        arrayOrder.forEach((element) => {
-          return (element.order = count++);
-        });
-
-        if (active.id !== over.id) {
-          const updateArray = await fetch(`${apiUrl}/turns/order/create`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(arrayOrder),
+      if (oldIndex > newIndex) {
+        if (arrayOrder.length > 0) {
+          let count = 1;
+          arrayOrder.forEach((element) => {
+            return (element.order = count++);
           });
-          const responseUpdateTask = updateArray.json();
-          setTurnResponse(responseUpdateTask);
+
+          if (active.id !== over.id) {
+            const updateArray = await fetch(`${apiUrl}/turns/order/update/${newIndex}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(arrayOrder),
+            });
+            const responseUpdateTask = updateArray.json();
+            setTurnResponse(responseUpdateTask);
+          }
         }
+      }else{
+        console.log('no puedes arrastrar de arriba hacia abajo');
       }
     } catch (error) {
       console.log(error);
