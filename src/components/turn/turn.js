@@ -4,7 +4,7 @@ import "./turn.css";
 import FormTurn from "./formTurn/formTurn";
 import { useEffect, useState } from "react";
 import Homeworks from "./homework/homework";
-//import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -62,7 +62,7 @@ export default function Turn() {
     if (turn) {
       const responseTurn = await saveTurn(turn);
       setTurnResponse(responseTurn);
-      //toast.success('Agregaste una tarea', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+      toast.success('Agregaste un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
     }
   };
 
@@ -75,7 +75,7 @@ export default function Turn() {
     });
     const responseDeleteTurn = deleteTurn.json();
     setTurnResponse(responseDeleteTurn);
-    //toast.error('Eliminaste una tarea', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+    toast.error('Eliminaste un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
   };
 
   const handleDragEnd = async (event) => {
@@ -83,16 +83,16 @@ export default function Turn() {
       const { active, over } = event;
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
-      console.log("oldIndex", oldIndex);
-      console.log("newIndex", newIndex);
       const arrayOrder = arrayMove(turns, oldIndex, newIndex);
+      if(oldIndex === newIndex){
+        return;
+      }
       if (oldIndex > newIndex) {
         if (arrayOrder.length > 0) {
           let count = 1;
           arrayOrder.forEach((element) => {
             return (element.order = count++);
           });
-
           if (active.id !== over.id) {
             const updateArray = await fetch(`${apiUrl}/turns/order/update/${newIndex}`, {
               method: "PUT",
@@ -103,18 +103,21 @@ export default function Turn() {
             });
             const responseUpdateTask = updateArray.json();
             setTurnResponse(responseUpdateTask);
+            toast.success('Haz movido un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
           }
         }
       }else{
-        console.log('no puedes arrastrar de arriba hacia abajo');
+        toast.error('No puedes mover un turno de arriba hacia abajo', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
       }
     } catch (error) {
       console.log(error);
     }
+    
   };
 
   return (
     <div className="container-turn">
+      <ToastContainer/>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         {isLoading ? (
           <p>Cargando informacion...</p>
