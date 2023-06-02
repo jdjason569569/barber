@@ -10,12 +10,12 @@ import {
   useSensors,
   useSensor,
   closestCenter,
-  TouchSensor
+  TouchSensor,
 } from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
 export default function Turn() {
@@ -24,8 +24,8 @@ export default function Turn() {
   const [isLoading, setIsLoading] = useState(false);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turnResponse, setTurnResponse] = useState(null);
-  const touchSensor = useSensor(TouchSensor)
-  const sensors = useSensors(touchSensor)
+  const touchSensor = useSensor(TouchSensor);
+  const sensors = useSensors(touchSensor);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -136,17 +136,14 @@ export default function Turn() {
       console.log(error);
     }
   };
-  
 
   return (
     <div className="container-turn">
       <ToastContainer />
       <DndContext
-      sensors={sensors}
+        sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
-        sensors={sensors}
-        
       >
         {isLoading ? (
           <p>Cargando informacion...</p>
