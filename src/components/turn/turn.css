@@ -1,20 +1,23 @@
 
 .container-turn{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     border-radius: 20px;
-    justify-content: center;
+    justify-content: start;
     box-shadow: 2px 10px 15px 1px black;
-    
+}
+
+.style-form{
+    width: 100%;
 }
 
 .turn-list-content{
-    width: 100%;
+    width: 85%;
     margin-top: 25px;
     display: flex;
     flex-direction: column;
-    height: auto
-    
+    height: auto;
 }
 
 

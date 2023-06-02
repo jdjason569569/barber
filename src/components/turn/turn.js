@@ -138,18 +138,21 @@ export default function Turn() {
   };
 
   return (
-    <div className="container-turn">
+    <>
       <ToastContainer />
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        {isLoading ? (
-          <p>Cargando informacion...</p>
-        ) : (
-          <>
-            <FormTurn addTurn={addTurn}></FormTurn>
+      {isLoading ? (
+        <p>Cargando informacion...</p>
+      ) : (
+        <div className="container-turn">
+          <div className="style-form">
+              <FormTurn addTurn={addTurn}></FormTurn>
+            </div>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            
             <div className="turn-list-content">
               <SortableContext
                 items={turns}
@@ -166,9 +169,9 @@ export default function Turn() {
                 ))}
               </SortableContext>
             </div>
-          </>
-        )}
-      </DndContext>
-    </div>
+          </DndContext>
+        </div>
+      )}
+    </>
   );
 }
