@@ -4,12 +4,18 @@ import "./turn.css";
 import FormTurn from "./formTurn/formTurn";
 import { useEffect, useState } from "react";
 import Homeworks from "./homework/homework";
-import { ToastContainer, toast } from 'react-toastify';
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { ToastContainer, toast } from "react-toastify";
+import {
+  DndContext,
+  useSensors,
+  useSensor,
+  closestCenter,
+  TouchSensor
+} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
-  verticalListSortingStrategy,
+  verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 
 export default function Turn() {
@@ -18,6 +24,8 @@ export default function Turn() {
   const [isLoading, setIsLoading] = useState(false);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turnResponse, setTurnResponse] = useState(null);
+  const touchSensor = useSensor(TouchSensor)
+  const sensors = useSensors(touchSensor)
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -62,7 +70,10 @@ export default function Turn() {
     if (turn) {
       const responseTurn = await saveTurn(turn);
       setTurnResponse(responseTurn);
-      toast.success('Agregaste un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+      toast.success("Agregaste un turno", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -75,7 +86,10 @@ export default function Turn() {
     });
     const responseDeleteTurn = deleteTurn.json();
     setTurnResponse(responseDeleteTurn);
-    toast.error('Eliminaste un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+    toast.error("Eliminaste un turno", {
+      autoClose: 1000,
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   const handleDragEnd = async (event) => {
@@ -84,7 +98,7 @@ export default function Turn() {
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
       const arrayOrder = arrayMove(turns, oldIndex, newIndex);
-      if(oldIndex === newIndex){
+      if (oldIndex === newIndex) {
         return;
       }
       if (oldIndex > newIndex) {
@@ -94,31 +108,46 @@ export default function Turn() {
             return (element.order = count++);
           });
           if (active.id !== over.id) {
-            const updateArray = await fetch(`${apiUrl}/turns/order/update/${newIndex}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(arrayOrder),
-            });
+            const updateArray = await fetch(
+              `${apiUrl}/turns/order/update/${newIndex}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(arrayOrder),
+              }
+            );
             const responseUpdateTask = updateArray.json();
             setTurnResponse(responseUpdateTask);
-            toast.success('Haz movido un turno', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+            toast.success("Haz movido un turno", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            });
           }
         }
-      }else{
-        toast.error('No puedes mover un turno de arriba hacia abajo', { autoClose: 1000 , position: toast.POSITION.TOP_CENTER });
+      } else {
+        toast.error("No puedes mover un turno de arriba hacia abajo", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     } catch (error) {
       console.log(error);
     }
-    
   };
+  
 
   return (
     <div className="container-turn">
-      <ToastContainer/>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      <ToastContainer />
+      <DndContext
+      sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+        sensors={sensors}
+        
+      >
         {isLoading ? (
           <p>Cargando informacion...</p>
         ) : (
