@@ -152,7 +152,6 @@ export default function Turn() {
             collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
           >
-            
             <div className="turn-list-content">
               <SortableContext
                 items={turns}

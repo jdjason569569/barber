@@ -3,47 +3,44 @@ import './formTurn.css';
 
 export default function Formturn({ addTurn, turnEdit }) {
 
-    const [input, setInput] = useState(null);
+    const [input, setInput] = useState({
+        name: "",
+        email: ""
+    });
     const [isEnabledButton, setIsEnabledButton] = useState(true);
-    const [isEditturn, setIsEditTurn] = useState(false);
+    
 
     useEffect(() => {
-        if (turnEdit) {
-            setInput(turnEdit.name);
-            setIsEnabledButton(false);
-            setIsEditTurn(true);
+        if (input.name !== '' && input.email !== '') {
+            setIsEnabledButton(false)
         }
-    }, [turnEdit])
-
-    const handleEvent = e => {
-        setInput(e.target.value);
-        if (input) {
-            setIsEnabledButton(false);
+        if (input.name === '' || input.email === '') {
+            setIsEnabledButton(true)
         }
-    }
+    }, [input])
 
+    
     const handleSend = e => {
         e.preventDefault();
-        if (input !== '') {
+        if (input.name !== '' && input.email) {
             addTurn(createTurn());
-            setInput('');
+            setInput({});
             setIsEnabledButton(true);
-
         }
     }
 
     const createTurn = () => {
-        if (isEditturn) {
             return {
-                name: input,
-                completed: false,
-            }
-        } else {
-            return {
-                name: input,
-                completed: false,
-            }
+                name: input.name,
+                email: input.email
         }
+    }
+
+    const handleName = (event) => {
+        setInput({ ...input, name: event.target.value });
+    }
+    const handleEmail = (event) => {
+        setInput({ ...input, email: event.target.value });
     }
 
     return (
@@ -51,14 +48,23 @@ export default function Formturn({ addTurn, turnEdit }) {
             <input
                 className='turn-input'
                 type='text'
-                placeholder='Crea un turno'
+                placeholder='Crea un turno introduce el nombre de la persona'
                 name='texto'
                 autoComplete="off"
-                value={input ?? ''}
-                onChange={handleEvent}
+                value={input.name ?? ''}
+                onChange={handleName}
             />
-            <button hidden={isEnabledButton} className="btn-sm rounded turn-botton" >
-                {turnEdit ? 'Editar Tarea' : 'Crear turno'}
+            <input
+                className='turn-input'
+                type='text'
+                placeholder='Ingresa email'
+                name='texto'
+                autoComplete="off"
+                value={input.email ?? ''}
+                onChange={handleEmail}
+            />
+            <button  hidden={isEnabledButton}  className="btn-sm rounded turn-botton" >
+                Crear turno
             </button>
         </form>
     )
