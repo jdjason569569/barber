@@ -163,6 +163,7 @@ export default function Turn() {
                     id={turn.id}
                     text={turn.name}
                     turnDate={turn.date_register}
+                    order={turn.order}
                     deleteTurn={deleteTurn}
                   />
                 ))}
