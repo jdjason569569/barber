@@ -12,6 +12,15 @@
     width: 100%;
 }
 
+.hold-over-botton{
+    box-shadow: 2px 2px 5px 1px black;
+    background: blue;
+    border: none;
+    color: white;
+    margin-top: 40px;
+    width: 100%;
+}
+
 .turn-list-content{
     width: 85%;
     margin-top: 25px;
