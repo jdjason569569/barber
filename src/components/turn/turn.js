@@ -137,32 +137,28 @@ export default function Turn() {
     }
   };
 
-  const postponeTurns =async () =>{
-    if(turns.length > 0){
-      const updateArray = await fetch(
-        `${apiUrl}/turns/postpone`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(turns),
-        }
-      );
-      const responseUpdateTask = updateArray.json(); 
+  const postponeTurns = async () => {
+    if (turns.length > 0) {
+      const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(turns),
+      });
+      const responseUpdateTask = updateArray.json();
       setTurnResponse(responseUpdateTask);
       toast.success("Haz movido aplazado todos los turnos 10 minutos", {
         autoClose: 1000,
         position: toast.POSITION.TOP_CENTER,
       });
-    }else{
+    } else {
       toast.error("No tienes turnos que aplazar", {
         autoClose: 1000,
         position: toast.POSITION.TOP_CENTER,
       });
     }
-    
-  }
+  };
 
   return (
     <>
@@ -171,9 +167,12 @@ export default function Turn() {
         <p>Cargando informacion...</p>
       ) : (
         <div className="container-turn">
-           <button  onClick={postponeTurns} className="btn-sm rounded hold-over-botton" >
-                aplazar turnos (10 min)
-            </button>
+          <button
+            onClick={postponeTurns}
+            className="btn-sm rounded hold-over-botton"
+          >
+            aplazar turnos (10 min)
+          </button>
           <div className="style-form">
             <FormTurn addTurn={addTurn}></FormTurn>
           </div>

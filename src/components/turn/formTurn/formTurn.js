@@ -48,7 +48,7 @@ export default function Formturn({ addTurn, turnEdit }) {
             <input
                 className='turn-input'
                 type='text'
-                placeholder='Crea un turno introduce el nombre de la persona'
+                placeholder='Crea un turno'
                 name='texto'
                 autoComplete="off"
                 value={input.name ?? ''}
@@ -57,7 +57,7 @@ export default function Formturn({ addTurn, turnEdit }) {
             <input
                 className='turn-input'
                 type='text'
-                placeholder='Ingresa email'
+                placeholder='Ingresa numero de telefono'
                 name='texto'
                 autoComplete="off"
                 value={input.email ?? ''}
