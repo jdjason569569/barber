@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import './formTurn.css';
 
-export default function Formturn({ addTurn, turnEdit }) {
+export default function Formturn({ addTurn }) {
 
     const [input, setInput] = useState({
         name: "",
@@ -48,7 +48,7 @@ export default function Formturn({ addTurn, turnEdit }) {
             <input
                 className='turn-input'
                 type='text'
-                placeholder='Crea un turno'
+                placeholder='Agrega nombre y apellido'
                 name='texto'
                 autoComplete="off"
                 value={input.name ?? ''}
@@ -57,7 +57,7 @@ export default function Formturn({ addTurn, turnEdit }) {
             <input
                 className='turn-input'
                 type='text'
-                placeholder='Ingresa numero de telefono'
+                placeholder='Ingresa email'
                 name='texto'
                 autoComplete="off"
                 value={input.email ?? ''}
