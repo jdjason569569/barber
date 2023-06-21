@@ -55,7 +55,17 @@ export default function Turn() {
   /**
    * Allow save turn by user
    */
-  const saveTurn = async (turn) => {
+  const saveTurnAdCustomer = async (turn) => {
+    turn.id_users = await getUserById();
+    const responseAddCustomer  = await fetch(`${apiUrl}/customer`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(turn),
+    });
+    const responseAddCustomerJson = await responseAddCustomer.json();
+    turn.id_customer = responseAddCustomerJson.id_customer;
     const responseAddTurn = await fetch(`${apiUrl}/turns`, {
       method: "POST",
       headers: {
@@ -68,7 +78,7 @@ export default function Turn() {
 
   const addTurn = async (turn) => {
     if (turn) {
-      const responseTurn = await saveTurn(turn);
+      const responseTurn = await saveTurnAdCustomer(turn);
       setTurnResponse(responseTurn);
       toast.success("Agregaste un turno", {
         autoClose: 1000,
@@ -76,6 +86,15 @@ export default function Turn() {
       });
     }
   };
+
+  /**
+   * Allow return an user by firebase code
+   */
+  const getUserById = async () => {
+    const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
+    const response= await respGetUserById.json();
+    return response.id_users;
+  }
 
   const deleteTurn = async (id) => {
     const deleteTurn = await fetch(`${apiUrl}/turns/${id}`, {
@@ -190,7 +209,6 @@ export default function Turn() {
                   <Homeworks
                     key={turn.id}
                     id={turn.id}
-                    text={turn.name}
                     turnDate={turn.date_register}
                     order={turn.order}
                     deleteTurn={deleteTurn}

@@ -31,8 +31,8 @@ export default function Formturn({ addTurn }) {
 
     const createTurn = () => {
             return {
-                name: input.name,
-                email: input.email
+                name: input.name.toLowerCase(),
+                email: input.email.toLowerCase()
         }
     }
 
