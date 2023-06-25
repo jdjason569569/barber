@@ -26,6 +26,7 @@ export default function Turn() {
   const [turnResponse, setTurnResponse] = useState(null);
   const touchSensor = useSensor(TouchSensor);
   const sensors = useSensors(touchSensor);
+  const [customers, setCustomers] = useState([]);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -41,7 +42,7 @@ export default function Turn() {
     const getturnById = async () => {
       try {
         setIsLoading(true);
-        const responseturnByUser = await fetch(`${apiUrl}/turns`);
+        const responseturnByUser = await fetch(`${apiUrl}/turns/turncustomer`);
         const responseturnByUserJson = await responseturnByUser.json();
         setTurns(responseturnByUserJson);
         setIsLoading(false);
@@ -50,22 +51,31 @@ export default function Turn() {
       }
     };
     getturnById();
+
+    const getCustomers = async () => {
+      try {
+        const responseCutomers = await fetch(`${apiUrl}/customer`);
+        const responseCustomersJson = await responseCutomers.json();
+        setCustomers(responseCustomersJson);
+      } catch (error) {
+        //console.error(error);
+      }
+    };
+    getCustomers();
   }, [idFirebaseUser, turnResponse]);
 
   /**
    * Allow save turn by user
    */
-  const saveTurnAdCustomer = async (turn) => {
+  const saveTurn = async (turn) => {
     turn.id_users = await getUserById();
-    const responseAddCustomer  = await fetch(`${apiUrl}/customer`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(turn),
-    });
-    const responseAddCustomerJson = await responseAddCustomer.json();
-    turn.id_customer = responseAddCustomerJson.id_customer;
+    turn.customer = {
+      name: turn.name,
+      email: turn.email,
+    };
+    turn.customer.user = {
+      id_users: turn.id_users,
+    };
     const responseAddTurn = await fetch(`${apiUrl}/turns`, {
       method: "POST",
       headers: {
@@ -78,7 +88,7 @@ export default function Turn() {
 
   const addTurn = async (turn) => {
     if (turn) {
-      const responseTurn = await saveTurnAdCustomer(turn);
+      const responseTurn = await saveTurn(turn);
       setTurnResponse(responseTurn);
       toast.success("Agregaste un turno", {
         autoClose: 1000,
@@ -92,9 +102,9 @@ export default function Turn() {
    */
   const getUserById = async () => {
     const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
-    const response= await respGetUserById.json();
+    const response = await respGetUserById.json();
     return response.id_users;
-  }
+  };
 
   const deleteTurn = async (id) => {
     const deleteTurn = await fetch(`${apiUrl}/turns/${id}`, {
@@ -179,6 +189,12 @@ export default function Turn() {
     }
   };
 
+  const [seleccionado, setSeleccionado] = useState('');
+
+  const handleChange = (event) => {
+    setSeleccionado(event.target.value);
+  };
+
   return (
     <>
       <ToastContainer />
@@ -186,6 +202,18 @@ export default function Turn() {
         <p>Cargando informacion...</p>
       ) : (
         <div className="container-turn">
+          <div>
+            <label htmlFor="menu">Seleccionar cliente:</label>
+            <select id="menu" value={seleccionado} onChange={handleChange}>
+              <option value="">-- Seleccionar --</option>
+              {customers.map((customer) => (
+                <option key={customer.id_customer} value={customer.name}>
+                  {customer.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <button
             onClick={postponeTurns}
             className="btn-sm rounded hold-over-botton"
@@ -209,6 +237,7 @@ export default function Turn() {
                   <Homeworks
                     key={turn.id}
                     id={turn.id}
+                    name={turn.customer.name}
                     turnDate={turn.date_register}
                     order={turn.order}
                     deleteTurn={deleteTurn}
