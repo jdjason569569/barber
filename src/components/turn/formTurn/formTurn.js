@@ -23,7 +23,7 @@ export default function Formturn({ addTurn }) {
     const handleSend = e => {
         e.preventDefault();
         if (input.name !== '' && input.email) {
-            addTurn(createTurn());
+            addTurn(createTurn(), 'turnCustomer');
             setInput({});
             setIsEnabledButton(true);
         }

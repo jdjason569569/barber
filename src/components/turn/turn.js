@@ -27,6 +27,7 @@ export default function Turn() {
   const touchSensor = useSensor(TouchSensor);
   const sensors = useSensors(touchSensor);
   const [customers, setCustomers] = useState([]);
+  const [selectCustomer, setSelectCustomer] = useState('');
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -67,7 +68,7 @@ export default function Turn() {
   /**
    * Allow save turn by user
    */
-  const saveTurn = async (turn) => {
+  const saveTurn = async (turn, method) => {
     turn.id_users = await getUserById();
     turn.customer = {
       name: turn.name,
@@ -76,7 +77,7 @@ export default function Turn() {
     turn.customer.user = {
       id_users: turn.id_users,
     };
-    const responseAddTurn = await fetch(`${apiUrl}/turns`, {
+    const responseAddTurn = await fetch(`${apiUrl}/turns/${method}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,9 +87,9 @@ export default function Turn() {
     return await responseAddTurn.json();
   };
 
-  const addTurn = async (turn) => {
-    if (turn) {
-      const responseTurn = await saveTurn(turn);
+  const addTurn = async (turn, method) => {
+    if (turn && method) {
+      const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       toast.success("Agregaste un turno", {
         autoClose: 1000,
@@ -189,10 +190,13 @@ export default function Turn() {
     }
   };
 
-  const [seleccionado, setSeleccionado] = useState('');
-
+ 
   const handleChange = (event) => {
-    setSeleccionado(event.target.value);
+    setSelectCustomer(event.target.value);
+    const customer = customers.find(customer =>{
+      return customer.name === event.target.value;
+    });
+    addTurn(customer, 'turn');
   };
 
   return (
@@ -204,7 +208,7 @@ export default function Turn() {
         <div className="container-turn">
           <div>
             <label htmlFor="menu">Seleccionar cliente:</label>
-            <select id="menu" value={seleccionado} onChange={handleChange}>
+            <select id="menu" value={selectCustomer} onChange={handleChange}>
               <option value="">-- Seleccionar --</option>
               {customers.map((customer) => (
                 <option key={customer.id_customer} value={customer.name}>
@@ -213,7 +217,6 @@ export default function Turn() {
               ))}
             </select>
           </div>
-
           <button
             onClick={postponeTurns}
             className="btn-sm rounded hold-over-botton"
