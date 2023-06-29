@@ -27,7 +27,8 @@ export default function Turn() {
   const touchSensor = useSensor(TouchSensor);
   const sensors = useSensors(touchSensor);
   const [customers, setCustomers] = useState([]);
-  const [selectCustomer, setSelectCustomer] = useState('');
+  const [searchCustomers, setSearchCustomers] = useState([]);
+  const [selectCustomer, setSelectCustomer] = useState("");
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -58,6 +59,7 @@ export default function Turn() {
         const responseCutomers = await fetch(`${apiUrl}/customer`);
         const responseCustomersJson = await responseCutomers.json();
         setCustomers(responseCustomersJson);
+        setSearchCustomers(responseCustomersJson);
       } catch (error) {
         //console.error(error);
       }
@@ -190,13 +192,30 @@ export default function Turn() {
     }
   };
 
- 
   const handleChange = (event) => {
     setSelectCustomer(event.target.value);
-    const customer = customers.find(customer =>{
+    const customer = customers.find((customer) => {
       return customer.name === event.target.value;
     });
-    addTurn(customer, 'turn');
+
+    const isValid = turns.find((turn) => {
+      return turn.customer.email === customer.email;
+    });
+    if (!isValid) {
+      addTurn(customer, "turn");
+    }else{
+      toast.warning("Ya existe un turno para este cliente", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  };
+  const handleInputChange = (event) => {
+    //setBusqueda(event.target.value);
+    const resultadosFiltrados = customers.filter((customer) =>
+      customer.name.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setSearchCustomers(resultadosFiltrados);
   };
 
   return (
@@ -210,12 +229,17 @@ export default function Turn() {
             <label htmlFor="menu">Seleccionar cliente:</label>
             <select id="menu" value={selectCustomer} onChange={handleChange}>
               <option value="">-- Seleccionar --</option>
-              {customers.map((customer) => (
+              {searchCustomers.map((customer) => (
                 <option key={customer.id_customer} value={customer.name}>
                   {customer.name}
                 </option>
               ))}
             </select>
+            <input
+              type="text"
+              onChange={handleInputChange}
+              placeholder="Ingresa tu búsqueda"
+            />
           </div>
           <button
             onClick={postponeTurns}
