@@ -4,6 +4,7 @@ import { useState } from "react";
 import Formturn from "../turn/formTurn/formTurn";
 import { useEffect } from "react";
 import "./customer.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Customer() {
   const [customerResponse, setCustomerResponse] = useState(null);
@@ -38,10 +39,17 @@ export default function Customer() {
     if (customer) {
       const responseCustomer = await saveCustomer(customer);
       setCustomerResponse(responseCustomer);
-      // toast.success("Agregaste un cliente", {
-      //   autoClose: 1000,
-      //   position: toast.POSITION.TOP_CENTER,
-      // });
+      if (!responseCustomer) {
+         toast.error("Ya aexiste un cliente con el email", {
+           autoClose: 1000,
+           position: toast.POSITION.TOP_CENTER,
+         });
+      }else{
+        toast.success("Agregaste un cliente", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     }
   };
 
@@ -64,20 +72,18 @@ export default function Customer() {
     return response.id_users;
   };
 
-  
   return (
     <>
+     <ToastContainer />
       <Formturn addTurn={addCustomer} />
-      
-        {customers.map((customer) => (
-         <div class="card">
-         <div class="card-body">
-           <h5 class="card-title">{customer.name}</h5>
-           <p class="card-text">{customer.email}</p>
-         </div>
-       </div>
-        ))}
-      
+      {customers.map((customer) => (
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{customer.name}</h5>
+            <p class="card-text">{customer.email}</p>
+          </div>
+        </div>
+      ))}
     </>
   );
 }
