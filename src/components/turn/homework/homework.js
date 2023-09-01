@@ -14,10 +14,7 @@ export default function Homeworks({ id, name,deleteTurn, turnDate, order }) {
 
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <link
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet"
-      />
+  
       <div className={"turn-container"}>
         <div className="turn-text">{order}</div>
         <div className="turn-text">

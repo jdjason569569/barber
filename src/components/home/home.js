@@ -19,20 +19,20 @@ export default function Home({ name }) {
     return auth.signOut();
   };
 
-  const changeView = (option)=>{
+  const changeView = (option) => {
     setOption(option);
-  }
+  };
 
   const componentRender = () => {
     switch (option) {
       case "createTurn":
         return <Turn />;
       case "createCustomer":
-        return <Customer/>
-        case "seeStats":
-          return null;
-        default:
-            return <Turn />;
+        return <Customer />;
+      case "seeStats":
+        return null;
+      default:
+        return <Turn />;
     }
   };
 
@@ -40,32 +40,35 @@ export default function Home({ name }) {
     <>
       <div className="container-home">
         <div>
-          <h2>{name ? `Bienvenido  ${name}` : "Inicia session"}</h2>
+          <h4>{name ? `Bienvenido  ${name}` : "Inicia session"}</h4>
         </div>
-        <div>
+        <div className="container-options">
+          <span
+            className="material-symbols-rounded turn-botton"
+            onClick={() => changeView("createCustomer")}
+          >
+            add
+          </span>
+          <span
+            class="material-symbols-rounded turn-botton"
+            onClick={() => changeView("createTurn")}
+          >
+            assignment_turned_in
+          </span>
+          <span
+            class="material-symbols-rounded turn-botton"
+            onClick={() => changeView("seeStats")}
+          >
+            query_stats
+          </span>
           {name && (
-            <button className="btn-sm rounded turn-botton" onClick={exit}>
-              Salir
-            </button>
+            <span class="material-symbols-rounded turn-botton" onClick={exit}>
+              exit_to_app
+            </span>
           )}
         </div>
-
-        <button className="btn-sm rounded turn-botton" onClick={() => changeView('createCustomer')}>
-            Crear usuario
-          </button>
-        
-          <button className="btn-sm rounded turn-botton" onClick={() => changeView('createTurn')}>
-            Turnos
-          </button>
-        
-          <button className="btn-sm rounded turn-botton" onClick={() => changeView('seeStats')}>
-            Ver estadisticas
-          </button>
-        
-          
-        
       </div>
-      <div>{componentRender()}</div>
+      <div className="container-render">{componentRender()}</div>
     </>
   );
 }
