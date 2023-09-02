@@ -52,10 +52,11 @@ export default function Formturn({ addTurn }) {
 
   return (
     <form className="turn-form" onSubmit={handleSend}>
+      <h5>Agenda y crea un cliente</h5>
       <input
         className="turn-input"
         type="text"
-        placeholder="Agrega nombre y apellido"
+        placeholder="Agrega nombre"
         name="texto"
         autoComplete="off"
         value={input.name ?? ""}

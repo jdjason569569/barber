@@ -1,9 +1,9 @@
 .turn-form{
+    align-items: center;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
-    
+    margin-top: 10%;
 }
 
 .turn-input{
@@ -12,13 +12,13 @@
     background-color: white;
     padding: 14px 32px 14px 16px;
     border-radius: 10px;
-    border: 2px solid blue;
+    border: 2px solid #2c95cf;
     margin-top: 9px;
 }
 
 .turn-botton{
     box-shadow: 2px 2px 5px 1px black;
-    background: blue;
+    background: #2c95cf;
     border: none;
     color: white;
     margin-top: 15px;

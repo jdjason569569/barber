@@ -203,7 +203,7 @@ export default function Turn() {
     });
     if (!isValid) {
       addTurn(customer, "turn");
-    }else{
+    } else {
       toast.warning("Ya existe un turno para este cliente", {
         autoClose: 1000,
         position: toast.POSITION.TOP_CENTER,
@@ -225,28 +225,38 @@ export default function Turn() {
         <p>Cargando informacion...</p>
       ) : (
         <div className="container-turn">
-          <div>
-            <label htmlFor="menu">Seleccionar cliente:</label>
-            <select id="menu" value={selectCustomer} onChange={handleChange}>
-              <option value="">-- Seleccionar --</option>
+          <div className="conatiner-search">
+            <div class="input-group" style={{ marginTop: "4%" }}>
+              <span class="input-group-text">Buscar cliente</span>
+              <input
+                type="text"
+                onChange={handleInputChange}
+                aria-label="First name"
+                class="form-control"
+              />
+            </div>
+            <select
+              class="form-select"
+              style={{ marginTop: "2%" }}
+              id="menu"
+              value={selectCustomer}
+              onChange={handleChange}
+            >
+              <option value=""> Seleccionar Cliente</option>
               {searchCustomers.map((customer) => (
                 <option key={customer.id_customer} value={customer.name}>
                   {customer.name}
                 </option>
               ))}
             </select>
-            <input
-              type="text"
-              onChange={handleInputChange}
-              placeholder="Ingresa tu búsqueda"
-            />
+            <button
+              onClick={postponeTurns}
+              className="btn-sm rounded hold-over-botton"
+            >
+              Aplazar turnos (10 min)
+            </button>
           </div>
-          <button
-            onClick={postponeTurns}
-            className="btn-sm rounded hold-over-botton"
-          >
-            aplazar turnos (10 min)
-          </button>
+
           <div className="style-form">
             <FormTurn addTurn={addTurn}></FormTurn>
           </div>
@@ -256,6 +266,7 @@ export default function Turn() {
             onDragEnd={handleDragEnd}
           >
             <div className="turn-list-content">
+            <h4>Turnos disponibles</h4>
               <SortableContext
                 items={turns}
                 strategy={verticalListSortingStrategy}

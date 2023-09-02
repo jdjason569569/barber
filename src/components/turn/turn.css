@@ -6,27 +6,37 @@
     border-radius: 20px;
     justify-content: center;
     box-shadow: 2px 10px 15px 1px black;
+    padding-bottom: 20%;
 }
 
 .style-form{
     width: 100%;
 }
 
+.conatiner-search{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
 .hold-over-botton{
-    box-shadow: 2px 2px 5px 1px black;
-    background: blue;
+    background: #ea525f ;
     border: none;
     color: white;
-    margin-top: 40px;
-    width: 100%;
+    margin-top: 4%;
+    width: 70%;
+    margin-left: 5%;
 }
 
 .turn-list-content{
-    width: 80%;
-    margin-top: 25px;
+    background: #eee8e8;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     height: auto;
+    width: 80%;
+    margin-left: 5%;
+    margin-top: 8%;
+    padding: 2%;
 }
 
 
