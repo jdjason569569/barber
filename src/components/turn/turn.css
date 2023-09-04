@@ -1,3 +1,4 @@
+@import '../../index.css';
 
 .container-turn{
     display: flex;
@@ -19,24 +20,24 @@
 }
 
 .hold-over-botton{
-    background: #ea525f ;
+    background: var(--red-color);
     border: none;
-    color: white;
+    color: var(--white-color);;
     margin-top: 4%;
     width: 70%;
     margin-left: 5%;
 }
 
 .turn-list-content{
-    background: #eee8e8;
+    background: var(--white-color);;
     border-radius: 20px;
+    border: solid 2px var(--blue-color);;
     display: flex;
+    height: 35vh;
     flex-direction: column;
-    height: auto;
-    width: 80%;
-    margin-left: 5%;
-    margin-top: 8%;
-    padding: 2%;
+    margin: 3%;
+    overflow: auto;
+    padding: 7%;
 }
 
 

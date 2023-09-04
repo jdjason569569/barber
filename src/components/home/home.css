@@ -1,7 +1,7 @@
 
 .container-home {
     align-items: center;
-    background: #eee8e8;
+    background: var(--white-color);
     border-bottom-left-radius: 20%;
     border-bottom-right-radius: 20%;
     display: flex;
@@ -18,13 +18,12 @@
 }
 
 .container-render{
-    margin-top: 10%;
+    margin-top: 4%;
 }
 
 .turn-botton{
-    background: #ea525f !important;
+    background: var(--blue-color);
     border-radius: 80%;
-    color: white;
     margin: 2%;
 }
 

@@ -9,17 +9,17 @@
 .turn-input{
     width: 350px;
     font-size: 18px;
-    background-color: white;
+    background-color: var(--white-color);
     padding: 14px 32px 14px 16px;
     border-radius: 10px;
-    border: 2px solid #2c95cf;
+    border: 2px solid var(--blue-color);
     margin-top: 9px;
 }
 
 .turn-botton{
     box-shadow: 2px 2px 5px 1px black;
-    background: #2c95cf;
+    background: var(--blue-color);
     border: none;
-    color: white;
+    color: var(--white-color);;
     margin-top: 15px;
 }
