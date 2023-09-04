@@ -36,8 +36,8 @@
     height: 35vh;
     flex-direction: column;
     margin: 3%;
-    overflow: auto;
-    padding: 7%;
+    overflow-y: scroll;
+    padding-right: 15%;
 }
 
 
