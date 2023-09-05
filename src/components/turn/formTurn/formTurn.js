@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./formTurn.css";
 
-export default function Formturn({ addTurn }) {
+export default function Formturn({ addTurn, schedule }) {
   const [input, setInput] = useState({
     name: "",
     email: "",
@@ -52,7 +52,8 @@ export default function Formturn({ addTurn }) {
 
   return (
     <form className="turn-form" onSubmit={handleSend}>
-      <h5>Agenda y crea un cliente</h5>
+      
+      {schedule ? <h5>Crea un cliente</h5> : <h5>Agenda y crea un cliente</h5>}
       <input
         className="turn-input"
         type="text"

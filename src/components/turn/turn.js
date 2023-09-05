@@ -258,7 +258,7 @@ export default function Turn() {
           </div>
 
           <div className="style-form">
-            <FormTurn addTurn={addTurn}></FormTurn>
+            <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
           </div>
           <DndContext
             sensors={sensors}

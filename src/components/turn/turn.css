@@ -31,7 +31,7 @@
 .turn-list-content{
     background: var(--white-color);;
     border-radius: 20px;
-    border: solid 2px var(--blue-color);;
+    border: solid 2px var(--blue-color);
     display: flex;
     height: 35vh;
     flex-direction: column;

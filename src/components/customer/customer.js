@@ -40,11 +40,11 @@ export default function Customer() {
       const responseCustomer = await saveCustomer(customer);
       setCustomerResponse(responseCustomer);
       if (!responseCustomer) {
-         toast.error("Ya aexiste un cliente con el email", {
-           autoClose: 1000,
-           position: toast.POSITION.TOP_CENTER,
-         });
-      }else{
+        toast.error("Ya aexiste un cliente con el email", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
         toast.success("Agregaste un cliente", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
@@ -74,16 +74,23 @@ export default function Customer() {
 
   return (
     <>
-     <ToastContainer />
-      <Formturn addTurn={addCustomer} />
-      {customers.map((customer) => (
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{customer.name}</h5>
-            <p class="card-text">{customer.email}</p>
+      <ToastContainer />
+      <Formturn addTurn={addCustomer} schedule={true} />
+      <div className="customer-list-content">
+        <h4>Clientes</h4>
+        {customers.map((customer) => (
+          <div className={"customer-container"}>
+            <div class="customer-text">
+              <h5 class="text-style-name">{customer.name}</h5>
+              <p class="text-style-mail">{customer.email}</p>
+            </div>
+            <div className="icon-container">
+              <span class="material-symbols-rounded">settings</span>
+              <span class="material-symbols-rounded">delete</span>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </>
   );
 }

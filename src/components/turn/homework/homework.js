@@ -14,16 +14,13 @@ export default function Homeworks({ id, name,deleteTurn, turnDate, order }) {
 
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
-  
       <div className={"turn-container"}>
         <div className="text-style" style={{ marginLeft: "5%" }}>{order}</div>
         <div className="turn-text text-style">
           {name}
         </div>
         <div className="text-date">{moment(turnDate).format("HH:mm")}</div>
-        <div className="icons" onMouseDown={() => deleteTurn(id)}>
-          <i className="material-icons">delete</i>
-        </div>
+        <span class="material-symbols-rounded icons" onMouseDown={() => deleteTurn(id)}>delete</span>
       </div>
     </div>
   );
