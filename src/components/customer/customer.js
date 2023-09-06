@@ -66,6 +66,36 @@ export default function Customer() {
     return await responseAddTurn.json();
   };
 
+  const deleteCustomer = async (id) => {
+    try {
+    const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const responseDeleteCustomer= await deleteCustomer.json();
+    setCustomerResponse(responseDeleteCustomer);
+    if(responseDeleteCustomer.statusCode !== 500){
+      toast.error("Eliminaste un cliente", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }else{
+      toast.error("Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados", {
+        autoClose: 5000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+   
+  } catch (error) {
+    toast.error("Hubo un error", {
+      autoClose: 1000,
+      position: toast.POSITION.TOP_CENTER,
+    });
+  }
+  };
+
   const getUserById = async () => {
     const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
     const response = await respGetUserById.json();
@@ -86,7 +116,7 @@ export default function Customer() {
             </div>
             <div className="icon-container">
               <span class="material-symbols-rounded">settings</span>
-              <span class="material-symbols-rounded">delete</span>
+              <span class="material-symbols-rounded" onMouseDown={() => deleteCustomer(customer.id_customer)}>delete</span>
             </div>
           </div>
         ))}
