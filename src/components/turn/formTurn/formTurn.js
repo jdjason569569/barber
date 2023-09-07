@@ -73,7 +73,7 @@ export default function Formturn({ addTurn, schedule }) {
         onChange={handleEmail}
       />
       <button hidden={isEnabledButton} className="btn-sm rounded turn-botton">
-        Crear turno
+      {schedule ? <h5>Crea cliente</h5> : <h5>Crear turno</h5>}
       </button>
     </form>
   );

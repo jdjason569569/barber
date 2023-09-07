@@ -226,17 +226,17 @@ export default function Turn() {
       ) : (
         <div className="container-turn">
           <div className="conatiner-search">
-            <div class="input-group" style={{ marginTop: "4%" }}>
-              <span class="input-group-text">Buscar cliente</span>
+            <div className="input-group" style={{ marginTop: "4%" }}>
+              <span className="input-group-text">Buscar cliente</span>
               <input
                 type="text"
                 onChange={handleInputChange}
                 aria-label="First name"
-                class="form-control"
+                className="form-control"
               />
             </div>
             <select
-              class="form-select"
+              className="form-select"
               style={{ marginTop: "2%" }}
               id="menu"
               value={selectCustomer}

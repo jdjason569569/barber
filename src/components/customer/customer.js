@@ -110,13 +110,13 @@ export default function Customer() {
         <h4>Clientes</h4>
         {customers.map((customer) => (
           <div className={"customer-container"}>
-            <div class="customer-text">
-              <h5 class="text-style-name">{customer.name}</h5>
-              <p class="text-style-mail">{customer.email}</p>
+            <div className="customer-text">
+              <h5 className="text-style-name">{customer.name}</h5>
+              <p className="text-style-mail">{customer.email}</p>
             </div>
             <div className="icon-container">
-              <span class="material-symbols-rounded">settings</span>
-              <span class="material-symbols-rounded" onMouseDown={() => deleteCustomer(customer.id_customer)}>delete</span>
+              <span className="material-symbols-rounded">settings</span>
+              <span className="material-symbols-rounded" onMouseDown={() => deleteCustomer(customer.id_customer)}>delete</span>
             </div>
           </div>
         ))}

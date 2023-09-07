@@ -50,19 +50,19 @@ export default function Home({ name }) {
             add
           </span>
           <span
-            class="material-symbols-rounded turn-botton"
+            className="material-symbols-rounded turn-botton"
             onClick={() => changeView("createTurn")}
           >
             assignment_turned_in
           </span>
           <span
-            class="material-symbols-rounded turn-botton"
+            className="material-symbols-rounded turn-botton"
             onClick={() => changeView("seeStats")}
           >
             query_stats
           </span>
           {name && (
-            <span class="material-symbols-rounded turn-botton" onClick={exit}>
+            <span className="material-symbols-rounded turn-botton" onClick={exit}>
               exit_to_app
             </span>
           )}

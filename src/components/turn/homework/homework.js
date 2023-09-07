@@ -20,7 +20,7 @@ export default function Homeworks({ id, name,deleteTurn, turnDate, order }) {
           {name}
         </div>
         <div className="text-date">{moment(turnDate).format("HH:mm")}</div>
-        <span class="material-symbols-rounded icons" onMouseDown={() => deleteTurn(id)}>delete</span>
+        <span className="material-symbols-rounded icons" onMouseDown={() => deleteTurn(id)}>delete</span>
       </div>
     </div>
   );
