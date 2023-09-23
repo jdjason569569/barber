@@ -271,7 +271,6 @@ export default function Turn() {
                 <div className="arrow-up"></div>
                 <div className="arrow-down"></div>
               </div>
-              
               <div className="container-homeworks">
                 <SortableContext
                   items={turns}
