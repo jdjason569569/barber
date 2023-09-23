@@ -257,9 +257,9 @@ export default function Turn() {
             </button>
           </div>
 
-          <div className="style-form">
+          
             <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
-          </div>
+          
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
