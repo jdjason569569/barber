@@ -266,22 +266,29 @@ export default function Turn() {
             onDragEnd={handleDragEnd}
           >
             <div className="turn-list-content">
-            <h4>Turnos disponibles</h4>
-              <SortableContext
-                items={turns}
-                strategy={verticalListSortingStrategy}
-              >
-                {turns.map((turn) => (
-                  <Homeworks
-                    key={turn.id}
-                    id={turn.id}
-                    name={turn.customer.name}
-                    turnDate={turn.date_register}
-                    order={turn.order}
-                    deleteTurn={deleteTurn}
-                  />
-                ))}
-              </SortableContext>
+              <h5 className="turn-title">Turnos disponibles</h5>
+              <div className="arrow-container">
+                <div className="arrow-up"></div>
+                <div className="arrow-down"></div>
+              </div>
+              
+              <div className="container-homeworks">
+                <SortableContext
+                  items={turns}
+                  strategy={verticalListSortingStrategy}
+                >
+                  {turns.map((turn) => (
+                    <Homeworks
+                      key={turn.id}
+                      id={turn.id}
+                      name={turn.customer.name}
+                      turnDate={turn.date_register}
+                      order={turn.order}
+                      deleteTurn={deleteTurn}
+                    />
+                  ))}
+                </SortableContext>
+              </div>
             </div>
           </DndContext>
         </div>
