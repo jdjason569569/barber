@@ -13,6 +13,8 @@ import Customer from "../customer/customer";
 export default function Home({ name }) {
   const navigate = useNavigate();
   const [option, setOption] = useState("createTurn");
+  const [t, setT] = useState(true);
+  const [customer, setCustomer] = useState(false);
 
   const exit = () => {
     navigate("/");
@@ -20,6 +22,19 @@ export default function Home({ name }) {
   };
 
   const changeView = (option) => {
+    switch (option) {
+      case "createTurn":
+        setT(true);
+        setCustomer(false);
+       break;
+      case "createCustomer":
+        setT(false);
+        setCustomer(true);
+        break;
+      case "seeStats":
+        break;
+      
+    }
     setOption(option);
   };
 
@@ -44,13 +59,13 @@ export default function Home({ name }) {
         </div>
         <div className="container-options">
           <span
-            className="material-symbols-rounded turn-botton"
+            className={`material-symbols-rounded ${customer ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
             onClick={() => changeView("createCustomer")}
           >
             add
           </span>
           <span
-            className="material-symbols-rounded turn-botton"
+            className={`material-symbols-rounded ${t ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
             onClick={() => changeView("createTurn")}
           >
             assignment_turned_in

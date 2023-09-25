@@ -17,6 +17,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import Popup from "../modal/popup";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -29,6 +30,7 @@ export default function Turn() {
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
+  const [upPopup, setUpPopup] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -169,6 +171,11 @@ export default function Turn() {
     }
   };
 
+  const activateModal = () => {
+    setUpPopup(false);
+
+  };
+
   const postponeTurns = async () => {
     if (turns.length > 0) {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
@@ -220,6 +227,7 @@ export default function Turn() {
 
   return (
     <>
+      <Popup upPopup={upPopup}></Popup>
       <ToastContainer />
       {isLoading ? (
         <p>Cargando informacion...</p>
@@ -256,14 +264,11 @@ export default function Turn() {
               Aplazar turnos (10 min)
             </button>
           </div>
-
-          
-            <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
-          
+          <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
+            onDragEnd={activateModal}
           >
             <div className="turn-list-content">
               <h5 className="turn-title">Turnos disponibles</h5>
