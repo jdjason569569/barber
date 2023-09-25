@@ -268,7 +268,7 @@ export default function Turn() {
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragEnd={activateModal}
+            onDragEnd={handleDragEnd}
           >
             <div className="turn-list-content">
               <h5 className="turn-title">Turnos disponibles</h5>
