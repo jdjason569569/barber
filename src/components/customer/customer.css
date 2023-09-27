@@ -9,10 +9,12 @@
     display: flex;
     height: 50vh;
     flex-direction: column;
+    align-items: center;
     margin-top: 10%;
     margin-left: 3%;
     margin-right: 3%;
     overflow-y: scroll;
+    padding: 0 3% 3% 3%;
 }
 
 .customer-container {
@@ -23,9 +25,11 @@
   cursor: pointer;
   color: var(--white-color);
   display: flex;
+  width: 90%;
   justify-content: space-between;
-  margin: 1%;
-  padding: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 3%;
 }
 
 .customer-text {
@@ -51,4 +55,15 @@
   color: white;
   font-weight: bolder;
   font-size: 10px;
+}
+
+.customer-title {
+  position: sticky;
+  top: 0;
+  background-color: var(--red-color);
+  color: var(--white-color);
+  border-radius: 20px;
+  width: 95%;
+  padding: 7px;
+  margin: 0;
 }

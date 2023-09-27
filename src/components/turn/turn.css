@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   border-radius: 20px;
   justify-content: center;
-  box-shadow: 2px 10px 15px 1px rgb(167, 165, 165);
+  box-shadow: 2px 2px 5px 1px gray;
 }
 
 .style-form {
@@ -26,6 +26,7 @@
   margin-bottom: 8%;
   width: 70%;
   margin-left: 5%;
+  box-shadow: 2px 2px 5px 1px gray;
 }
 
 .turn-component {

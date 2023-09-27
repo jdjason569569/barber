@@ -107,7 +107,7 @@ export default function Customer() {
       <ToastContainer />
       <Formturn addTurn={addCustomer} schedule={true} />
       <div className="customer-list-content">
-        <h4>Clientes</h4>
+        <h5 className="customer-title">Clientes</h5>
         {customers.map((customer) => (
           <div className={"customer-container"}>
             <div className="customer-text">

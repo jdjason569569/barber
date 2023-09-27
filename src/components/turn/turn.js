@@ -127,53 +127,64 @@ export default function Turn() {
   };
 
   const handleDragEnd = async (event) => {
+
+
+
     try {
-      const { active, over } = event;
-      const oldIndex = turns.findIndex((turn) => turn.id === active.id);
-      const newIndex = turns.findIndex((turn) => turn.id === over.id);
-      const arrayOrder = arrayMove(turns, oldIndex, newIndex);
-      if (oldIndex === newIndex) {
-        return;
-      }
-      if (oldIndex > newIndex) {
-        if (arrayOrder.length > 0) {
-          let count = 1;
-          arrayOrder.forEach((element) => {
-            return (element.order = count++);
-          });
-          if (active.id !== over.id) {
-            const updateArray = await fetch(
-              `${apiUrl}/turns/order/update/${newIndex}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(arrayOrder),
-              }
-            );
-            const responseUpdateTask = updateArray.json();
-            setTurnResponse(responseUpdateTask);
-            toast.success("Haz movido un turno", {
-              autoClose: 1000,
-              position: toast.POSITION.TOP_CENTER,
-            });
-          }
+      const des = await activateModal();
+      if(des){
+        const { active, over } = event;
+        const oldIndex = turns.findIndex((turn) => turn.id === active.id);
+        const newIndex = turns.findIndex((turn) => turn.id === over.id);
+        const arrayOrder = arrayMove(turns, oldIndex, newIndex);
+        if (oldIndex === newIndex) {
+          return;
         }
-      } else {
-        toast.error("No puedes mover un turno de arriba hacia abajo", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        if (oldIndex > newIndex) {
+          if (arrayOrder.length > 0) {
+            let count = 1;
+            arrayOrder.forEach((element) => {
+              return (element.order = count++);
+            });
+            if (active.id !== over.id) {
+              const updateArray = await fetch(
+                `${apiUrl}/turns/order/update/${newIndex}`,
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(arrayOrder),
+                }
+              );
+              const responseUpdateTask = updateArray.json();
+              setTurnResponse(responseUpdateTask);
+              toast.success("Haz movido un turno", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
+          }
+        } else {
+          toast.error("No puedes mover un turno de arriba hacia abajo", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+        
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const activateModal = () => {
-    setUpPopup(false);
+  const activateModal =async  () => {
+    setUpPopup(true);
+    setTimeout(() => {
+      setUpPopup(false);
+    }, 5000);
 
+    return  true;
   };
 
   const postponeTurns = async () => {
@@ -268,7 +279,7 @@ export default function Turn() {
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
+            onDragEnd={activateModal}
           >
             <div className="turn-list-content">
               <h5 className="turn-title">Turnos disponibles</h5>
