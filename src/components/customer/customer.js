@@ -5,6 +5,7 @@ import Formturn from "../turn/formTurn/formTurn";
 import { useEffect } from "react";
 import "./customer.css";
 import { ToastContainer, toast } from "react-toastify";
+import EmptyList from "../emptyList/emptyList";
 
 export default function Customer() {
   const [customerResponse, setCustomerResponse] = useState(null);
@@ -116,7 +117,7 @@ export default function Customer() {
       <Formturn addTurn={addCustomer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
-        {customers.map((customer) => (
+        {customers.length > 0 ? <div className="content-customer">{customers.map((customer) => (
           <div key={customer.id_customer} className={"customer-container"}>
             <div className="customer-text">
               <h5 className="text-style-name">{customer.name}</h5>
@@ -133,6 +134,7 @@ export default function Customer() {
             </div>
           </div>
         ))}
+        </div>: <EmptyList text="clientes"></EmptyList> }
       </div>
     </>
   );

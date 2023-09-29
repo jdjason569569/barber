@@ -1,0 +1,14 @@
+.container-empty-list{
+    display: flex;
+    flex-direction: column;
+    padding-top: 30%;
+}
+
+.text-empty{
+    color: var(--blue-color);
+    font-weight:bold ;
+}
+
+.style-icon{
+   color:  var(--blue-color) ;
+}

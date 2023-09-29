@@ -17,6 +17,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import EmptyList from "../emptyList/emptyList";
 
 
 export default function Turn() {
@@ -272,7 +273,7 @@ export default function Turn() {
                 <div className="arrow-up"></div>
                 <div className="arrow-down"></div>
               </div>
-              <div>
+              {turns.length > 0 ? <div>
                 <SortableContext
                   items={turns}
                   strategy={verticalListSortingStrategy}
@@ -288,7 +289,7 @@ export default function Turn() {
                     />
                   ))}
                 </SortableContext>
-              </div>
+              </div>: <EmptyList text="turnos"></EmptyList> }
             </div>
           </DndContext>
         </div>

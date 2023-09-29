@@ -34,6 +34,10 @@
   box-shadow: 2px 2px 5px 1px gray;
 }
 
+.content-customer{
+  width: 100%;
+}
+
 .customer-text {
   align-items: flex-start;
   display: flex;
