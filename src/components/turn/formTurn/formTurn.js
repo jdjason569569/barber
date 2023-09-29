@@ -4,32 +4,32 @@ import "./formTurn.css";
 export default function Formturn({ addTurn, schedule }) {
   const [input, setInput] = useState({
     name: "",
-    email: "",
+    phone: "",
   });
   const [isEnabledButton, setIsEnabledButton] = useState(true);
 
   useEffect(() => {
-    if (input.name !== "" && input.email !== "") {
+    if (input.name !== "" && input.phone !== "") {
       setIsEnabledButton(false);
     }
-    if (input.name === "" || input.email === "") {
+    if (input.name === "" || input.phone === "") {
       setIsEnabledButton(true);
     }
   }, [input]);
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@gmail\.com$/i;
-    if (emailRegex.test(email)) {
+  const validatePhoneNumber = (phone) => {
+    const numeric = /^\d{10}$/;
+    if (numeric.test(phone)) {
       return true;
     } else {
-        setInput({ ...input, email: 'El correo electronico es incorrecto' });
+        setInput({ ...input, phone: 'Ingrese un numero correcto' });
       return false;
     }
   };
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (input.name !== "" && validateEmail(input.email)) {
+    if (input.name !== "" && validatePhoneNumber(input.phone)) {
       addTurn(createTurn(), "turnCustomer");
       setInput({});
       setIsEnabledButton(true);
@@ -39,15 +39,15 @@ export default function Formturn({ addTurn, schedule }) {
   const createTurn = () => {
     return {
       name: input.name.toLowerCase(),
-      email: input.email.toLowerCase(),
+      phone: input.phone,
     };
   };
 
   const handleName = (event) => {
     setInput({ ...input, name: event.target.value });
   };
-  const handleEmail = (event) => {
-    setInput({ ...input, email: event.target.value });
+  const handlePhone = (event) => {
+    setInput({ ...input, phone: event.target.value });
   };
 
   return (
@@ -57,7 +57,7 @@ export default function Formturn({ addTurn, schedule }) {
       <input
         className="turn-input"
         type="text"
-        placeholder="Agrega nombre"
+        placeholder="Nombre"
         name="texto"
         autoComplete="off"
         value={input.name ?? ""}
@@ -66,14 +66,14 @@ export default function Formturn({ addTurn, schedule }) {
       <input
         className="turn-input"
         type="text"
-        placeholder="Ingresa email"
+        placeholder="Telefono"
         name="texto"
         autoComplete="off"
-        value={input.email ?? ""}
-        onChange={handleEmail}
+        value={input.phone ?? ""}
+        onChange={handlePhone}
       />
-      <button hidden={isEnabledButton} className="btn-sm rounded turn-botton">
-      {schedule ? <h5>Crea cliente</h5> : <h5>Crear turno</h5>}
+      <button hidden={isEnabledButton} className="btn-sm rounded create-turn">
+      {schedule ? "Crea cliente" : "Crear turno"}
       </button>
     </form>
   );

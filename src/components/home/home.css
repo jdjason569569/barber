@@ -25,7 +25,10 @@
 .turn-botton{
     background: var(--blue-color);
     border-radius: 80%;
+    color: var(--white-color);
     margin: 2%;
+    padding: 3px;
+    box-shadow: 2px 2px 5px 1px gray;
 }
 
 .turn-botton-selected{

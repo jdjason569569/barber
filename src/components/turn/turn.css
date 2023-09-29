@@ -13,6 +13,7 @@
   width: 100%;
 }
 
+
 .conatiner-search {
   margin-left: 5%;
   margin-right: 5%;
@@ -77,6 +78,8 @@
   border-color: var(--blue-color) transparent transparent transparent;
   
 }
+
+
 
 /* Animación */
 @keyframes up {

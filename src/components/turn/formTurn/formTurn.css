@@ -19,10 +19,12 @@
     margin-top: 9px;
 }
 
-.turn-botton{
+.create-turn{
     box-shadow: 2px 2px 5px 1px gray;
     background: var(--blue-color);
     border: none;
-    color: var(--white-color);;
+    color: var(--white-color);
     margin-top: 15px;
+    font-size: 15px;
+    padding: 5px;
 }

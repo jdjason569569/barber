@@ -17,7 +17,7 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import Popup from "../modal/popup";
+
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -30,7 +30,6 @@ export default function Turn() {
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
-  const [upPopup, setUpPopup] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -67,7 +66,7 @@ export default function Turn() {
       }
     };
     getCustomers();
-  }, [idFirebaseUser, turnResponse]);
+  }, [idFirebaseUser, turnResponse, apiUrl]);
 
   /**
    * Allow save turn by user
@@ -76,7 +75,7 @@ export default function Turn() {
     turn.id_users = await getUserById();
     turn.customer = {
       name: turn.name,
-      email: turn.email,
+      phone: turn.phone,
     };
     turn.customer.user = {
       id_users: turn.id_users,
@@ -118,8 +117,11 @@ export default function Turn() {
         "Content-Type": "application/json",
       },
     });
-    const responseDeleteTurn = deleteTurn.json();
-    setTurnResponse(responseDeleteTurn);
+    const responseDeleteTurn = await deleteTurn.json();
+    const response = {
+      value : responseDeleteTurn
+    }
+    setTurnResponse(response);
     toast.error("Eliminaste un turno", {
       autoClose: 1000,
       position: toast.POSITION.TOP_CENTER,
@@ -127,12 +129,7 @@ export default function Turn() {
   };
 
   const handleDragEnd = async (event) => {
-
-
-
     try {
-      const des = await activateModal();
-      if(des){
         const { active, over } = event;
         const oldIndex = turns.findIndex((turn) => turn.id === active.id);
         const newIndex = turns.findIndex((turn) => turn.id === over.id);
@@ -171,20 +168,9 @@ export default function Turn() {
             position: toast.POSITION.TOP_CENTER,
           });
         }
-        
-      }
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const activateModal =async  () => {
-    setUpPopup(true);
-    setTimeout(() => {
-      setUpPopup(false);
-    }, 5000);
-
-    return  true;
   };
 
   const postponeTurns = async () => {
@@ -217,7 +203,7 @@ export default function Turn() {
     });
 
     const isValid = turns.find((turn) => {
-      return turn.customer.email === customer.email;
+      return turn.customer.phone === customer.phone;
     });
     if (!isValid) {
       addTurn(customer, "turn");
@@ -238,7 +224,6 @@ export default function Turn() {
 
   return (
     <>
-      <Popup upPopup={upPopup}></Popup>
       <ToastContainer />
       {isLoading ? (
         <p>Cargando informacion...</p>
@@ -279,7 +264,7 @@ export default function Turn() {
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
-            onDragEnd={activateModal}
+            onDragEnd={handleDragEnd}
           >
             <div className="turn-list-content">
               <h5 className="turn-title">Turnos disponibles</h5>
@@ -287,7 +272,7 @@ export default function Turn() {
                 <div className="arrow-up"></div>
                 <div className="arrow-down"></div>
               </div>
-              <div className="container-homeworks">
+              <div>
                 <SortableContext
                   items={turns}
                   strategy={verticalListSortingStrategy}

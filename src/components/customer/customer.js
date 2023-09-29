@@ -33,14 +33,14 @@ export default function Customer() {
       }
     };
     getCustomers();
-  }, [idFirebaseUser, customerResponse]);
+  }, [idFirebaseUser, customerResponse, apiUrl]);
 
   const addCustomer = async (customer) => {
     if (customer) {
       const responseCustomer = await saveCustomer(customer);
       setCustomerResponse(responseCustomer);
       if (!responseCustomer) {
-        toast.error("Ya aexiste un cliente con el email", {
+        toast.error("Ya aexiste un cliente con el numero", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
         });
@@ -68,32 +68,40 @@ export default function Customer() {
 
   const deleteCustomer = async (id) => {
     try {
-    const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const responseDeleteCustomer= await deleteCustomer.json();
-    setCustomerResponse(responseDeleteCustomer);
-    if(responseDeleteCustomer.statusCode !== 500){
-      toast.error("Eliminaste un cliente", {
-        autoClose: 1000,
-        position: toast.POSITION.TOP_CENTER,
+      const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-    }else{
-      toast.error("Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados", {
-        autoClose: 5000,
-        position: toast.POSITION.TOP_CENTER,
-      });
+      const responseDeleteCustomer = await deleteCustomer.json();
+      const response = {
+        value : responseDeleteCustomer
+      }
+      setCustomerResponse(response);
+      if (responseDeleteCustomer.statusCode !== 500) {
+        toast.error("Eliminaste un cliente", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error(
+          "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
+          {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
+      }
+    } catch (error) {
+      toast.error(
+        "Hubo un error, puede eliminarlo si no tiene turnos asignados",
+        {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        }
+      );
     }
-   
-  } catch (error) {
-    toast.error("Hubo un error", {
-      autoClose: 1000,
-      position: toast.POSITION.TOP_CENTER,
-    });
-  }
   };
 
   const getUserById = async () => {
@@ -109,14 +117,19 @@ export default function Customer() {
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
         {customers.map((customer) => (
-          <div className={"customer-container"}>
+          <div key={customer.id_customer} className={"customer-container"}>
             <div className="customer-text">
               <h5 className="text-style-name">{customer.name}</h5>
-              <p className="text-style-mail">{customer.email}</p>
+              <p className="text-style-mail">{customer.phone}</p>
             </div>
             <div className="icon-container">
               <span className="material-symbols-rounded">settings</span>
-              <span className="material-symbols-rounded" onMouseDown={() => deleteCustomer(customer.id_customer)}>delete</span>
+              <span
+                className="material-symbols-rounded"
+                onMouseDown={() => deleteCustomer(customer.id_customer)}
+              >
+                delete
+              </span>
             </div>
           </div>
         ))}
