@@ -6,12 +6,14 @@ import { useEffect } from "react";
 import "./customer.css";
 import { ToastContainer, toast } from "react-toastify";
 import EmptyList from "../emptyList/emptyList";
+import Loader from "../loader/loader";
 
 export default function Customer() {
   const [customerResponse, setCustomerResponse] = useState(null);
   const apiUrl = process.env.REACT_APP_API;
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [customers, setCustomers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -26,9 +28,11 @@ export default function Customer() {
   useEffect(() => {
     const getCustomers = async () => {
       try {
+        setIsLoading(true);
         const responseCutomers = await fetch(`${apiUrl}/customer`);
         const responseCustomersJson = await responseCutomers.json();
         setCustomers(responseCustomersJson);
+        setIsLoading(false);
       } catch (error) {
         //console.error(error);
       }
@@ -117,7 +121,8 @@ export default function Customer() {
       <Formturn addTurn={addCustomer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
-        {customers.length > 0 ? <div className="content-customer">{customers.map((customer) => (
+        { isLoading ? <Loader></Loader> : (<div className="content-customer">
+          {customers.length > 0 ? <div className="content-customer">{customers.map((customer) => (
           <div key={customer.id_customer} className={"customer-container"}>
             <div className="customer-text">
               <h5 className="text-style-name">{customer.name}</h5>
@@ -135,6 +140,8 @@ export default function Customer() {
           </div>
         ))}
         </div>: <EmptyList text="clientes"></EmptyList> }
+        </div>)}
+        
       </div>
     </>
   );

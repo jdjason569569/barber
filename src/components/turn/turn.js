@@ -18,7 +18,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import EmptyList from "../emptyList/emptyList";
-
+import Loader from "../loader/loader";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -120,8 +120,8 @@ export default function Turn() {
     });
     const responseDeleteTurn = await deleteTurn.json();
     const response = {
-      value : responseDeleteTurn
-    }
+      value: responseDeleteTurn,
+    };
     setTurnResponse(response);
     toast.error("Eliminaste un turno", {
       autoClose: 1000,
@@ -131,44 +131,44 @@ export default function Turn() {
 
   const handleDragEnd = async (event) => {
     try {
-        const { active, over } = event;
-        const oldIndex = turns.findIndex((turn) => turn.id === active.id);
-        const newIndex = turns.findIndex((turn) => turn.id === over.id);
-        const arrayOrder = arrayMove(turns, oldIndex, newIndex);
-        if (oldIndex === newIndex) {
-          return;
-        }
-        if (oldIndex > newIndex) {
-          if (arrayOrder.length > 0) {
-            let count = 1;
-            arrayOrder.forEach((element) => {
-              return (element.order = count++);
-            });
-            if (active.id !== over.id) {
-              const updateArray = await fetch(
-                `${apiUrl}/turns/order/update/${newIndex}`,
-                {
-                  method: "PUT",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(arrayOrder),
-                }
-              );
-              const responseUpdateTask = updateArray.json();
-              setTurnResponse(responseUpdateTask);
-              toast.success("Haz movido un turno", {
-                autoClose: 1000,
-                position: toast.POSITION.TOP_CENTER,
-              });
-            }
-          }
-        } else {
-          toast.error("No puedes mover un turno de arriba hacia abajo", {
-            autoClose: 1000,
-            position: toast.POSITION.TOP_CENTER,
+      const { active, over } = event;
+      const oldIndex = turns.findIndex((turn) => turn.id === active.id);
+      const newIndex = turns.findIndex((turn) => turn.id === over.id);
+      const arrayOrder = arrayMove(turns, oldIndex, newIndex);
+      if (oldIndex === newIndex) {
+        return;
+      }
+      if (oldIndex > newIndex) {
+        if (arrayOrder.length > 0) {
+          let count = 1;
+          arrayOrder.forEach((element) => {
+            return (element.order = count++);
           });
+          if (active.id !== over.id) {
+            const updateArray = await fetch(
+              `${apiUrl}/turns/order/update/${newIndex}`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(arrayOrder),
+              }
+            );
+            const responseUpdateTask = updateArray.json();
+            setTurnResponse(responseUpdateTask);
+            toast.success("Haz movido un turno", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            });
+          }
         }
+      } else {
+        toast.error("No puedes mover un turno de arriba hacia abajo", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -226,74 +226,79 @@ export default function Turn() {
   return (
     <>
       <ToastContainer />
-      {isLoading ? (
-        <p>Cargando informacion...</p>
-      ) : (
-        <div className="container-turn">
-          <div className="conatiner-search">
-            <div className="input-group" style={{ marginTop: "4%" }}>
-              <span className="input-group-text">Buscar cliente</span>
-              <input
-                type="text"
-                onChange={handleInputChange}
-                aria-label="First name"
-                className="form-control"
-              />
-            </div>
-            <select
-              className="form-select"
-              style={{ marginTop: "2%" }}
-              id="menu"
-              value={selectCustomer}
-              onChange={handleChange}
-            >
-              <option value=""> Seleccionar Cliente</option>
-              {searchCustomers.map((customer) => (
-                <option key={customer.id_customer} value={customer.name}>
-                  {customer.name}
-                </option>
-              ))}
-            </select>
-            <button
-              onClick={postponeTurns}
-              className="btn-sm rounded hold-over-botton"
-            >
-              Aplazar turnos (10 min)
-            </button>
+
+      <div className="container-turn">
+        <div className="conatiner-search">
+          <div className="input-group">
+            <span className="title-client">Buscar cliente</span>
+            <input
+              type="text"
+              onChange={handleInputChange}
+              aria-label="First name"
+              className="form-control"
+            />
           </div>
-          <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
+          <select
+            className="form-select form-select-active"
+            style={{ marginTop: "2%" }}
+            id="menu"
+            value={selectCustomer}
+            onChange={handleChange}
           >
-            <div className="turn-list-content">
-              <h5 className="turn-title">Turnos disponibles</h5>
-              <div className="arrow-container">
-                <div className="arrow-up"></div>
-                <div className="arrow-down"></div>
-              </div>
-              {turns.length > 0 ? <div>
-                <SortableContext
-                  items={turns}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {turns.map((turn) => (
-                    <Homeworks
-                      key={turn.id}
-                      id={turn.id}
-                      name={turn.customer.name}
-                      turnDate={turn.date_register}
-                      order={turn.order}
-                      deleteTurn={deleteTurn}
-                    />
-                  ))}
-                </SortableContext>
-              </div>: <EmptyList text="turnos"></EmptyList> }
-            </div>
-          </DndContext>
+            <option value=""> Seleccionar Cliente</option>
+            {searchCustomers.map((customer) => (
+              <option key={customer.id_customer} value={customer.name}>
+                {customer.name}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={postponeTurns}
+            className="btn-sm rounded hold-over-botton"
+          >
+            Aplazar turnos (10 min)
+          </button>
         </div>
-      )}
+        <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="turn-list-content">
+            <h5 className="turn-title">Turnos disponibles</h5>
+            <div className="arrow-container">
+              <div className="arrow-up"></div>
+              <div className="arrow-down"></div>
+            </div>
+            {isLoading ? (
+             <Loader></Loader> 
+            ) : (
+              <div>
+                {turns.length > 0 ? (
+                  <SortableContext
+                    items={turns}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {turns.map((turn) => (
+                      <Homeworks
+                        key={turn.id}
+                        id={turn.id}
+                        name={turn.customer.name}
+                        turnDate={turn.date_register}
+                        order={turn.order}
+                        deleteTurn={deleteTurn}
+                      />
+                    ))}
+                  </SortableContext>
+                ) : (
+                  <EmptyList text="turnos" />
+                )}
+              </div>
+            )}
+          </div>
+        </DndContext>
+      </div>
     </>
   );
 }

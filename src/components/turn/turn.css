@@ -13,6 +13,12 @@
   width: 100%;
 }
 
+.form-select-active{
+   background-color: var(--blue-color) !important;
+   color: var(--white-color) !important;
+}
+
+
 
 .conatiner-search {
   margin-left: 5%;
@@ -45,6 +51,21 @@
   overflow-y: scroll;
   padding-right: 15%;
   position: relative;
+}
+
+.input-group{
+  background-color: var(--blue-color);
+  border-radius: 20px;
+  color: var(--white-color);
+  font-size: 12px;
+  margin-top: 3%;
+  text-align: center;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.title-client{
+ padding: 10px;
+ 
 }
 
 .turn-title {
