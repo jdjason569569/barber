@@ -19,13 +19,8 @@ export default function Formturn({ addTurn, schedule }) {
 
   const validatePhoneNumber = (phone) => {
     const numeric = /^\d{10}$/;
-    if (numeric.test(phone)) {
-      return true;
-    } else {
-        setInput({ ...input, phone: 'Ingrese un numero correcto' });
-      return false;
-    }
-  };
+    return numeric.test(phone) ? true : false;
+  }
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -33,6 +28,8 @@ export default function Formturn({ addTurn, schedule }) {
       addTurn(createTurn(), "turnCustomer");
       setInput({});
       setIsEnabledButton(true);
+    }else{
+      addTurn(null, "turnCustomer");
     }
   };
 
@@ -65,9 +62,9 @@ export default function Formturn({ addTurn, schedule }) {
       />
       <input
         className="turn-input"
-        type="text"
+        type="number"
         placeholder="Telefono"
-        name="texto"
+        min="1" max="10"
         autoComplete="off"
         value={input.phone ?? ""}
         onChange={handlePhone}

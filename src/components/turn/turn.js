@@ -34,11 +34,7 @@ export default function Turn() {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIdFirebaseUser(user.uid);
-      } else {
-        setIdFirebaseUser(null);
-      }
+      user ? setIdFirebaseUser(user.uid) : setIdFirebaseUser(null);
     });
   }, [apiUrl]);
 
@@ -96,6 +92,11 @@ export default function Turn() {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       toast.success("Agregaste un turno", {
+        autoClose: 1000,
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      toast.error("Comprueba el numero de telefono!", {
         autoClose: 1000,
         position: toast.POSITION.TOP_CENTER,
       });
@@ -226,7 +227,6 @@ export default function Turn() {
   return (
     <>
       <ToastContainer />
-
       <div className="container-turn">
         <div className="conatiner-search">
           <div className="input-group">
@@ -272,7 +272,7 @@ export default function Turn() {
               <div className="arrow-down"></div>
             </div>
             {isLoading ? (
-             <Loader></Loader> 
+              <Loader></Loader>
             ) : (
               <div>
                 {turns.length > 0 ? (

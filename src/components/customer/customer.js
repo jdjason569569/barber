@@ -17,11 +17,7 @@ export default function Customer() {
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
-      if (user) {
-        setIdFirebaseUser(user.uid);
-      } else {
-        setIdFirebaseUser(null);
-      }
+      user ? setIdFirebaseUser(user.uid) : setIdFirebaseUser(null);
     });
   }, [apiUrl]);
 
@@ -60,7 +56,6 @@ export default function Customer() {
 
   const saveCustomer = async (customer) => {
     customer.user = await getUserById();
-
     const responseAddTurn = await fetch(`${apiUrl}/customer`, {
       method: "POST",
       headers: {
@@ -81,23 +76,21 @@ export default function Customer() {
       });
       const responseDeleteCustomer = await deleteCustomer.json();
       const response = {
-        value : responseDeleteCustomer
-      }
+        value: responseDeleteCustomer,
+      };
       setCustomerResponse(response);
-      if (responseDeleteCustomer.statusCode !== 500) {
-        toast.error("Eliminaste un cliente", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_CENTER,
-        });
-      } else {
-        toast.error(
-          "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
-          {
-            autoClose: 5000,
+      responseDeleteCustomer.statusCode !== 500
+        ? toast.error("Eliminaste un cliente", {
+            autoClose: 1000,
             position: toast.POSITION.TOP_CENTER,
-          }
-        );
-      }
+          })
+        : toast.error(
+            "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
+            {
+              autoClose: 5000,
+              position: toast.POSITION.TOP_CENTER,
+            }
+          );
     } catch (error) {
       toast.error(
         "Hubo un error, puede eliminarlo si no tiene turnos asignados",
@@ -121,27 +114,38 @@ export default function Customer() {
       <Formturn addTurn={addCustomer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
-        { isLoading ? <Loader></Loader> : (<div className="content-customer">
-          {customers.length > 0 ? <div className="content-customer">{customers.map((customer) => (
-          <div key={customer.id_customer} className={"customer-container"}>
-            <div className="customer-text">
-              <h5 className="text-style-name">{customer.name}</h5>
-              <p className="text-style-mail">{customer.phone}</p>
-            </div>
-            <div className="icon-container">
-              <span className="material-symbols-rounded">settings</span>
-              <span
-                className="material-symbols-rounded"
-                onMouseDown={() => deleteCustomer(customer.id_customer)}
-              >
-                delete
-              </span>
-            </div>
+        {isLoading ? (
+          <Loader></Loader>
+        ) : (
+          <div className="content-customer">
+            {customers.length > 0 ? (
+              <div className="content-customer">
+                {customers.map((customer) => (
+                  <div
+                    key={customer.id_customer}
+                    className={"customer-container"}
+                  >
+                    <div className="customer-text">
+                      <h5 className="text-style-name">{customer.name}</h5>
+                      <p className="text-style-mail">{customer.phone}</p>
+                    </div>
+                    <div className="icon-container">
+                      <span className="material-symbols-rounded">edit</span>
+                      <span
+                        className="material-symbols-rounded"
+                        onMouseDown={() => deleteCustomer(customer.id_customer)}
+                      >
+                        delete
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <EmptyList text="clientes"></EmptyList>
+            )}
           </div>
-        ))}
-        </div>: <EmptyList text="clientes"></EmptyList> }
-        </div>)}
-        
+        )}
       </div>
     </>
   );

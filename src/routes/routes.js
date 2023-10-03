@@ -15,11 +15,7 @@ export function MyRoutes() {
     
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            if (user) {
-                setUserName(user.displayName);
-            } else {
-                setUserName(null);
-            }
+            user ? setUserName(user.displayName) : setUserName(null);
         }); 
     });
 
