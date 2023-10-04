@@ -14,6 +14,7 @@ export default function Customer() {
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [customer, setCustomer] = useState(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -36,22 +37,40 @@ export default function Customer() {
     getCustomers();
   }, [idFirebaseUser, customerResponse, apiUrl]);
 
-  const addCustomer = async (customer) => {
+  let addCustomer = async (customer) => {
     if (customer) {
-      const responseCustomer = await saveCustomer(customer);
-      setCustomerResponse(responseCustomer);
-      if (!responseCustomer) {
-        toast.error("Ya aexiste un cliente con el numero", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+      let responseCustomer = null;
+      if (customer.id_customer) {
+        responseCustomer = await updateCustomer(customer);
+        setCustomerResponse(responseCustomer);
+        !responseCustomer
+          ? toast.error("Error al actualizar un cliente", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            })
+          : toast.success("Actualizaste un cliente", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            });
+        setCustomer(null);
       } else {
-        toast.success("Agregaste un cliente", {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        responseCustomer = await saveCustomer(customer);
+        setCustomerResponse(responseCustomer);
+        !responseCustomer
+          ? toast.error("Ya aexiste un cliente con el numero", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            })
+          : toast.success("Agregaste un cliente", {
+              autoClose: 1000,
+              position: toast.POSITION.TOP_CENTER,
+            });
       }
     }
+  };
+
+  const editCustomer = (customer) => {
+    setCustomer(customer);
   };
 
   const saveCustomer = async (customer) => {
@@ -64,6 +83,21 @@ export default function Customer() {
       body: JSON.stringify(customer),
     });
     return await responseAddTurn.json();
+  };
+
+  const updateCustomer = async (customer) => {
+    const id = customer.id_customer;
+    const responseUpateTurn = await fetch(
+      `${apiUrl}/customer/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(customer),
+      }
+    );
+    return await responseUpateTurn.json();
   };
 
   const deleteCustomer = async (id) => {
@@ -111,7 +145,7 @@ export default function Customer() {
   return (
     <>
       <ToastContainer />
-      <Formturn addTurn={addCustomer} schedule={true} />
+      <Formturn addTurn={addCustomer} customer={customer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
         {isLoading ? (
@@ -130,7 +164,12 @@ export default function Customer() {
                       <p className="text-style-mail">{customer.phone}</p>
                     </div>
                     <div className="icon-container">
-                      <span className="material-symbols-rounded">edit</span>
+                      <span
+                        className="material-symbols-rounded"
+                        onMouseDown={() => editCustomer(customer)}
+                      >
+                        edit
+                      </span>
                       <span
                         className="material-symbols-rounded"
                         onMouseDown={() => deleteCustomer(customer.id_customer)}

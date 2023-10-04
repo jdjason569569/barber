@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import "./formTurn.css";
 
-export default function Formturn({ addTurn, schedule }) {
+export default function Formturn({ addTurn, customer, schedule }) {
   const [input, setInput] = useState({
+    id_customer: null,
     name: "",
     phone: "",
   });
   const [isEnabledButton, setIsEnabledButton] = useState(true);
+
+  useEffect(() => {
+    if (customer && customer.id_customer) {
+      setInput(customer);
+    }
+  }, [customer]);
 
   useEffect(() => {
     if (input.name !== "" && input.phone !== "") {
@@ -20,7 +27,7 @@ export default function Formturn({ addTurn, schedule }) {
   const validatePhoneNumber = (phone) => {
     const numeric = /^\d{10}$/;
     return numeric.test(phone) ? true : false;
-  }
+  };
 
   const handleSend = (e) => {
     e.preventDefault();
@@ -28,13 +35,14 @@ export default function Formturn({ addTurn, schedule }) {
       addTurn(createTurn(), "turnCustomer");
       setInput({});
       setIsEnabledButton(true);
-    }else{
+    } else {
       addTurn(null, "turnCustomer");
     }
   };
 
   const createTurn = () => {
     return {
+      id_customer: customer ?  customer.id_customer : null,
       name: input.name.toLowerCase(),
       phone: input.phone,
     };
@@ -49,13 +57,13 @@ export default function Formturn({ addTurn, schedule }) {
 
   return (
     <form className="turn-form" onSubmit={handleSend}>
-      
       {schedule ? <h5>Crea un cliente</h5> : <h5>Agenda y crea un cliente</h5>}
       <input
         className="turn-input"
         type="text"
         placeholder="Nombre"
         name="texto"
+        maxLength="30"
         autoComplete="off"
         value={input.name ?? ""}
         onChange={handleName}
@@ -64,13 +72,12 @@ export default function Formturn({ addTurn, schedule }) {
         className="turn-input"
         type="number"
         placeholder="Telefono"
-        min="1" max="10"
         autoComplete="off"
         value={input.phone ?? ""}
         onChange={handlePhone}
       />
       <button hidden={isEnabledButton} className="btn-sm rounded create-turn">
-      {schedule ? "Crea cliente" : "Crear turno"}
+        {schedule ?  (customer ? "Editar cliente"  :  "Crea cliente") : "Crear turno"}
       </button>
     </form>
   );
