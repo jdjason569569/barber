@@ -2,8 +2,8 @@
     align-items: center;
     background-color: var(--red-color);
     border-radius: 7px;
-    border: 2px solid white;
-    cursor: pointer;
+    border: 2px solid  var(--white-color);
+    color:  var(--white-color);
     display: flex;
     margin-right: 8%;
     margin-left: 10px;
@@ -11,7 +11,6 @@
 }
 
 .text-style{
-    color: white;
     font-weight: bolder;
     font-size: 20px;
 }
@@ -26,7 +25,6 @@
 
 .text-date {
     font-size: 10px;
-    color: white;
 }
 
 .turn-icon {
@@ -37,19 +35,14 @@
 
 .material-icons {
     font-size: 30px;
-    color: white
 }
 
-.turn-container.completed {
+.turn-container-completed {
     background-color: green;
-    text-decoration: line-through;
 }
 
 
 .icons {
-    box-shadow: 2px 2px 5px 1px gray;
-    border-radius: 70px;
-    display: flex;
-    background-color: white;
-    margin: 8px;
+    margin: 2px;
+    padding: 3px;
 }

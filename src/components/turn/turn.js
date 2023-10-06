@@ -129,6 +129,25 @@ export default function Turn() {
       position: toast.POSITION.TOP_CENTER,
     });
   };
+  
+  const completeTurn = async (turn) => {
+    const idStatus = turn.id;
+    turn.completed = !turn.completed;
+    const response = await fetch(
+      `${apiUrl}/turns/completed/${idStatus}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(turn),
+      }
+    );
+    setTurnResponse(response);
+  };
+  
+
+
 
   const handleDragEnd = async (event) => {
     try {
@@ -284,10 +303,9 @@ export default function Turn() {
                       <Homeworks
                         key={turn.id}
                         id={turn.id}
-                        name={turn.customer.name}
-                        turnDate={turn.date_register}
-                        order={turn.order}
+                        turn={turn}
                         deleteTurn={deleteTurn}
+                        completeTurn={completeTurn}
                       />
                     ))}
                   </SortableContext>
