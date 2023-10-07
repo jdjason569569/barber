@@ -2,8 +2,17 @@ import "./homework.css";
 import moment from "moment";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useEffect } from "react";
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
+  useEffect(() => {
+    console.log("turn fecha ", turn.date_register);
+    console.log(
+      "turn fecha con moment",
+      moment(turn.date_register).format("HH:mm")
+    );
+  });
+
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
