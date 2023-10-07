@@ -129,62 +129,89 @@ export default function Turn() {
       position: toast.POSITION.TOP_CENTER,
     });
   };
-  
+
   const completeTurn = async (turn) => {
-    const idStatus = turn.id;
-    turn.completed = !turn.completed;
-    const response = await fetch(
-      `${apiUrl}/turns/completed/${idStatus}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(turn),
+    if (!turn.completed) {
+      const currentDate = new Date();
+      if (new Date(turn.date_register) < currentDate) {
+        const idStatus = turn.id;
+        turn.completed = !turn.completed;
+        const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(turn),
+        });
+        setTurnResponse(response);
+        toast.success("Haz completado una cita", {
+          autoClose: 2000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error(
+          "Para completar la cita, esta debe ser igual o menor a la hora actual",
+          {
+            autoClose: 2000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
       }
-    );
-    setTurnResponse(response);
+    }
   };
-  
-
-
 
   const handleDragEnd = async (event) => {
     try {
       const { active, over } = event;
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
+      const turnSelected = turns.find((turn) => turn.id === active.id);
+      const oldTurn = turns.find((turn) => turn.id === over.id);
       const arrayOrder = arrayMove(turns, oldIndex, newIndex);
       if (oldIndex === newIndex) {
         return;
       }
-      if (oldIndex > newIndex) {
-        if (arrayOrder.length > 0) {
-          let count = 1;
-          arrayOrder.forEach((element) => {
-            return (element.order = count++);
-          });
-          if (active.id !== over.id) {
-            const updateArray = await fetch(
-              `${apiUrl}/turns/order/update/${newIndex}`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(arrayOrder),
+      if (!oldTurn.completed) {
+        if (!turnSelected.completed) {
+          if (oldIndex > newIndex) {
+            if (arrayOrder.length > 0) {
+              let count = 1;
+              arrayOrder.forEach((element) => {
+                return (element.order = count++);
+              });
+              if (active.id !== over.id) {
+                const updateArray = await fetch(
+                  `${apiUrl}/turns/order/update/${newIndex}`,
+                  {
+                    method: "PUT",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(arrayOrder),
+                  }
+                );
+                const responseUpdateTask = updateArray.json();
+                setTurnResponse(responseUpdateTask);
+                toast.success("Haz movido un turno", {
+                  autoClose: 1000,
+                  position: toast.POSITION.TOP_CENTER,
+                });
               }
-            );
-            const responseUpdateTask = updateArray.json();
-            setTurnResponse(responseUpdateTask);
-            toast.success("Haz movido un turno", {
+            }
+          } else {
+            toast.error("No puedes mover un turno de arriba hacia abajo", {
               autoClose: 1000,
               position: toast.POSITION.TOP_CENTER,
             });
           }
+        } else {
+          toast.error("No puedes mover una tarjeta atendida", {
+            autoClose: 1000,
+            position: toast.POSITION.TOP_CENTER,
+          });
         }
       } else {
-        toast.error("No puedes mover un turno de arriba hacia abajo", {
+        toast.error("No puedes mover por encima de una tarjeta atendida", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
         });
