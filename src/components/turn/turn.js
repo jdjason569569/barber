@@ -19,6 +19,7 @@ import {
 } from "@dnd-kit/sortable";
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
+import Popup from "../modal/popup";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -31,6 +32,7 @@ export default function Turn() {
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
+  const [showPoppup, setShowPoppup] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -149,13 +151,10 @@ export default function Turn() {
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.error(
-          "Para completar la cita, esta debe ser igual o menor a la hora actual",
-          {
-            autoClose: 2000,
-            position: toast.POSITION.TOP_CENTER,
-          }
-        );
+        toast.error("Para completar la cita, de ser menor a la hora actual", {
+          autoClose: 2000,
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     }
   };
@@ -304,6 +303,13 @@ export default function Turn() {
           >
             Aplazar turnos (10 min)
           </button>
+          <button
+            className="btn-sm rounded create-turn"
+            onMouseDown={() => setShowPoppup(true)}
+          >
+            agregar horario
+          </button>
+          {showPoppup && <Popup upPopup={true}></Popup>}
         </div>
         <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
         <DndContext

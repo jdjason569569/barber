@@ -42,7 +42,7 @@ export default function Formturn({ addTurn, customer, schedule }) {
 
   const createTurn = () => {
     return {
-      id_customer: customer ?  customer.id_customer : null,
+      id_customer: customer ? customer.id_customer : null,
       name: input.name.toLowerCase(),
       phone: input.phone,
     };
@@ -54,6 +54,8 @@ export default function Formturn({ addTurn, customer, schedule }) {
   const handlePhone = (event) => {
     setInput({ ...input, phone: event.target.value });
   };
+
+  
 
   return (
     <form className="turn-form" onSubmit={handleSend}>
@@ -77,7 +79,11 @@ export default function Formturn({ addTurn, customer, schedule }) {
         onChange={handlePhone}
       />
       <button hidden={isEnabledButton} className="btn-sm rounded create-turn">
-        {schedule ?  (customer ? "Editar cliente"  :  "Crea cliente") : "Crear turno"}
+        {schedule
+          ? customer
+            ? "Editar cliente"
+            : "Crea cliente"
+          : "Crear turno"}
       </button>
     </form>
   );

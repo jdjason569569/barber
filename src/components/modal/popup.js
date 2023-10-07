@@ -1,5 +1,6 @@
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popup.css";
+import Formturn from "../turn/formTurn/formTurn";
 
 
 
@@ -13,7 +14,7 @@ export default function Popup({upPopup}) {
             header
         </ModalHeader>
         <ModalBody>
-            body
+        <Formturn  schedule={false}></Formturn>
         </ModalBody>
     </Modal>
       
