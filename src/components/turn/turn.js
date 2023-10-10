@@ -19,7 +19,7 @@ import {
 } from "@dnd-kit/sortable";
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
-import Popup from "../modal/popup";
+import PopupAddTurn from "../modal/popupAddTurn";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -90,13 +90,22 @@ export default function Turn() {
   };
 
   const addTurn = async (turn, method) => {
+    setShowPoppup(false)
     if (turn && method) {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
-      toast.success("Agregaste un turno", {
-        autoClose: 1000,
-        position: toast.POSITION.TOP_CENTER,
-      });
+      if(!responseTurn){
+        toast.error("La hora de asignacion debe ser mayor a la actual", {
+          autoClose: 2000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }else{
+        toast.success("Agregaste un turno", {
+          autoClose: 1000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+      
     } else {
       toast.error("Comprueba el numero de telefono!", {
         autoClose: 1000,
@@ -309,7 +318,7 @@ export default function Turn() {
           >
             agregar horario
           </button>
-          {showPoppup && <Popup upPopup={true}></Popup>}
+          {showPoppup && <PopupAddTurn  addTurn={addTurn} upPopup={showPoppup}></PopupAddTurn>}
         </div>
         <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
         <DndContext
