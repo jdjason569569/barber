@@ -15,6 +15,7 @@
     font-size: 20px;
 }
 
+
 .turn-text {
     align-items: flex-start;
     display: flex;
@@ -38,7 +39,11 @@
 }
 
 .turn-container-completed {
-    background-color: green;
+    background-color: var(--green-color);;
+}
+
+.turn-container-is-scheduled {
+    background-color: var(--orange-color);;
 }
 
 

@@ -4,8 +4,6 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
-  
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -20,11 +18,17 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         className={
           turn.completed
             ? "turn-container turn-container-completed"
+            : turn.isSchedule
+            ? "turn-container  turn-container-is-scheduled"
             : "turn-container"
         }
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>
-          {turn.order}
+          {turn.isSchedule ? (
+           <span className="material-symbols-rounded icons">schedule</span>
+          ) : (
+            turn.order
+          )}
         </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">

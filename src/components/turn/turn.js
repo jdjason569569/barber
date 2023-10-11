@@ -90,22 +90,21 @@ export default function Turn() {
   };
 
   const addTurn = async (turn, method) => {
-    setShowPoppup(false)
+    setShowPoppup(false);
     if (turn && method) {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
-      if(!responseTurn){
+      if (!responseTurn) {
         toast.error("La hora de asignacion debe ser mayor a la actual", {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER,
         });
-      }else{
+      } else {
         toast.success("Agregaste un turno", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
-      
     } else {
       toast.error("Comprueba el numero de telefono!", {
         autoClose: 1000,
@@ -179,51 +178,59 @@ export default function Turn() {
       if (oldIndex === newIndex) {
         return;
       }
-      if (!oldTurn.completed) {
-        if (!turnSelected.completed) {
-          if (oldIndex > newIndex) {
-            if (arrayOrder.length > 0) {
-              let count = 1;
-              arrayOrder.forEach((element) => {
-                return (element.order = count++);
-              });
-              if (active.id !== over.id) {
-                const updateArray = await fetch(
-                  `${apiUrl}/turns/order/update/${newIndex}`,
-                  {
-                    method: "PUT",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(arrayOrder),
-                  }
-                );
-                const responseUpdateTask = updateArray.json();
-                setTurnResponse(responseUpdateTask);
-                toast.success("Haz movido un turno", {
-                  autoClose: 1000,
-                  position: toast.POSITION.TOP_CENTER,
+      if (!turnSelected.isSchedule) {
+        if (!oldTurn.completed) {
+          if (!turnSelected.completed) {
+            if (oldIndex > newIndex) {
+              if (arrayOrder.length > 0) {
+                let count = 1;
+                arrayOrder.forEach((element) => {
+                  return (element.order = count++);
                 });
+                if (active.id !== over.id) {
+                  const updateArray = await fetch(
+                    `${apiUrl}/turns/order/update/${newIndex}`,
+                    {
+                      method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify(arrayOrder),
+                    }
+                  );
+                  const responseUpdateTask = updateArray.json();
+                  setTurnResponse(responseUpdateTask);
+                  toast.success("Haz movido un turno", {
+                    autoClose: 1000,
+                    position: toast.POSITION.TOP_CENTER,
+                  });
+                }
               }
+            } else {
+              toast.error("No puedes mover un turno de arriba hacia abajo", {
+                autoClose: 1000,
+                position: toast.POSITION.TOP_CENTER,
+              });
             }
           } else {
-            toast.error("No puedes mover un turno de arriba hacia abajo", {
+            toast.error("No puedes mover una tarjeta atendida", {
               autoClose: 1000,
               position: toast.POSITION.TOP_CENTER,
             });
           }
         } else {
-          toast.error("No puedes mover una tarjeta atendida", {
+          toast.error("No puedes mover por encima de una tarjeta atendida", {
             autoClose: 1000,
             position: toast.POSITION.TOP_CENTER,
           });
         }
-      } else {
-        toast.error("No puedes mover por encima de una tarjeta atendida", {
+      }else{
+        toast.error("No puedes mover una tarjeta creada manualmente", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
+      
     } catch (error) {
       console.log(error);
     }
@@ -318,7 +325,9 @@ export default function Turn() {
           >
             agregar horario
           </button>
-          {showPoppup && <PopupAddTurn  addTurn={addTurn} upPopup={showPoppup}></PopupAddTurn>}
+          {showPoppup && (
+            <PopupAddTurn addTurn={addTurn} upPopup={showPoppup}></PopupAddTurn>
+          )}
         </div>
         <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
         <DndContext
