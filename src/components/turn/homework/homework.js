@@ -32,10 +32,10 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">
-          {moment(turn.date_register).format("HH:mm")}
-          {moment(turn.date_register)}
-          {(turn.date_register).format("HH:mm")}
-          {(turn.date_register)}
+          {/* {moment(turn.date_register).format("HH:mm")} */}
+    
+         
+           {(turn.date_register)} 
         </div>
         {turn.completed ? (
           <ng-container>
