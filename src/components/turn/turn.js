@@ -95,7 +95,7 @@ export default function Turn() {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       if (!responseTurn) {
-        toast.error("La hora de asignacion debe ser mayor a la actual", {
+        toast.error("La hora de asignacion debe ser mayor a la actual o a la ultima cita creada", {
           autoClose: 2000,
           position: toast.POSITION.TOP_CENTER,
         });
@@ -169,13 +169,13 @@ export default function Turn() {
 
   const handleDragEnd = async (event) => {
     try {
-      const turnNoScheuled = turns.filter((turn) => !turn.isSchedule);
+      const turnNoSchedule = turns.filter((turn) => !turn.isSchedule);
       const { active, over } = event;
-      const oldIndex = turnNoScheuled.findIndex((turn) => turn.id === active.id);
-      const newIndex = turnNoScheuled.findIndex((turn) => turn.id === over.id);
-      const turnSelected = turnNoScheuled.find((turn) => turn.id === active.id);
-      const oldTurn = turnNoScheuled.find((turn) => turn.id === over.id);
-      const arrayOrder = arrayMove(turnNoScheuled, oldIndex, newIndex);
+      const oldIndex = turns.findIndex((turn) => turn.id === active.id);
+      const newIndex = turns.findIndex((turn) => turn.id === over.id);
+      const turnSelected = turns.find((turn) => turn.id === active.id);
+      const oldTurn = turns.find((turn) => turn.id === over.id);
+      const arrayOrder = arrayMove(turnNoSchedule, oldIndex, newIndex);
       if (oldIndex === newIndex) {
         return;
       }
