@@ -146,6 +146,8 @@ export default function Turn() {
   const completeTurn = async (turn) => {
     if (!turn.completed) {
       let dateRegister = new Date(turn.date_register);
+      dateRegister.setHours(dateRegister.getHours() + 5);
+
       const currentDate = new Date();
       if (dateRegister < currentDate) {
         const idStatus = turn.id;
