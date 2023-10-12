@@ -2,10 +2,20 @@ import "./homework.css";
 import moment from "moment";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { useEffect, useState } from "react";
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
+
+    const [dateMoment, setDateMoment] = useState(null);
+
+    useEffect(() => {
+      const dateTurn = new Date(turn.date_register);
+      const date = moment(dateTurn);
+      setDateMoment(date.format('HH:mm'));
+
+    }, [turn]);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -35,7 +45,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
           {/* {moment(turn.date_register).format("HH:mm")} */}
     
          
-           {(turn.date_register)} 
+           {(dateMoment)} 
         </div>
         {turn.completed ? (
           <ng-container>
