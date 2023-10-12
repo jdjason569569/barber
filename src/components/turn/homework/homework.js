@@ -13,6 +13,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
   useEffect(() => {
     let fecha = new Date(turn.date_register);
+    fecha.setHours(fecha.getHours() + 5);
     var horas = fecha.getHours();
     var minutos = fecha.getMinutes();
     var horaFormateada = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
