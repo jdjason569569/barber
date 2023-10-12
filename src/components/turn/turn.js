@@ -169,12 +169,13 @@ export default function Turn() {
 
   const handleDragEnd = async (event) => {
     try {
+      const turnNoScheuled = turns.filter((turn) => !turn.isSchedule);
       const { active, over } = event;
-      const oldIndex = turns.findIndex((turn) => turn.id === active.id);
-      const newIndex = turns.findIndex((turn) => turn.id === over.id);
-      const turnSelected = turns.find((turn) => turn.id === active.id);
-      const oldTurn = turns.find((turn) => turn.id === over.id);
-      const arrayOrder = arrayMove(turns, oldIndex, newIndex);
+      const oldIndex = turnNoScheuled.findIndex((turn) => turn.id === active.id);
+      const newIndex = turnNoScheuled.findIndex((turn) => turn.id === over.id);
+      const turnSelected = turnNoScheuled.find((turn) => turn.id === active.id);
+      const oldTurn = turnNoScheuled.find((turn) => turn.id === over.id);
+      const arrayOrder = arrayMove(turnNoScheuled, oldIndex, newIndex);
       if (oldIndex === newIndex) {
         return;
       }
@@ -237,13 +238,14 @@ export default function Turn() {
   };
 
   const postponeTurns = async () => {
-    if (turns.length > 0) {
+    const turnNoScheuled = turns.filter((turn) => !turn.isSchedule);
+    if (turnNoScheuled.length > 0) {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(turns),
+        body: JSON.stringify(turnNoScheuled),
       });
       const responseUpdateTask = updateArray.json();
       setTurnResponse(responseUpdateTask);
