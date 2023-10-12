@@ -13,6 +13,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
     useEffect(() => {
       const date = moment(turn.date_register).tz('America/Bogota');
+      console.log("date ", date.format('HH:mm'));
       setDateMoment(date.format('HH:mm'));
 
     }, [turn]);
