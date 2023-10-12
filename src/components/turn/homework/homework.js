@@ -3,6 +3,7 @@ import moment from "moment";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
+import 'moment-timezone'; 
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -12,7 +13,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
     useEffect(() => {
       const dateTurn = new Date(turn.date_register);
-      const date = moment(dateTurn);
+      const date = moment(dateTurn).tz('America/Bogota');
       setDateMoment(date.format('HH:mm'));
 
     }, [turn]);
