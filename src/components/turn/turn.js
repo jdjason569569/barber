@@ -95,10 +95,13 @@ export default function Turn() {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       if (!responseTurn) {
-        toast.error("La hora de asignacion debe ser mayor a la actual o a la ultima cita creada", {
-          autoClose: 2000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(
+          "La hora de asignacion debe ser mayor a la actual o a la ultima cita creada",
+          {
+            autoClose: 2000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
       } else {
         toast.success("Agregaste un turno", {
           autoClose: 1000,
@@ -142,10 +145,8 @@ export default function Turn() {
 
   const completeTurn = async (turn) => {
     if (!turn.completed) {
-
       let dateRegister = new Date(turn.date_register);
-      dateRegister.setHours(dateRegister.getHours() + 5);
-
+      //dateRegister.setHours(dateRegister.getHours() + 5);
 
       const currentDate = new Date();
       if (dateRegister < currentDate) {
@@ -230,13 +231,12 @@ export default function Turn() {
             position: toast.POSITION.TOP_CENTER,
           });
         }
-      }else{
+      } else {
         toast.error("No puedes mover una tarjeta creada manualmente", {
           autoClose: 1000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
-      
     } catch (error) {
       console.log(error);
     }
