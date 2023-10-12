@@ -3,20 +3,22 @@ import moment from "moment";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
-import 'moment-timezone'; 
+import "moment-timezone";
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
-    const [dateMoment, setDateMoment] = useState(null);
+  const [dateMoment, setDateMoment] = useState(null);
 
-    useEffect(() => {
-      const date = moment(turn.date_register).tz('America/Bogota');
-      console.log("date ", date.format('HH:mm'));
-      setDateMoment(date.format('HH:mm'));
-
-    }, [turn]);
+  useEffect(() => {
+    let fecha = new Date(turn.date_register);
+    var horas = fecha.getHours();
+    var minutos = fecha.getMinutes();
+    var horaFormateada = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
+   
+    setDateMoment(horaFormateada);
+  }, [turn]);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -36,7 +38,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>
           {turn.isSchedule ? (
-           <span className="material-symbols-rounded icons">schedule</span>
+            <span className="material-symbols-rounded icons">schedule</span>
           ) : (
             turn.order
           )}
@@ -44,9 +46,8 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">
           {/* {moment(turn.date_register).format("HH:mm")} */}
-    
-         
-           {(dateMoment)} 
+
+          {dateMoment}
         </div>
         {turn.completed ? (
           <ng-container>
