@@ -13,6 +13,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
+    console.log("process.env.ZONE ", process.env.ZONE);
     currentDate.setHours(currentDate.getHours() + parseInt(process.env.ZONE));
     var horas = currentDate.getHours();
     var minutos = currentDate.getMinutes();

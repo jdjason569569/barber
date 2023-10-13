@@ -1,7 +1,6 @@
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popupAddTurn.css";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function PopupAddTurn({ upPopup, addTurn }) {
   const apiUrl = process.env.REACT_APP_API;
