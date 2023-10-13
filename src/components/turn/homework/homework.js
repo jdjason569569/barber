@@ -9,7 +9,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
-    ZONE =  process.env.ZONE;
+   const ZONE =  process.env.ZONE;
 
   const [dateMoment, setDateMoment] = useState(null);
 
