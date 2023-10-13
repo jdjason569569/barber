@@ -12,9 +12,10 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const [dateMoment, setDateMoment] = useState(null);
 
   useEffect(() => {
-    let fecha = new Date(turn.date_register);
-    var horas = fecha.getHours();
-    var minutos = fecha.getMinutes();
+    let currentDate = new Date(turn.date_register);
+    currentDate.setHours(currentDate.getHours() + parseInt(process.env.ZONE));
+    var horas = currentDate.getHours();
+    var minutos = currentDate.getMinutes();
     var horaFormateada = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
    
     setDateMoment(horaFormateada);
