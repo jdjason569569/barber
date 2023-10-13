@@ -9,18 +9,18 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
-   const ZONE =  process.env.ZONE;
-
   const [dateMoment, setDateMoment] = useState(null);
+  
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
-    console.log("process.env.ZONE ", ZONE);
-    currentDate.setHours(currentDate.getHours() + parseInt(ZONE));
     var horas = currentDate.getHours();
     var minutos = currentDate.getMinutes();
-    var horaFormateada = horas.toString().padStart(2, '0') + ':' + minutos.toString().padStart(2, '0');
-   
+    var horaFormateada =
+      horas.toString().padStart(2, "0") +
+      ":" +
+      minutos.toString().padStart(2, "0");
+
     setDateMoment(horaFormateada);
   }, [turn]);
 

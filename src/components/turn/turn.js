@@ -24,6 +24,8 @@ import PopupAddTurn from "../modal/popupAddTurn";
 export default function Turn() {
   const [turns, setTurns] = useState([]);
   const apiUrl = process.env.REACT_APP_API;
+
+
   const [isLoading, setIsLoading] = useState(false);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turnResponse, setTurnResponse] = useState(null);
