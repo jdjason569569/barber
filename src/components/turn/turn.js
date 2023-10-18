@@ -43,6 +43,7 @@ export default function Turn() {
   }, [apiUrl]);
 
   useEffect(() => {
+    console.log("showPoppup ",showPoppup);
     const getturnById = async () => {
       try {
         setIsLoading(true);
@@ -67,7 +68,7 @@ export default function Turn() {
       }
     };
     getCustomers();
-  }, [idFirebaseUser, turnResponse, apiUrl]);
+  }, [idFirebaseUser, turnResponse, apiUrl, showPoppup]);
 
   /**
    * Allow save turn by user
@@ -292,6 +293,10 @@ export default function Turn() {
     setSearchCustomers(resultadosFiltrados);
   };
 
+  const showPoppupMethod = ()=>{
+    setShowPoppup(false)
+  }
+
   return (
     <>
       <ToastContainer />
@@ -327,13 +332,13 @@ export default function Turn() {
             Aplazar turnos (10 min)
           </button>
           <button
-            className="btn-sm rounded create-turn"
-            onMouseDown={() => setShowPoppup(true)}
+            className="btn-sm rounded style-schedule-button"
+            onClick={() => setShowPoppup(true)}
           >
-            agregar horario
+            Agregar horario
           </button>
           {showPoppup && (
-            <PopupAddTurn addTurn={addTurn} upPopup={showPoppup}></PopupAddTurn>
+            <PopupAddTurn addTurn={addTurn} upPopup={showPoppup}  showPoppupMethod={showPoppupMethod}></PopupAddTurn>
           )}
         </div>
         <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
@@ -373,7 +378,7 @@ export default function Turn() {
               </div>
             )}
           </div>
-        </DndContext>
+        </DndContext> 
       </div>
     </>
   );

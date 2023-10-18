@@ -23,17 +23,26 @@
 .conatiner-search {
   margin-left: 5%;
   margin-right: 5%;
+  height: 170px;
 }
 
 .hold-over-botton {
   background: var(--red-color);
   border: none;
   color: var(--white-color);
-  margin-top: 4%;
-  margin-bottom: 8%;
+  margin-top: 1%;
+  margin-bottom: 2%;
   width: 70%;
   margin-left: 5%;
   box-shadow: 2px 2px 5px 1px gray;
+}
+
+.style-schedule-button{
+  background: var(--blue-color);
+  border: none;
+  color: var(--white-color);
+  box-shadow: 2px 2px 5px 1px gray;
+  padding: 2px;
 }
 
 .turn-component {

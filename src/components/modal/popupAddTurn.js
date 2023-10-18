@@ -2,7 +2,7 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popupAddTurn.css";
 import { useState, useEffect } from "react";
 
-export default function PopupAddTurn({ upPopup, addTurn }) {
+export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
   const apiUrl = process.env.REACT_APP_API;
   const [input, setInput] = useState({
     id_customer: null,
@@ -15,6 +15,7 @@ export default function PopupAddTurn({ upPopup, addTurn }) {
   const [customers, setCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
   const [searchCustomers, setSearchCustomers] = useState([]);
+  const [showPopPup, setshowPopPup] = useState(upPopup);
 
   useEffect(() => {
     const getCustomers = async () => {
@@ -96,10 +97,14 @@ export default function PopupAddTurn({ upPopup, addTurn }) {
     return customers.find((customer) => customer.name === name);
   };
 
+  const showPoppup = (value) => {
+    return showPoppupMethod(value);
+  };
+
   return (
     <>
-      <Modal className="content" isOpen={upPopup}>
-        <ModalHeader>Agregar con un horario especifico</ModalHeader>
+      <Modal className="content" isOpen={showPopPup}>
+        <ModalHeader>Agregar un horario especifico</ModalHeader>
         <ModalBody>
           <select
             className="form-select form-select-active"
@@ -147,6 +152,12 @@ export default function PopupAddTurn({ upPopup, addTurn }) {
               className="btn-sm rounded create-turn"
             >
               Asignar turno
+            </button>
+            <button
+              className="btn-sm rounded cancel-turn"
+              onMouseDown={() => showPoppup(false)}
+            >
+              Cancelar
             </button>
           </form>
         </ModalBody>
