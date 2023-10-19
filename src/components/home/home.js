@@ -13,8 +13,9 @@ import Customer from "../customer/customer";
 export default function Home({ name }) {
   const navigate = useNavigate();
   const [option, setOption] = useState("createTurn");
-  const [t, setT] = useState(true);
+  const [turn, setTurn] = useState(true);
   const [customer, setCustomer] = useState(false);
+  const [stats, setStats] = useState(false);
   const [title, setTitle] = useState("Gestion de Turnos");
 
   const exit = () => {
@@ -26,16 +27,21 @@ export default function Home({ name }) {
     switch (option) {
       case "createTurn":
         setTitle("Gestion de Turnos");
-        setT(true);
+        setTurn(true);
         setCustomer(false);
+        setStats(false);
        break;
       case "createCustomer":
         setTitle("Clientes");
-        setT(false);
+        setTurn(false);
         setCustomer(true);
+        setStats(false);
         break;
       case "seeStats":
         setTitle("Estadisticas");
+        setTurn(false);
+        setCustomer(false);
+        setStats(true);
         break;
       
     }
@@ -66,13 +72,13 @@ export default function Home({ name }) {
             add
           </span>
           <span
-            className={`material-symbols-rounded ${t ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
+            className={`material-symbols-rounded ${turn ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
             onClick={() => changeView("createTurn")}
           >
             assignment_turned_in
           </span>
           <span
-            className="material-symbols-rounded turn-botton"
+             className={`material-symbols-rounded ${stats ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
             onClick={() => changeView("seeStats")}
           >
             query_stats
