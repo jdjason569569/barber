@@ -15,6 +15,7 @@ export default function Home({ name }) {
   const [option, setOption] = useState("createTurn");
   const [t, setT] = useState(true);
   const [customer, setCustomer] = useState(false);
+  const [title, setTitle] = useState("Gestion de Turnos");
 
   const exit = () => {
     navigate("/");
@@ -24,14 +25,17 @@ export default function Home({ name }) {
   const changeView = (option) => {
     switch (option) {
       case "createTurn":
+        setTitle("Gestion de Turnos");
         setT(true);
         setCustomer(false);
        break;
       case "createCustomer":
+        setTitle("Clientes");
         setT(false);
         setCustomer(true);
         break;
       case "seeStats":
+        setTitle("Estadisticas");
         break;
       
     }
@@ -54,9 +58,6 @@ export default function Home({ name }) {
   return (
     <>
       <div className="container-home">
-        <div>
-          <h4>{name ? `Bienvenido  ${name}` : "Inicia session"}</h4>
-        </div>
         <div className="container-options">
           <span
             className={`material-symbols-rounded ${customer ? 'turn-botton turn-botton-selected' : 'turn-botton'}`}
@@ -82,6 +83,7 @@ export default function Home({ name }) {
             </span>
           )}
         </div>
+        <div className="style-text-title">{title}</div>
       </div>
       <div className="container-render">{componentRender()}</div>
     </>

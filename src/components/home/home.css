@@ -10,12 +10,19 @@
     justify-content: center;
     box-shadow: 2px 2px 5px 1px gray;
     padding: 4%;
+    position: relative;
 }
 
 .container-options{
     display: flex;
     flex-direction: row;
     gap: 20px;
+}
+.style-text-title{
+    margin-top: 10px;
+    font-size: 20px;
+    color: var(--blue-color);
+    font-weight: bolder;
 }
 
 .container-render{
