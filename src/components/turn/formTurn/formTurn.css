@@ -3,15 +3,12 @@
     border-radius: 20px;
     box-shadow: 2px 2px 5px 1px gray;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 80%;
-    margin-left: 10%;
-    padding: 2%
+    width: 100%;
+    margin: 0 auto;
 }
 
 .turn-input{
-    width: 350px;
+    width: 80%;
     font-size: 18px;
     background-color: var(--white-color);
     border-radius: 10px;

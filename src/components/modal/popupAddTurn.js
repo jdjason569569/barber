@@ -15,7 +15,6 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
   const [customers, setCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
   const [searchCustomers, setSearchCustomers] = useState([]);
-  const [showPopPup, setshowPopPup] = useState(upPopup);
 
   useEffect(() => {
     const getCustomers = async () => {
@@ -103,7 +102,7 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
 
   return (
     <>
-      <Modal className="content" isOpen={showPopPup}>
+      <Modal className="content" isOpen={upPopup}>
         <ModalHeader>Agregar un horario especifico</ModalHeader>
         <ModalBody>
           <select

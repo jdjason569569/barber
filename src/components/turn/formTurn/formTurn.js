@@ -55,8 +55,6 @@ export default function Formturn({ addTurn, customer, schedule }) {
     setInput({ ...input, phone: event.target.value });
   };
 
-  
-
   return (
     <form className="turn-form" onSubmit={handleSend}>
       {schedule ? <h5>Crea un cliente</h5> : <h5>Agenda y crea un cliente</h5>}
