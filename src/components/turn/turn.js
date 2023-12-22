@@ -244,14 +244,14 @@ export default function Turn() {
   };
 
   const postponeTurns = async () => {
-    const turnNoScheuled = turns.filter((turn) => !turn.isSchedule);
-    if (turnNoScheuled.length > 0) {
+    const turnNoSchedule = turns.filter((turn) => !turn.isSchedule && !turn.completed);
+    if (turnNoSchedule.length > 0) {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(turnNoScheuled),
+        body: JSON.stringify(turnNoSchedule),
       });
       const responseUpdateTask = updateArray.json();
       setTurnResponse(responseUpdateTask);
