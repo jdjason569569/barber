@@ -26,7 +26,7 @@ export default function Formturn({ addTurn, customer, schedule }) {
 
   const validatePhoneNumber = (phone) => {
     const numeric = /^\d{10}$/;
-    return numeric.test(phone) ? true : false;
+    return numeric.test(parseInt(phone)) ? true : false;
   };
 
   const handleSend = (e) => {
@@ -49,9 +49,11 @@ export default function Formturn({ addTurn, customer, schedule }) {
   };
 
   const handleName = (event) => {
+    console.log("handle name ",event.target.value);
     setInput({ ...input, name: event.target.value });
   };
   const handlePhone = (event) => {
+    console.log("handle phone ",event.target.value);
     setInput({ ...input, phone: event.target.value });
   };
 
