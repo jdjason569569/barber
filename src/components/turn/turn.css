@@ -54,11 +54,11 @@
   border-radius: 20px;
   border: solid 2px var(--blue-color);
   display: flex;
-  height: 35vh;
+  height: 50vh;
   flex-direction: column;
-  margin: 5%;
+  margin: 2%;
   overflow-y: scroll;
-  padding-right: 15%;
+  padding-right: 10%;
   position: relative;
 }
 
@@ -90,7 +90,7 @@
 
 .arrow-container {
   position: absolute;
-  right: 40px;
+  right: 20px;
   margin-top: 40%;
 }
 
