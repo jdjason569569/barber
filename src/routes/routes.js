@@ -22,11 +22,11 @@ export function MyRoutes() {
     return (
          <Router>
              <Routes>
-                 <Route exact path='/' element={<Login />}></Route>
+                 <Route  path='/' element={<Login />}></Route>
                  <Route element={<ProtectedRoute name={userName} />}>
-                     <Route exact path='/home' element={<Home name={userName} />}></Route>
+                     <Route  path='/home' element={<Home name={userName} />}></Route>
                  </Route>
-                 <Route exact path='/signup'  element={<SignUp />}></Route>
+                 <Route  path='/signup'  element={<SignUp />}></Route>
              </Routes>
          </Router>
     );
