@@ -52,6 +52,7 @@ export default function SignUp() {
         });
         if(response){
           navigate("/");
+          return auth.signOut();
         }
       }
     } catch (error) {
