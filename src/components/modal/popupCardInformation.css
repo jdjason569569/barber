@@ -1,0 +1,26 @@
+.content {
+  margin-top: 5px;
+  display: flex;
+}
+
+.icon-completed {
+  width: 20px;
+  height: 20px;
+  background-color: var(--green-color);
+}
+
+.icon-scheduled {
+  width: 20px;
+  height: 20px;
+  background-color: var(--orange-color);
+}
+
+.icon-avaliable {
+  width: 20px;
+  height: 20px;
+  background-color: var(--red-color);
+}
+
+.information {
+    width: 80%;
+}

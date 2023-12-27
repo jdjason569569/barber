@@ -61,9 +61,6 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
             >
               check
             </span>
-            <span className="material-symbols-rounded icons">
-              delete_forever
-            </span>
           </ng-container>
         ) : (
           <ng-container>

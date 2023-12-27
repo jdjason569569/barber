@@ -20,11 +20,11 @@ import {
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
+import PopupCardInformation from "../modal/popupCardInformation";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
   const apiUrl = process.env.REACT_APP_API;
-
 
   const [isLoading, setIsLoading] = useState(false);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
@@ -35,6 +35,7 @@ export default function Turn() {
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
   const [showPoppup, setShowPoppup] = useState(false);
+  const [showPoppupInfo, setShowPoppupInfo] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -43,7 +44,6 @@ export default function Turn() {
   }, [apiUrl]);
 
   useEffect(() => {
-    console.log("showPoppup ",showPoppup);
     const getturnById = async () => {
       try {
         setIsLoading(true);
@@ -244,7 +244,9 @@ export default function Turn() {
   };
 
   const postponeTurns = async () => {
-    const turnNoSchedule = turns.filter((turn) => !turn.isSchedule && !turn.completed);
+    const turnNoSchedule = turns.filter(
+      (turn) => !turn.isSchedule && !turn.completed
+    );
     if (turnNoSchedule.length > 0) {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
@@ -293,9 +295,12 @@ export default function Turn() {
     setSearchCustomers(resultadosFiltrados);
   };
 
-  const showPoppupMethod = ()=>{
-    setShowPoppup(false)
-  }
+  const showPoppupMethod = () => {
+    setShowPoppup(false);
+  };
+  const showPoppupMethodInfo = () => {
+    setShowPoppupInfo(false);
+  };
 
   return (
     <>
@@ -338,7 +343,24 @@ export default function Turn() {
             Agregar horario
           </button>
           {showPoppup && (
-            <PopupAddTurn addTurn={addTurn} upPopup={showPoppup}  showPoppupMethod={showPoppupMethod}></PopupAddTurn>
+            <PopupAddTurn
+              addTurn={addTurn}
+              upPopup={showPoppup}
+              showPoppupMethod={showPoppupMethod}
+            ></PopupAddTurn>
+          )}
+
+          <button
+            className="btn-sm rounded style-schedule-button"
+            onClick={() => setShowPoppupInfo(true)}
+          >
+            ver info
+          </button>
+          {showPoppupInfo && (
+            <PopupCardInformation
+              upPopup={showPoppupInfo}
+              showPoppupMethodInfo={showPoppupMethodInfo}
+            ></PopupCardInformation>
           )}
         </div>
         <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
@@ -378,7 +400,7 @@ export default function Turn() {
               </div>
             )}
           </div>
-        </DndContext> 
+        </DndContext>
       </div>
     </>
   );
