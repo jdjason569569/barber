@@ -363,7 +363,7 @@ export default function Turn() {
             ></PopupCardInformation>
           )}
         </div>
-        <FormTurn addTurn={addTurn} schedule={false}></FormTurn>
+        {/* <FormTurn addTurn={addTurn} schedule={false}></FormTurn> */}
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}

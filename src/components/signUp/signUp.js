@@ -29,7 +29,6 @@ export default function SignUp() {
       setError("Diligencie todos los campos");
       return;
     }
-    setError("");
     try {
       const responseRegister = await createUserWithEmailAndPassword(
         auth,
@@ -41,7 +40,7 @@ export default function SignUp() {
         displayName: values.name,
       });
       if (apiUrl) {
-        await fetch(`${apiUrl}/user`, {
+       const response =  await fetch(`${apiUrl}/user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -51,12 +50,14 @@ export default function SignUp() {
             email: values.email,
           }),
         });
+        if(response){
+          navigate("/");
+        }
       }
     } catch (error) {
       // console.log(error);
     }
-    navigate("/");
-    await auth.signOut();
+   
   };
 
   return (
