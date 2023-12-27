@@ -26,7 +26,7 @@ export function MyRoutes() {
                  <Route element={<ProtectedRoute name={userName} />}>
                      <Route  path='/home' element={<Home name={userName} />}></Route>
                  </Route>
-                 <Route  path='/signup'  element={<SignUp />}></Route>
+                 <Route exact path='/signup'  element={<SignUp />}></Route>
              </Routes>
          </Router>
     );
