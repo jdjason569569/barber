@@ -36,10 +36,10 @@ export default function SignUp() {
         values.pass
       );
       const user = responseRegister.user;
-      await updateProfile(user, {
+      const responseUpdate = await updateProfile(user, {
         displayName: values.name,
       });
-      if (apiUrl) {
+      if (responseUpdate && apiUrl) {
        const response =  await fetch(`${apiUrl}/user`, {
           method: "POST",
           headers: {
