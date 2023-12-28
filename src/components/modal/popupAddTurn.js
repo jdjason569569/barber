@@ -73,7 +73,6 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
       const response = await respGetUserById.json();
       return response.id_users;
     } catch (error) {
-      console.error("Error al parsear la respuesta JSON:", error);
       return null;
     }
   };
