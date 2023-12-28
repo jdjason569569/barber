@@ -26,10 +26,18 @@ export default function Customer() {
     const getCustomers = async () => {
       try {
         setIsLoading(true);
-        const responseCutomers = await fetch(`${apiUrl}/customer`);
-        const responseCustomersJson = await responseCutomers.json();
-        setCustomers(responseCustomersJson);
-        setIsLoading(false);
+        const idUser = await getUserById();
+        if (idUser) {
+          const responseCutomers = await fetch(
+            `${apiUrl}/customer/byuser/${idUser}`
+          );
+          const responseCustomersJson = await responseCutomers.json();
+          setCustomers(responseCustomersJson);
+          setIsLoading(false);
+        } else {
+          setCustomers([]);
+          setIsLoading(false);
+        }
       } catch (error) {
         //console.error(error);
       }
@@ -87,8 +95,20 @@ export default function Customer() {
 
   const updateCustomer = async (customer) => {
     const id = customer.id_customer;
-    const responseUpateTurn = await fetch(
-      `${apiUrl}/customer/${id}`,
+    const responseUpateTurn = await fetch(`${apiUrl}/customer/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(customer),
+    });
+    return await responseUpateTurn.json();
+  };
+
+  const disableCustomer = async (customer) => {
+    const id = customer.id_customer;
+    const responseDisableCustomer = await fetch(
+      `${apiUrl}/customer/disable/${id}`,
       {
         method: "PUT",
         headers: {
@@ -97,49 +117,55 @@ export default function Customer() {
         body: JSON.stringify(customer),
       }
     );
-    return await responseUpateTurn.json();
-  };
-
-  const deleteCustomer = async (id) => {
-    try {
-      const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const responseDeleteCustomer = await deleteCustomer.json();
-      const response = {
-        value: responseDeleteCustomer,
-      };
-      setCustomerResponse(response);
-      responseDeleteCustomer.statusCode !== 500
-        ? toast.error("Eliminaste un cliente", {
-            autoClose: 1000,
-            position: toast.POSITION.TOP_CENTER,
-          })
-        : toast.error(
-            "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
-            {
-              autoClose: 5000,
-              position: toast.POSITION.TOP_CENTER,
-            }
-          );
-    } catch (error) {
-      toast.error(
-        "Hubo un error, puede eliminarlo si no tiene turnos asignados",
-        {
-          autoClose: 1000,
-          position: toast.POSITION.TOP_CENTER,
-        }
-      );
+    if (responseDisableCustomer) {
+      setCustomerResponse(responseDisableCustomer);
     }
   };
 
+  // const deleteCustomer = async (id) => {
+  //   try {
+  //     const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const responseDeleteCustomer = await deleteCustomer.json();
+  //     const response = {
+  //       value: responseDeleteCustomer,
+  //     };
+  //     setCustomerResponse(response);
+  //     responseDeleteCustomer.statusCode !== 500
+  //       ? toast.error("Eliminaste un cliente", {
+  //           autoClose: 1000,
+  //           position: toast.POSITION.TOP_CENTER,
+  //         })
+  //       : toast.error(
+  //           "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
+  //           {
+  //             autoClose: 5000,
+  //             position: toast.POSITION.TOP_CENTER,
+  //           }
+  //         );
+  //   } catch (error) {
+  //     toast.error(
+  //       "Hubo un error, puede eliminarlo si no tiene turnos asignados",
+  //       {
+  //         autoClose: 1000,
+  //         position: toast.POSITION.TOP_CENTER,
+  //       }
+  //     );
+  //   }
+  // };
+
   const getUserById = async () => {
-    const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
-    const response = await respGetUserById.json();
-    return response.id_users;
+    try {
+      const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
+      const response = await respGetUserById.json();
+      return response.id_users;
+    } catch (error) {
+      return null;
+    }
   };
 
   return (
@@ -172,7 +198,7 @@ export default function Customer() {
                       </span>
                       <span
                         className="material-symbols-rounded"
-                        onMouseDown={() => deleteCustomer(customer.id_customer)}
+                        onMouseDown={() => disableCustomer(customer)}
                       >
                         delete
                       </span>

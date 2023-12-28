@@ -59,10 +59,15 @@ export default function Turn() {
 
     const getCustomers = async () => {
       try {
-        const responseCutomers = await fetch(`${apiUrl}/customer`);
-        const responseCustomersJson = await responseCutomers.json();
-        setCustomers(responseCustomersJson);
-        setSearchCustomers(responseCustomersJson);
+        const idUser = await getUserById();
+        if(idUser){
+          const responseCutomers = await fetch(`${apiUrl}/customer/byuser/${idUser}`);
+          const responseCustomersJson = await responseCutomers.json();
+          setCustomers(responseCustomersJson);
+          setSearchCustomers(responseCustomersJson);
+        }else {
+          setCustomers([]);
+        }
       } catch (error) {
         //console.error(error);
       }
@@ -123,9 +128,13 @@ export default function Turn() {
    * Allow return an user by firebase code
    */
   const getUserById = async () => {
-    const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
-    const response = await respGetUserById.json();
-    return response.id_users;
+    try {
+      const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
+      const response = await respGetUserById.json();
+      return response.id_users;
+    } catch (error) {
+      return null;
+    }
   };
 
   const deleteTurn = async (id) => {

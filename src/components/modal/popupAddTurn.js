@@ -1,3 +1,5 @@
+import { auth } from "../../firebase";
+
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popupAddTurn.css";
 import { useState, useEffect } from "react";
@@ -15,14 +17,27 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
   const [customers, setCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
   const [searchCustomers, setSearchCustomers] = useState([]);
+  const [idFirebaseUser, setIdFirebaseUser] = useState(null);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      user ? setIdFirebaseUser(user.uid) : setIdFirebaseUser(null);
+    });
+  }, [apiUrl]);
 
   useEffect(() => {
     const getCustomers = async () => {
       try {
-        const responseCutomers = await fetch(`${apiUrl}/customer`);
-        const responseCustomersJson = await responseCutomers.json();
-        setCustomers(responseCustomersJson);
-        setSearchCustomers(responseCustomersJson);
+        const idUser = await getUserById();
+        if(idUser){
+          const responseCutomers = await fetch(`${apiUrl}/customer/byuser/${idUser}`);
+          const responseCustomersJson = await responseCutomers.json();
+          setCustomers(responseCustomersJson);
+          setSearchCustomers(responseCustomersJson);
+        }else {
+          setCustomers([]);
+        }
+        
       } catch (error) {
         //console.error(error);
       }
@@ -49,6 +64,17 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
       addTurn(createTurn(), "turnCustomerSchedule");
       setInput({});
       setIsEnabledButton(true);
+    }
+  };
+
+  const getUserById = async () => {
+    try {
+      const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
+      const response = await respGetUserById.json();
+      return response.id_users;
+    } catch (error) {
+      console.error("Error al parsear la respuesta JSON:", error);
+      return null;
     }
   };
 
