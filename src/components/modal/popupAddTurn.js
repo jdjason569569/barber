@@ -34,8 +34,6 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setSearchCustomers(responseCustomersJson);
-        }else {
-          setCustomers([]);
         }
         
       } catch (error) {
@@ -43,7 +41,7 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
       }
     };
     getCustomers();
-  }, [apiUrl]);
+  }, [idFirebaseUser ,apiUrl]);
 
   useEffect(() => {
     if (input.name && input.phone && input.date_register) {
