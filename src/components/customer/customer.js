@@ -31,11 +31,10 @@ export default function Customer() {
           const responseCutomers = await fetch(
             `${apiUrl}/customer/byuser/${idUser}`
           );
-          const responseCustomersJson = await responseCutomers.json();
+          const responseCustomersJson  = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setIsLoading(false);
-        } else {
-          setCustomers([]);
+        } else{
           setIsLoading(false);
         }
       } catch (error) {

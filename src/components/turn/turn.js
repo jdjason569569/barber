@@ -1,7 +1,6 @@
 import { auth } from "../../firebase";
 
 import "./turn.css";
-import FormTurn from "./formTurn/formTurn";
 import { useEffect, useState } from "react";
 import Homeworks from "./homework/homework";
 import { ToastContainer, toast } from "react-toastify";
@@ -36,6 +35,7 @@ export default function Turn() {
   const [selectCustomer, setSelectCustomer] = useState("");
   const [showPoppup, setShowPoppup] = useState(false);
   const [showPoppupInfo, setShowPoppupInfo] = useState(false);
+  const [inputValueSearch, setInputValueSearch] = useState('');
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -55,10 +55,7 @@ export default function Turn() {
           const responseturnByUserJson = await responseturnByUser.json();
           setTurns(responseturnByUserJson);
           setIsLoading(false);
-        } else {
-          setCustomers([]);
-          setIsLoading(false);
-        }
+        } 
       } catch (error) {
         //console.error(error);
       }
@@ -75,8 +72,8 @@ export default function Turn() {
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setSearchCustomers(responseCustomersJson);
-        } else {
-          setCustomers([]);
+        } else{
+          setIsLoading(false);
         }
       } catch (error) {
         //console.error(error);
@@ -299,6 +296,8 @@ export default function Turn() {
     });
     if (!isValid) {
       addTurn(customer, "turn");
+      setSelectCustomer("");
+      setInputValueSearch("");
     } else {
       toast.warning("Ya existe un turno para este cliente", {
         autoClose: 1000,
@@ -307,7 +306,7 @@ export default function Turn() {
     }
   };
   const handleInputChange = (event) => {
-    //setBusqueda(event.target.value);
+    setInputValueSearch(event.target.value.toLowerCase());
     const resultadosFiltrados = customers.filter((customer) =>
       customer.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
@@ -330,6 +329,7 @@ export default function Turn() {
             <span className="title-client">Buscar cliente</span>
             <input
               type="text"
+              value={inputValueSearch}
               onChange={handleInputChange}
               aria-label="First name"
               className="form-control"
@@ -368,7 +368,6 @@ export default function Turn() {
               showPoppupMethod={showPoppupMethod}
             ></PopupAddTurn>
           )}
-
           <button
             className="btn-sm rounded style-schedule-button"
             onClick={() => setShowPoppupInfo(true)}
