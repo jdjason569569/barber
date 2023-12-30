@@ -47,10 +47,18 @@ export default function Turn() {
     const getturnById = async () => {
       try {
         setIsLoading(true);
-        const responseturnByUser = await fetch(`${apiUrl}/turns/turncustomer`);
-        const responseturnByUserJson = await responseturnByUser.json();
-        setTurns(responseturnByUserJson);
-        setIsLoading(false);
+        const idUser = await getUserById();
+        if (idUser) {
+          const responseturnByUser = await fetch(
+            `${apiUrl}/turns/turncustomer/${idUser}`
+          );
+          const responseturnByUserJson = await responseturnByUser.json();
+          setTurns(responseturnByUserJson);
+          setIsLoading(false);
+        } else {
+          setCustomers([]);
+          setIsLoading(false);
+        }
       } catch (error) {
         //console.error(error);
       }
@@ -60,12 +68,14 @@ export default function Turn() {
     const getCustomers = async () => {
       try {
         const idUser = await getUserById();
-        if(idUser){
-          const responseCutomers = await fetch(`${apiUrl}/customer/byuser/${idUser}`);
+        if (idUser) {
+          const responseCutomers = await fetch(
+            `${apiUrl}/customer/byuser/${idUser}`
+          );
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setSearchCustomers(responseCustomersJson);
-        }else {
+        } else {
           setCustomers([]);
         }
       } catch (error) {

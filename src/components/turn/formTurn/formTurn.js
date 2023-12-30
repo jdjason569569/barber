@@ -49,11 +49,9 @@ export default function Formturn({ addTurn, customer, schedule }) {
   };
 
   const handleName = (event) => {
-    console.log("handle name ",event.target.value);
     setInput({ ...input, name: event.target.value });
   };
   const handlePhone = (event) => {
-    console.log("handle phone ",event.target.value);
     setInput({ ...input, phone: event.target.value });
   };
 
@@ -75,6 +73,7 @@ export default function Formturn({ addTurn, customer, schedule }) {
         type="number"
         placeholder="Telefono"
         autoComplete="off"
+        min="10" 
         value={input.phone ?? ""}
         onChange={handlePhone}
       />
