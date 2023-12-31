@@ -49,34 +49,32 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">
-          {/* {moment(turn.date_register).format("HH:mm")} */}
-
           {dateMoment}
         </div>
         {turn.completed ? (
-          <ng-container>
+          <div className="icon-container">
             <span
-              className="material-symbols-rounded icons"
+              className="material-symbols-rounded style-bottom"
               onMouseDown={() => completeTurn(turn)}
             >
               check
             </span>
-          </ng-container>
+            </div>
         ) : (
-          <ng-container>
+          <div className="icon-container">
             <span
-              className="material-symbols-rounded icons"
+              className="material-symbols-rounded style-bottom"
               onMouseDown={() => completeTurn(turn)}
             >
               pending_actions
             </span>
             <span
-              className="material-symbols-rounded icons"
+              className="material-symbols-rounded style-bottom"
               onMouseDown={() => deleteTurn(id)}
             >
               delete
             </span>
-          </ng-container>
+            </div>
         )}
       </div>
     </div>

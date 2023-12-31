@@ -46,8 +46,17 @@
     background-color: var(--orange-color);;
 }
 
+.icon-container {
+    display: flex;
+    gap: 50%;
+    padding: 5%;
+    
+  }
 
-.icons {
-    margin: 2px;
-    padding: 3px;
-}
+  .style-bottom{
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 2px 2px 5px 1px ;
+  }
+
+

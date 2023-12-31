@@ -3,9 +3,9 @@
   }
 
 .customer-list-content{
-    background: var(--white-color);;
+    background: var(--white-color);
     border-radius: 20px;
-    border: solid 2px var(--blue-color);;
+    border: solid 2px var(--blue-color);
     display: flex;
     height: 60vh;
     flex-direction: column;
@@ -22,12 +22,12 @@
   align-items: center;
   background-color: var(--blue-color);
   border-radius: 7px;
-  border: 2px solid white;
+  border: 2px solid var(--white-color);
   cursor: pointer;
   color: var(--white-color);
   display: flex;
   justify-content: space-between;
-  padding: 3%;
+  padding: 6%;
   box-shadow: 2px 2px 5px 1px gray;
 }
 
@@ -38,27 +38,38 @@
 .customer-text {
   align-items: flex-start;
   display: flex;
+  position: relative;
   flex-direction: column;
   height: auto;
   justify-content: center;
+  margin-left: 5%;
 }
 
 .icon-container{
   display: flex;
-  gap: 20px;
+  gap: 50%;
+  margin-right: 10%;
+}
+
+.style-bottom{
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 2px 2px 5px 1px ;
 }
 
 
 .text-style-name{
-  color: white;
+  color: var(--white-color);
   font-weight: bolder;
   font-size: 20px;
 }
 
 .text-style-mail{
-  color: white;
+  color: var(--white-color);
   font-weight: bolder;
   font-size: 10px;
+  position: absolute;
+  top: 90%;
 }
 
 .customer-title {
