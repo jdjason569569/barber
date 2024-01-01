@@ -52,11 +52,11 @@ export default function Customer() {
         setCustomerResponse(responseCustomer);
         !responseCustomer
           ? toast.error("Error al actualizar un cliente", {
-              autoClose: 1000,
+              autoClose: 5000,
               position: toast.POSITION.TOP_CENTER,
             })
           : toast.success("Actualizaste un cliente", {
-              autoClose: 1000,
+              autoClose: 5000,
               position: toast.POSITION.TOP_CENTER,
             });
         setCustomer(null);
@@ -65,11 +65,11 @@ export default function Customer() {
         setCustomerResponse(responseCustomer);
         !responseCustomer
           ? toast.error("Ya aexiste un cliente con el numero", {
-              autoClose: 1000,
+              autoClose: 5000,
               position: toast.POSITION.TOP_CENTER,
             })
           : toast.success("Agregaste un cliente", {
-              autoClose: 1000,
+              autoClose: 5000,
               position: toast.POSITION.TOP_CENTER,
             });
       }

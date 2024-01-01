@@ -29,14 +29,14 @@ export default function Login() {
    
     const authUser = async () => {
         if (!values.email || !values.pass) {
-            toast.error("Datos incompletos", { autoClose: 2000 }, { position: toast.POSITION.TOP_CENTER });
+            toast.error("Datos incompletos", { autoClose: 5000 }, { position: toast.POSITION.TOP_CENTER });
             return;
         }
         try {
             await signInWithEmailAndPassword(auth, values.email, values.pass);
             navigate("/home");
         }catch (error) { 
-            toast.error(error.message, { autoClose: 2000 }, { position: toast.POSITION.TOP_CENTER });
+            toast.error(error.message, { autoClose: 5000 }, { position: toast.POSITION.TOP_CENTER });
         }
     }
 
