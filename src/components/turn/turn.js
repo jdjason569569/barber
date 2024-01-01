@@ -113,19 +113,19 @@ export default function Turn() {
         toast.error(
           "La hora de asignacion debe ser mayor a la actual o a la ultima cita creada",
           {
-            autoClose: 2000,
+            autoClose: 5000,
             position: toast.POSITION.TOP_CENTER,
           }
         );
       } else {
         toast.success("Agregaste un turno", {
-          autoClose: 1000,
+          autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
     } else {
       toast.error("Comprueba el numero de telefono!", {
-        autoClose: 1000,
+        autoClose: 5000,
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -157,7 +157,7 @@ export default function Turn() {
     };
     setTurnResponse(response);
     toast.error("Eliminaste un turno", {
-      autoClose: 1000,
+      autoClose: 5000,
       position: toast.POSITION.TOP_CENTER,
     });
   };
@@ -178,12 +178,12 @@ export default function Turn() {
         });
         setTurnResponse(response);
         toast.success("Haz completado una cita", {
-          autoClose: 2000,
+          autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
         toast.error("Para completar la cita, de ser menor a la hora actual", {
-          autoClose: 2000,
+          autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
@@ -225,32 +225,32 @@ export default function Turn() {
                   const responseUpdateTask = updateArray.json();
                   setTurnResponse(responseUpdateTask);
                   toast.success("Haz movido un turno", {
-                    autoClose: 1000,
+                    autoClose: 5000,
                     position: toast.POSITION.TOP_CENTER,
                   });
                 }
               }
             } else {
               toast.error("No puedes mover un turno de arriba hacia abajo", {
-                autoClose: 1000,
+                autoClose: 5000,
                 position: toast.POSITION.TOP_CENTER,
               });
             }
           } else {
             toast.error("No puedes mover una tarjeta atendida", {
-              autoClose: 1000,
+              autoClose: 5000,
               position: toast.POSITION.TOP_CENTER,
             });
           }
         } else {
           toast.error("No puedes mover por encima de una tarjeta atendida", {
-            autoClose: 1000,
+            autoClose: 5000,
             position: toast.POSITION.TOP_CENTER,
           });
         }
       } else {
         toast.error("No puedes mover una tarjeta creada manualmente", {
-          autoClose: 1000,
+          autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
@@ -274,12 +274,12 @@ export default function Turn() {
       const responseUpdateTask = updateArray.json();
       setTurnResponse(responseUpdateTask);
       toast.success("Haz movido aplazado todos los turnos 10 minutos", {
-        autoClose: 1000,
+        autoClose: 5000,
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
       toast.error("No tienes turnos que aplazar", {
-        autoClose: 1000,
+        autoClose: 5000,
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -300,7 +300,7 @@ export default function Turn() {
       setInputValueSearch("");
     } else {
       toast.warning("Ya existe un turno para este cliente", {
-        autoClose: 1000,
+        autoClose: 5000,
         position: toast.POSITION.TOP_CENTER,
       });
     }

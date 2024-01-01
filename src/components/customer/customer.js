@@ -190,13 +190,13 @@ export default function Customer() {
                     </div>
                     <div className="icon-container">
                       <span
-                        className="material-symbols-rounded style-bottom"
+                        className="material-symbols-rounded"
                         onMouseDown={() => editCustomer(customer)}
                       >
                         edit
                       </span>
                       <span
-                        className="material-symbols-rounded style-bottom"
+                        className="material-symbols-rounded"
                         onMouseDown={() => disableCustomer(customer)}
                       >
                         delete
