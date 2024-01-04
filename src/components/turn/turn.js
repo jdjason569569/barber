@@ -167,12 +167,17 @@ export default function Turn() {
 
   const completeTurn = async (turn) => {
     if (!turn.completed) {
+      //local
       //let dateRegister = new Date(turn.date_register);
-      let dateRegister = moment.tz(turn.date_register, 'UTC');
+      //SERVER
+      let dateRegister = new Date(turn.date_register);
+      const dateRegisterISOString = dateRegister.toISOString();
+      const dateRegisterFromISO = new Date(dateRegisterISOString);
+      
 
     
       const currentDate = new Date();
-      if (dateRegister < currentDate) {
+      if (dateRegisterFromISO < currentDate) {
         const idStatus = turn.id;
         turn.completed = !turn.completed;
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
