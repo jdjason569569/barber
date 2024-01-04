@@ -166,7 +166,7 @@ export default function Turn() {
 
   const completeTurn = async (turn) => {
     if (!turn.completed) {
-      let dateRegister = new Date(turn.date_register);
+      let dateRegister = new Date(turn.date_register).toUTCString();
       const currentDate = new Date();
       if (dateRegister < currentDate) {
         const idStatus = turn.id;
