@@ -21,6 +21,7 @@ import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
 import PopupCardInformation from "../modal/popupCardInformation";
 import PopupCreateTurn from "../modal/popupCreateTurn";
+import moment from 'moment-timezone';
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -166,10 +167,12 @@ export default function Turn() {
 
   const completeTurn = async (turn) => {
     if (!turn.completed) {
-      let dateRegister = new Date(turn.date_register);
-      const dateRegisterUtc = moment.utc(dateRegister);
+      //let dateRegister = new Date(turn.date_register);
+      let dateRegister = moment.tz(turn.date_register, 'UTC');
+
+    
       const currentDate = new Date();
-      if (dateRegisterUtc < currentDate) {
+      if (dateRegister < currentDate) {
         const idStatus = turn.id;
         turn.completed = !turn.completed;
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
@@ -288,28 +291,28 @@ export default function Turn() {
     }
   };
 
-  const handleChange = (event) => {
-    setSelectCustomer(event.target.value);
-    const customer = customers.find((customer) => {
-      return customer.name === event.target.value;
-    });
-    console.log("Customer ",customer);
+  // const handleChange = (event) => {
+  //   setSelectCustomer(event.target.value);
+  //   const customer = customers.find((customer) => {
+  //     return customer.name === event.target.value;
+  //   });
+  //   console.log("Customer ",customer);
 
-    const isValid = turns.find((turn) => {
-      return turn.customer.phone === customer.phone;
-    });
-    if (!isValid) {
-      setShowPoppupCreateTurn(true);
-      // addTurn(customer, "turn");
-      // setSelectCustomer("");
-      // setInputValueSearch("");
-    } else {
-      toast.warning("Ya existe un turno para este cliente", {
-        autoClose: 5000,
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-  };
+  //   const isValid = turns.find((turn) => {
+  //     return turn.customer.phone === customer.phone;
+  //   });
+  //   if (!isValid) {
+  //     setShowPoppupCreateTurn(true);
+  //     // addTurn(customer, "turn");
+  //     // setSelectCustomer("");
+  //     // setInputValueSearch("");
+  //   } else {
+  //     toast.warning("Ya existe un turno para este cliente", {
+  //       autoClose: 5000,
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
+  //   }
+  // };
   const handleInputChange = (event) => {
     setInputValueSearch(event.target.value.toLowerCase());
     const resultadosFiltrados = customers.filter((customer) =>

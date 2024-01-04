@@ -13,16 +13,19 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
-    const currentDateUtc = moment.utc(currentDate);
-    //  let horas = currentDate.getUTCHours();
-    //  let minutos = currentDate.getUTCMinutes();
-    let horas = currentDateUtc.getHours();
-    let minutos = currentDateUtc.getMinutes();
+    
+    //SERVER
+      // let hours = currentDate.getUTCHours();
+      // let minutes = currentDate.getUTCMinutes();
+    //LOCAL
+      let hours = currentDate.getHours();
+      let minutes = currentDate.getMinutes();
+    
 
     let horaFormateada =
-      horas.toString().padStart(2, "0") +
+    hours.toString().padStart(2, "0") +
       ":" +
-      minutos.toString().padStart(2, "0");
+      minutes.toString().padStart(2, "0");
 
     setDateMoment(horaFormateada);
   }, [turn]);
