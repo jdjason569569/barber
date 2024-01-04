@@ -35,17 +35,11 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         className={
           turn.completed
             ? "turn-container turn-container-completed"
-            : turn.isSchedule
-            ? "turn-container  turn-container-is-scheduled"
             : "turn-container"
         }
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>
-          {turn.isSchedule ? (
-            <span className="material-symbols-rounded icons">schedule</span>
-          ) : (
-            turn.order
-          )}
+            {turn.order}
         </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">

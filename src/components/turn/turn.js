@@ -20,6 +20,7 @@ import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
 import PopupCardInformation from "../modal/popupCardInformation";
+import PopupCreateTurn from "../modal/popupCreateTurn";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -35,7 +36,8 @@ export default function Turn() {
   const [selectCustomer, setSelectCustomer] = useState("");
   const [showPoppup, setShowPoppup] = useState(false);
   const [showPoppupInfo, setShowPoppupInfo] = useState(false);
-  const [inputValueSearch, setInputValueSearch] = useState('');
+  const [showPoppupCreateTurn, setShowPoppupCreateTurn] = useState(false);
+  const [inputValueSearch, setInputValueSearch] = useState("");
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -55,7 +57,7 @@ export default function Turn() {
           const responseturnByUserJson = await responseturnByUser.json();
           setTurns(responseturnByUserJson);
           setIsLoading(false);
-        } 
+        }
       } catch (error) {
         //console.error(error);
       }
@@ -72,7 +74,7 @@ export default function Turn() {
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setSearchCustomers(responseCustomersJson);
-        } else{
+        } else {
           setIsLoading(false);
         }
       } catch (error) {
@@ -290,14 +292,16 @@ export default function Turn() {
     const customer = customers.find((customer) => {
       return customer.name === event.target.value;
     });
+    console.log("Customer ",customer);
 
     const isValid = turns.find((turn) => {
       return turn.customer.phone === customer.phone;
     });
     if (!isValid) {
-      addTurn(customer, "turn");
-      setSelectCustomer("");
-      setInputValueSearch("");
+      setShowPoppupCreateTurn(true);
+      // addTurn(customer, "turn");
+      // setSelectCustomer("");
+      // setInputValueSearch("");
     } else {
       toast.warning("Ya existe un turno para este cliente", {
         autoClose: 5000,
@@ -335,7 +339,7 @@ export default function Turn() {
               className="form-control"
             />
           </div>
-          <select
+          {/* <select
             className="form-select form-select-active"
             style={{ marginTop: "2%" }}
             id="menu"
@@ -348,7 +352,7 @@ export default function Turn() {
                 {customer.name}
               </option>
             ))}
-          </select>
+          </select> */}
           <button
             onClick={postponeTurns}
             className="btn-sm rounded hold-over-botton"
@@ -380,8 +384,15 @@ export default function Turn() {
               showPoppupMethodInfo={showPoppupMethodInfo}
             ></PopupCardInformation>
           )}
+
+          {showPoppupCreateTurn && (
+            <PopupCreateTurn
+              upPopup={showPoppupCreateTurn}
+              customer={selectCustomer}
+              showPoppupMethodInfo={showPoppupMethodInfo}
+            ></PopupCreateTurn>
+          )}
         </div>
-        {/* <FormTurn addTurn={addTurn} schedule={false}></FormTurn> */}
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
