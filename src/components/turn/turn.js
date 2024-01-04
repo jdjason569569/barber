@@ -165,7 +165,7 @@ export default function Turn() {
     });
   };
 
-  const completeTurn = async (turn) => {
+  const completeTurn = async (turn) => {   
     if (!turn.completed) {
       //local
       //let dateRegister = new Date(turn.date_register);
