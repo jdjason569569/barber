@@ -21,7 +21,7 @@ import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
 import PopupCardInformation from "../modal/popupCardInformation";
 import PopupCreateTurn from "../modal/popupCreateTurn";
-import moment from 'moment-timezone';
+import moment from "moment-timezone";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -165,17 +165,18 @@ export default function Turn() {
     });
   };
 
-  const completeTurn = async (turn) => {   
+  const completeTurn = async (turn) => {
     if (!turn.completed) {
       //local
       //let dateRegister = new Date(turn.date_register);
       //SERVER
-      let dateRegister = new Date(turn.date_register);
-      const dateRegisterISOString = dateRegister.toISOString();
-      const dateRegisterFromISO = new Date(dateRegisterISOString);
       
+      const dateRegister = new Date();
+      dateRegister.setHours(turn.date_register.getHours());
+      dateRegister.setMinutes(turn.date_register.getMinutes());
+      dateRegister.setSeconds(turn.date_register.getSeconds());
+      dateRegister.setMilliseconds(turn.date_register.getMilliseconds());
 
-    
       const currentDate = new Date();
       if (dateRegisterFromISO < currentDate) {
         const idStatus = turn.id;
