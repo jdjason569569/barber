@@ -15,11 +15,11 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
     let currentDate = new Date(turn.date_register);
     
     //SERVER
-      // let hours = currentDate.getUTCHours();
-      // let minutes = currentDate.getUTCMinutes();
+       let hours = currentDate.getUTCHours();
+       let minutes = currentDate.getUTCMinutes();
     //LOCAL
-      let hours = currentDate.getHours();
-      let minutes = currentDate.getMinutes();
+      // let hours = currentDate.getHours();
+      // let minutes = currentDate.getMinutes();
     
 
     let horaFormateada =
