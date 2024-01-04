@@ -172,13 +172,14 @@ export default function Turn() {
       //SERVER
       
       const dateRegister = new Date();
-      dateRegister.setHours(turn.date_register.getHours());
-      dateRegister.setMinutes(turn.date_register.getMinutes());
-      dateRegister.setSeconds(turn.date_register.getSeconds());
-      dateRegister.setMilliseconds(turn.date_register.getMilliseconds());
+      let currentDateAux = new Date(turn.date_register);
+      dateRegister.setHours(currentDateAux.getUTCHours());
+      dateRegister.setMinutes(currentDateAux.getUTCMinutes());
+      dateRegister.setSeconds(currentDateAux.getUTCSeconds);
+      
 
       const currentDate = new Date();
-      if (dateRegisterFromISO < currentDate) {
+      if (dateRegister < currentDate) {
         const idStatus = turn.id;
         turn.completed = !turn.completed;
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
