@@ -14,8 +14,9 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
-    var horas = currentDate.getHours();
-    var minutos = currentDate.getMinutes();
+    const fechaUTCString = currentDate.toUTCString();
+    var horas = fechaUTCString.getHours();
+    var minutos = fechaUTCString.getMinutes();
     var horaFormateada =
       horas.toString().padStart(2, "0") +
       ":" +
