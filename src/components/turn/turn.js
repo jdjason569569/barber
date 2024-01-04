@@ -171,11 +171,18 @@ export default function Turn() {
       //let dateRegister = new Date(turn.date_register);
       //SERVER
       
-      const dateRegister = new Date();
+      let dateRegister = new Date();
       let currentDateAux = new Date(turn.date_register);
+      let a = currentDateAux.getUTCHours()
+
+      let b = currentDateAux.getUTCMinutes()
+
+      let c = currentDateAux.getUTCSeconds()
+
+
       dateRegister.setHours(currentDateAux.getUTCHours());
       dateRegister.setMinutes(currentDateAux.getUTCMinutes());
-      dateRegister.setSeconds(currentDateAux.getUTCSeconds);
+      dateRegister.setSeconds(currentDateAux.getUTCSeconds());
       
 
       const currentDate = new Date();
