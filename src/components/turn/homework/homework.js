@@ -2,7 +2,7 @@ import "./homework.css";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
-import "moment-timezone";
+import moment from 'moment';
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -13,10 +13,11 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
-     let horas = currentDate.getUTCHours();
-     let minutos = currentDate.getUTCMinutes();
-    // let horas = currentDate.getHours();
-    // let minutos = currentDate.getMinutes();
+    const currentDateUtc = moment.utc(currentDate);
+    //  let horas = currentDate.getUTCHours();
+    //  let minutos = currentDate.getUTCMinutes();
+    let horas = currentDateUtc.getHours();
+    let minutos = currentDateUtc.getMinutes();
 
     let horaFormateada =
       horas.toString().padStart(2, "0") +
