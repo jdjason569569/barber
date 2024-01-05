@@ -164,7 +164,7 @@ export default function Turn() {
   const completeTurn = async (turn) => {
     if (!turn.completed) {
       let dateRegister = null;
-      if (process.env.REACT_APP_ZONE === 0) {
+      if (process.env.REACT_APP_ZONE === "0") {
         dateRegister = new Date();
         let currentDateAux = new Date(turn.date_register);
         dateRegister.setHours(currentDateAux.getUTCHours());
