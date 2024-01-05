@@ -13,7 +13,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
     let currentDate = new Date(turn.date_register);
     let hours = 0;
     let minutes = 0;
-    if (process.env.REACT_APP_API === 0) {
+    if (process.env.REACT_APP_ZONE === 0) {
       hours = currentDate.getUTCHours();
       minutes = currentDate.getUTCMinutes();
     } else {
