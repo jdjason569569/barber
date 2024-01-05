@@ -2,28 +2,27 @@ import "./homework.css";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
-import moment from 'moment';
 
 export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
   const [dateMoment, setDateMoment] = useState(null);
-  
 
   useEffect(() => {
     let currentDate = new Date(turn.date_register);
-    
-    //SERVER
-       let hours = currentDate.getUTCHours();
-       let minutes = currentDate.getUTCMinutes();
-    //LOCAL
-      // let hours = currentDate.getHours();
-      // let minutes = currentDate.getMinutes();
-    
+    let hours = 0;
+    let minutes = 0;
+    if (process.env.REACT_APP_API === 0) {
+      hours = currentDate.getUTCHours();
+      minutes = currentDate.getUTCMinutes();
+    } else {
+      hours = currentDate.getHours();
+      minutes = currentDate.getMinutes();
+    }
 
     let horaFormateada =
-    hours.toString().padStart(2, "0") +
+      hours.toString().padStart(2, "0") +
       ":" +
       minutes.toString().padStart(2, "0");
 
@@ -45,12 +44,10 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         }
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>
-            {turn.order}
+          {turn.order}
         </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
-        <div className="text-date">
-          {dateMoment}
-        </div>
+        <div className="text-date">{dateMoment}</div>
         {turn.completed ? (
           <div className="icon-container">
             <span
@@ -59,7 +56,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
             >
               check
             </span>
-            </div>
+          </div>
         ) : (
           <div className="icon-container">
             <span
@@ -74,7 +71,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
             >
               delete
             </span>
-            </div>
+          </div>
         )}
       </div>
     </div>

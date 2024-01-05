@@ -20,8 +20,6 @@ import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
 import PopupCardInformation from "../modal/popupCardInformation";
-import PopupCreateTurn from "../modal/popupCreateTurn";
-import moment from "moment-timezone";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -34,10 +32,8 @@ export default function Turn() {
   const sensors = useSensors(touchSensor);
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
-  const [selectCustomer, setSelectCustomer] = useState("");
   const [showPoppup, setShowPoppup] = useState(false);
   const [showPoppupInfo, setShowPoppupInfo] = useState(false);
-  const [showPoppupCreateTurn, setShowPoppupCreateTurn] = useState(false);
   const [inputValueSearch, setInputValueSearch] = useState("");
 
   useEffect(() => {
@@ -167,24 +163,16 @@ export default function Turn() {
 
   const completeTurn = async (turn) => {
     if (!turn.completed) {
-      //local
-      //let dateRegister = new Date(turn.date_register);
-      //SERVER
-      
-      let dateRegister = new Date();
-      let currentDateAux = new Date(turn.date_register);
-      let a = currentDateAux.getUTCHours()
-
-      let b = currentDateAux.getUTCMinutes()
-
-      let c = currentDateAux.getUTCSeconds()
-
-
-      dateRegister.setHours(currentDateAux.getUTCHours());
-      dateRegister.setMinutes(currentDateAux.getUTCMinutes());
-      dateRegister.setSeconds(currentDateAux.getUTCSeconds());
-      
-
+      let dateRegister = null;
+      if (process.env.REACT_APP_API === 0) {
+        dateRegister = new Date();
+        let currentDateAux = new Date(turn.date_register);
+        dateRegister.setHours(currentDateAux.getUTCHours());
+        dateRegister.setMinutes(currentDateAux.getUTCMinutes());
+        dateRegister.setSeconds(currentDateAux.getUTCSeconds());
+      } else {
+        dateRegister = new Date(turn.date_register);
+      }
       const currentDate = new Date();
       if (dateRegister < currentDate) {
         const idStatus = turn.id;
@@ -219,6 +207,10 @@ export default function Turn() {
       const turnSelected = turns.find((turn) => turn.id === active.id);
       const oldTurn = turns.find((turn) => turn.id === over.id);
       const arrayOrder = arrayMove(turnNoSchedule, oldIndex, newIndex);
+      const obj ={
+        arrayOrder,
+        turns
+      }
       if (oldIndex === newIndex) {
         return;
       }
@@ -239,7 +231,7 @@ export default function Turn() {
                       headers: {
                         "Content-Type": "application/json",
                       },
-                      body: JSON.stringify(arrayOrder),
+                      body: JSON.stringify(obj),
                     }
                   );
                   const responseUpdateTask = updateArray.json();
@@ -401,14 +393,6 @@ export default function Turn() {
               upPopup={showPoppupInfo}
               showPoppupMethodInfo={showPoppupMethodInfo}
             ></PopupCardInformation>
-          )}
-
-          {showPoppupCreateTurn && (
-            <PopupCreateTurn
-              upPopup={showPoppupCreateTurn}
-              customer={selectCustomer}
-              showPoppupMethodInfo={showPoppupMethodInfo}
-            ></PopupCreateTurn>
           )}
         </div>
         <DndContext
