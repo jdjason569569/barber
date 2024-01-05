@@ -14,7 +14,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
     let hours = 0;
     let minutes = 0;
     console.log("process.env.REACT_APP_ZONE ",process.env.REACT_APP_ZONE);
-    if (process.env.REACT_APP_ZONE === 0) {
+    if (process.env.REACT_APP_ZONE === "0") {
       hours = currentDate.getUTCHours();
       minutes = currentDate.getUTCMinutes();
     } else {
