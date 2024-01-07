@@ -108,25 +108,26 @@ export default function Turn() {
     if (turn && method) {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
-      if (!responseTurn) {
-        toast.error(
-          "Ya existe un turno",
-          {
+      switch (responseTurn.status) {
+        case "sameHour":
+          toast.warn(responseTurn.message, {
             autoClose: 5000,
             position: toast.POSITION.TOP_CENTER,
-          }
-        );
-      } else {
-        toast.success("Agregaste un turno", {
-          autoClose: 5000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+          });
+          break;
+        case "success":
+          toast.success(responseTurn.message, {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+          break;
+        case "error":
+          toast.warn(responseTurn.message, {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+          break;
       }
-    } else {
-      toast.error("Comprueba el numero de telefono!", {
-        autoClose: 5000,
-        position: toast.POSITION.TOP_CENTER,
-      });
     }
   };
 
@@ -207,10 +208,10 @@ export default function Turn() {
       const turnSelected = turns.find((turn) => turn.id === active.id);
       const oldTurn = turns.find((turn) => turn.id === over.id);
       const arrayOrder = arrayMove(turnNoSchedule, oldIndex, newIndex);
-      const obj ={
+      const obj = {
         arrayOrder,
-        turns
-      }
+        turns,
+      };
       if (oldIndex === newIndex) {
         return;
       }
