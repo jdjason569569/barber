@@ -110,7 +110,7 @@ export default function Turn() {
       setTurnResponse(responseTurn);
       if (!responseTurn) {
         toast.error(
-          "La hora de asignacion debe ser mayor a la actual o a la ultima cita creada",
+          "Ya existe un turno",
           {
             autoClose: 5000,
             position: toast.POSITION.TOP_CENTER,
