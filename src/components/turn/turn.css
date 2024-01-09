@@ -18,12 +18,10 @@
    color: var(--white-color) !important;
 }
 
-
-
 .conatiner-search {
   margin-left: 5%;
   margin-right: 5%;
-  height: 170px;
+  height: 120px;
 }
 
 .hold-over-botton {
@@ -54,7 +52,7 @@
   border-radius: 20px;
   border: solid 2px var(--blue-color);
   display: flex;
-  height: 50vh;
+  height: 70vh;
   flex-direction: column;
   margin: 2%;
   overflow-y: scroll;

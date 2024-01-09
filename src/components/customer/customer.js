@@ -121,42 +121,6 @@ export default function Customer() {
     }
   };
 
-  // const deleteCustomer = async (id) => {
-  //   try {
-  //     const deleteCustomer = await fetch(`${apiUrl}/customer/${id}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     const responseDeleteCustomer = await deleteCustomer.json();
-  //     const response = {
-  //       value: responseDeleteCustomer,
-  //     };
-  //     setCustomerResponse(response);
-  //     responseDeleteCustomer.statusCode !== 500
-  //       ? toast.error("Eliminaste un cliente", {
-  //           autoClose: 1000,
-  //           position: toast.POSITION.TOP_CENTER,
-  //         })
-  //       : toast.error(
-  //           "Hubo un error al eliminar un cliente, puede eliminarlo si no tiene turnos asignados",
-  //           {
-  //             autoClose: 5000,
-  //             position: toast.POSITION.TOP_CENTER,
-  //           }
-  //         );
-  //   } catch (error) {
-  //     toast.error(
-  //       "Hubo un error, puede eliminarlo si no tiene turnos asignados",
-  //       {
-  //         autoClose: 1000,
-  //         position: toast.POSITION.TOP_CENTER,
-  //       }
-  //     );
-  //   }
-  // };
-
   const getUserById = async () => {
     try {
       const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);

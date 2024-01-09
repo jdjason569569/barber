@@ -235,12 +235,19 @@ export default function Turn() {
                       body: JSON.stringify(obj),
                     }
                   );
-                  const responseUpdateTask = updateArray.json();
-                  setTurnResponse(responseUpdateTask);
-                  toast.success("Haz movido un turno", {
-                    autoClose: 5000,
-                    position: toast.POSITION.TOP_CENTER,
-                  });
+                  const responseUpdateTask = await updateArray.json();
+                  if (responseUpdateTask === "success") {
+                    setTurnResponse(responseUpdateTask);
+                    toast.success(responseUpdateTask.message, {
+                      autoClose: 5000,
+                      position: toast.POSITION.TOP_CENTER,
+                    });
+                  } else {
+                    toast.error(responseUpdateTask.message, {
+                      autoClose: 5000,
+                      position: toast.POSITION.TOP_CENTER,
+                    });
+                  }
                 }
               }
             } else {
@@ -284,12 +291,19 @@ export default function Turn() {
         },
         body: JSON.stringify(turnNoSchedule),
       });
-      const responseUpdateTask = updateArray.json();
-      setTurnResponse(responseUpdateTask);
-      toast.success("Haz movido aplazado todos los turnos 10 minutos", {
-        autoClose: 5000,
-        position: toast.POSITION.TOP_CENTER,
-      });
+      const responseUpdateTask = await updateArray.json();
+      if (responseUpdateTask.status === "success") {
+        setTurnResponse(responseUpdateTask);
+        toast.success(responseUpdateTask.message, {
+          autoClose: 5000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      } else {
+        toast.error(responseUpdateTask.message, {
+          autoClose: 5000,
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     } else {
       toast.error("No tienes turnos que aplazar", {
         autoClose: 5000,
@@ -340,7 +354,7 @@ export default function Turn() {
       <ToastContainer />
       <div className="container-turn">
         <div className="conatiner-search">
-          <div className="input-group">
+          {/* <div className="input-group">
             <span className="title-client">Buscar cliente</span>
             <input
               type="text"
@@ -349,7 +363,7 @@ export default function Turn() {
               aria-label="First name"
               className="form-control"
             />
-          </div>
+          </div> */}
           {/* <select
             className="form-select form-select-active"
             style={{ marginTop: "2%" }}
@@ -382,18 +396,6 @@ export default function Turn() {
               upPopup={showPoppup}
               showPoppupMethod={showPoppupMethod}
             ></PopupAddTurn>
-          )}
-          <button
-            className="btn-sm rounded style-schedule-button"
-            onClick={() => setShowPoppupInfo(true)}
-          >
-            ver info
-          </button>
-          {showPoppupInfo && (
-            <PopupCardInformation
-              upPopup={showPoppupInfo}
-              showPoppupMethodInfo={showPoppupMethodInfo}
-            ></PopupCardInformation>
           )}
         </div>
         <DndContext
