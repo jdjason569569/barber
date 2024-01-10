@@ -19,7 +19,6 @@ import {
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
 import PopupAddTurn from "../modal/popupAddTurn";
-import PopupCardInformation from "../modal/popupCardInformation";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -32,9 +31,7 @@ export default function Turn() {
   const sensors = useSensors(touchSensor);
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
-  const [showPoppup, setShowPoppup] = useState(false);
-  const [showPoppupInfo, setShowPoppupInfo] = useState(false);
-  const [inputValueSearch, setInputValueSearch] = useState("");
+  const [showPoppup, setShowPoppup] = useState(false); 
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -236,7 +233,7 @@ export default function Turn() {
                     }
                   );
                   const responseUpdateTask = await updateArray.json();
-                  if (responseUpdateTask === "success") {
+                  if (responseUpdateTask.status === "success") {
                     setTurnResponse(responseUpdateTask);
                     toast.success(responseUpdateTask.message, {
                       autoClose: 5000,
@@ -334,19 +331,10 @@ export default function Turn() {
   //     });
   //   }
   // };
-  const handleInputChange = (event) => {
-    setInputValueSearch(event.target.value.toLowerCase());
-    const resultadosFiltrados = customers.filter((customer) =>
-      customer.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setSearchCustomers(resultadosFiltrados);
-  };
+ 
 
   const showPoppupMethod = () => {
     setShowPoppup(false);
-  };
-  const showPoppupMethodInfo = () => {
-    setShowPoppupInfo(false);
   };
 
   return (
@@ -354,30 +342,6 @@ export default function Turn() {
       <ToastContainer />
       <div className="container-turn">
         <div className="conatiner-search">
-          {/* <div className="input-group">
-            <span className="title-client">Buscar cliente</span>
-            <input
-              type="text"
-              value={inputValueSearch}
-              onChange={handleInputChange}
-              aria-label="First name"
-              className="form-control"
-            />
-          </div> */}
-          {/* <select
-            className="form-select form-select-active"
-            style={{ marginTop: "2%" }}
-            id="menu"
-            value={selectCustomer}
-            onChange={handleChange}
-          >
-            <option value=""> Seleccionar Cliente</option>
-            {searchCustomers.map((customer) => (
-              <option key={customer.id_customer} value={customer.name}>
-                {customer.name}
-              </option>
-            ))}
-          </select> */}
           <button
             onClick={postponeTurns}
             className="btn-sm rounded hold-over-botton"
@@ -395,6 +359,7 @@ export default function Turn() {
               addTurn={addTurn}
               upPopup={showPoppup}
               showPoppupMethod={showPoppupMethod}
+              listTurns={turns}
             ></PopupAddTurn>
           )}
         </div>

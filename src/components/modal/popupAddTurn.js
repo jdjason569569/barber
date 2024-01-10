@@ -4,7 +4,7 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popupAddTurn.css";
 import { useState, useEffect } from "react";
 
-export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
+export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listTurns}) {
   const apiUrl = process.env.REACT_APP_API;
   const [input, setInput] = useState({
     id_customer: null,
@@ -18,6 +18,8 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
   const [selectCustomer, setSelectCustomer] = useState("");
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
+  const [inputValueSearch, setInputValueSearch] = useState("");
+  const [turns, setTurns] = useState(listTurns);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -29,19 +31,20 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
     const getCustomers = async () => {
       try {
         const idUser = await getUserById();
-        if(idUser){
-          const responseCutomers = await fetch(`${apiUrl}/customer/byuser/${idUser}`);
+        if (idUser) {
+          const responseCutomers = await fetch(
+            `${apiUrl}/customer/byuser/${idUser}`
+          );
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setSearchCustomers(responseCustomersJson);
         }
-        
       } catch (error) {
         //console.error(error);
       }
     };
     getCustomers();
-  }, [idFirebaseUser ,apiUrl]);
+  }, [idFirebaseUser, apiUrl]);
 
   useEffect(() => {
     if (input.name && input.phone && input.date_register) {
@@ -59,9 +62,23 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
   const handleSend = (e) => {
     e.preventDefault();
     if (input.name !== "" && validatePhoneNumber(input.phone)) {
-      addTurn(createTurn(), "turnCustomerSchedule");
-      setInput({});
-      setIsEnabledButton(true);
+      const customer = customers.find((customer) => {
+        return customer.name === input.name;
+      });
+      const isValid = turns.find((turn) => {
+        return turn.customer.phone === customer.phone;
+      });
+      if (!isValid) {
+        addTurn(createTurn(), "turnCustomerSchedule");
+        setInput({});
+        setIsEnabledButton(true);
+      } 
+      // else {
+      //   toast.warning("Ya existe un turno para este cliente", {
+      //     autoClose: 5000,
+      //     position: toast.POSITION.TOP_CENTER,
+      //   });
+      // }
     }
   };
 
@@ -77,10 +94,10 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
 
   const createTurn = () => {
     return {
-      id_customer:selectCustomer.id_customer,
+      id_customer: selectCustomer.id_customer,
       name: input.name.toLowerCase(),
       phone: input.phone,
-      date_register_string: input.date_register
+      date_register_string: input.date_register,
     };
   };
 
@@ -123,11 +140,29 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod }) {
     return showPoppupMethod(value);
   };
 
+  const handleInputChange = (event) => {
+    setInputValueSearch(event.target.value.toLowerCase());
+    const resultadosFiltrados = customers.filter((customer) =>
+      customer.name.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setSearchCustomers(resultadosFiltrados);
+  };
+
   return (
     <>
       <Modal className="content" isOpen={upPopup}>
         <ModalHeader>Agregar un horario especifico</ModalHeader>
         <ModalBody>
+          <div className="input-group">
+            <span className="title-client">Buscar cliente</span>
+            <input
+              type="text"
+              value={inputValueSearch}
+              onChange={handleInputChange}
+              aria-label="First name"
+              className="form-control"
+            />
+          </div>
           <select
             className="form-select form-select-active"
             style={{ marginTop: "2%" }}
