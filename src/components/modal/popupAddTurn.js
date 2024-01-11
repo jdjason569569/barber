@@ -10,6 +10,7 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
     id_customer: null,
     name: null,
     phone: null,
+    price: null,
     date_register: null,
   });
 
@@ -47,7 +48,7 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
   }, [idFirebaseUser, apiUrl]);
 
   useEffect(() => {
-    if (input.name && input.phone && input.date_register) {
+    if (input.name && input.phone && input.date_register  && input.price) {
       setIsEnabledButton(false);
     } else {
       setIsEnabledButton(true);
@@ -97,6 +98,7 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
       id_customer: selectCustomer.id_customer,
       name: input.name.toLowerCase(),
       phone: input.phone,
+      price: input.price,
       date_register_string: input.date_register,
     };
   };
@@ -122,6 +124,13 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
     setInput({
       ...input,
       phone: event.target.value,
+    });
+  };
+
+  const handlePrice = (event) => {
+    setInput({
+      ...input,
+      price: event.target.value,
     });
   };
 
@@ -197,6 +206,14 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
               autoComplete="off"
               value={input.phone ?? ""}
               onChange={handlePhone}
+            />
+            <input
+              className="turn-input"
+              type="number"
+              placeholder="precio $"
+              autoComplete="off"
+              value={input.price ?? ""}
+              onChange={handlePrice}
             />
             <input
               className="turn-input"

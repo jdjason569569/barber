@@ -309,29 +309,6 @@ export default function Turn() {
     }
   };
 
-  // const handleChange = (event) => {
-  //   setSelectCustomer(event.target.value);
-  //   const customer = customers.find((customer) => {
-  //     return customer.name === event.target.value;
-  //   });
-  //   console.log("Customer ",customer);
-
-  //   const isValid = turns.find((turn) => {
-  //     return turn.customer.phone === customer.phone;
-  //   });
-  //   if (!isValid) {
-  //     setShowPoppupCreateTurn(true);
-  //     // addTurn(customer, "turn");
-  //     // setSelectCustomer("");
-  //     // setInputValueSearch("");
-  //   } else {
-  //     toast.warning("Ya existe un turno para este cliente", {
-  //       autoClose: 5000,
-  //       position: toast.POSITION.TOP_CENTER,
-  //     });
-  //   }
-  // };
- 
 
   const showPoppupMethod = () => {
     setShowPoppup(false);
