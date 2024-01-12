@@ -32,6 +32,7 @@ export default function Turn() {
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [showPoppup, setShowPoppup] = useState(false); 
+  const [turn, setTurn] = useState(null);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -314,6 +315,11 @@ export default function Turn() {
     setShowPoppup(false);
   };
 
+  const editTurn = (turn) => {
+    setTurn(turn);
+    setShowPoppup(true)
+  };
+
   return (
     <>
       <ToastContainer />
@@ -337,6 +343,8 @@ export default function Turn() {
               upPopup={showPoppup}
               showPoppupMethod={showPoppupMethod}
               listTurns={turns}
+              listCustomers={customers}
+              turn={turn}
             ></PopupAddTurn>
           )}
         </div>
@@ -367,6 +375,7 @@ export default function Turn() {
                         turn={turn}
                         deleteTurn={deleteTurn}
                         completeTurn={completeTurn}
+                        editTurn={editTurn}
                       />
                     ))}
                   </SortableContext>

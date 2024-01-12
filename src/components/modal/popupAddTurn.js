@@ -1,10 +1,15 @@
-import { auth } from "../../firebase";
-
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../modal/popupAddTurn.css";
 import { useState, useEffect } from "react";
 
-export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listTurns}) {
+export default function PopupAddTurn({
+  upPopup,
+  addTurn,
+  showPoppupMethod,
+  listTurns,
+  listCustomers,
+  turn,
+}) {
   const apiUrl = process.env.REACT_APP_API;
   const [input, setInput] = useState({
     id_customer: null,
@@ -15,40 +20,27 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
   });
 
   const [isEnabledButton, setIsEnabledButton] = useState(true);
-  const [customers, setCustomers] = useState([]);
   const [selectCustomer, setSelectCustomer] = useState("");
-  const [searchCustomers, setSearchCustomers] = useState([]);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [inputValueSearch, setInputValueSearch] = useState("");
-  const [turns, setTurns] = useState(listTurns);
+  const turns = listTurns;
+  const customers = listCustomers;
+  const [searchCustomers, setSearchCustomers] = useState(listCustomers);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      user ? setIdFirebaseUser(user.uid) : setIdFirebaseUser(null);
-    });
-  }, [apiUrl]);
+    if (turn && turn.customer.name) {
+      setInput({
+        id_customer: turn.customer.id_customer,
+        name: turn.customer.name,
+        phone: turn.customer.phone,
+        price: turn.price,
+        date_register: manageDateRegister(turn.date_register),
+      });
+    }
+  }, [turn]);
 
   useEffect(() => {
-    const getCustomers = async () => {
-      try {
-        const idUser = await getUserById();
-        if (idUser) {
-          const responseCutomers = await fetch(
-            `${apiUrl}/customer/byuser/${idUser}`
-          );
-          const responseCustomersJson = await responseCutomers.json();
-          setCustomers(responseCustomersJson);
-          setSearchCustomers(responseCustomersJson);
-        }
-      } catch (error) {
-        //console.error(error);
-      }
-    };
-    getCustomers();
-  }, [idFirebaseUser, apiUrl]);
-
-  useEffect(() => {
-    if (input.name && input.phone && input.date_register  && input.price) {
+    if (input.name && input.phone && input.date_register && input.price) {
       setIsEnabledButton(false);
     } else {
       setIsEnabledButton(true);
@@ -58,6 +50,25 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
   const validatePhoneNumber = (phone) => {
     const numeric = /^\d{10}$/;
     return numeric.test(phone) ? true : false;
+  };
+
+  const manageDateRegister = (dateRegister) => {
+    let currentDate = new Date(dateRegister);
+    let hours = 0;
+    let minutes = 0;
+    if (process.env.REACT_APP_ZONE === "0") {
+      hours = currentDate.getUTCHours();
+      minutes = currentDate.getUTCMinutes();
+    } else {
+      hours = currentDate.getHours();
+      minutes = currentDate.getMinutes();
+    }
+
+    return (
+      hours.toString().padStart(2, "0") +
+      ":" +
+      minutes.toString().padStart(2, "0")
+    );
   };
 
   const handleSend = (e) => {
@@ -73,23 +84,13 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
         addTurn(createTurn(), "turnCustomerSchedule");
         setInput({});
         setIsEnabledButton(true);
-      } 
+      }
       // else {
       //   toast.warning("Ya existe un turno para este cliente", {
       //     autoClose: 5000,
       //     position: toast.POSITION.TOP_CENTER,
       //   });
       // }
-    }
-  };
-
-  const getUserById = async () => {
-    try {
-      const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
-      const response = await respGetUserById.json();
-      return response.id_users;
-    } catch (error) {
-      return null;
     }
   };
 
@@ -151,10 +152,10 @@ export default function PopupAddTurn({ upPopup, addTurn, showPoppupMethod, listT
 
   const handleInputChange = (event) => {
     setInputValueSearch(event.target.value.toLowerCase());
-    const resultadosFiltrados = customers.filter((customer) =>
+    const filterResult = customers.filter((customer) =>
       customer.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
-    setSearchCustomers(resultadosFiltrados);
+    setSearchCustomers(filterResult);
   };
 
   return (

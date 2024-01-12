@@ -46,10 +46,10 @@
     background-color: var(--orange-color);;
 }
 
-.icon-container {
+.icon-container-homework {
     display: flex;
-    gap: 50%;
-    padding: 5%;
+    gap: 10%;
+    padding: 10%;
     
   }
 

@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
 
-export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
+export default function Homeworks({ id, deleteTurn, completeTurn, editTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -13,7 +13,6 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
     let currentDate = new Date(turn.date_register);
     let hours = 0;
     let minutes = 0;
-    console.log("process.env.REACT_APP_ZONE ",process.env.REACT_APP_ZONE);
     if (process.env.REACT_APP_ZONE === "0") {
       hours = currentDate.getUTCHours();
       minutes = currentDate.getUTCMinutes();
@@ -50,7 +49,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
         <div className="turn-text text-style">{turn.customer.name}</div>
         <div className="text-date">{dateMoment}</div>
         {turn.completed ? (
-          <div className="icon-container">
+          <div className="icon-container-homework">
             <span
               className="material-symbols-rounded style-bottom"
               onMouseDown={() => completeTurn(turn)}
@@ -59,12 +58,18 @@ export default function Homeworks({ id, deleteTurn, completeTurn, turn }) {
             </span>
           </div>
         ) : (
-          <div className="icon-container">
+          <div className="icon-container-homework">
             <span
               className="material-symbols-rounded style-bottom"
               onMouseDown={() => completeTurn(turn)}
             >
               pending_actions
+            </span>
+            <span
+              className="material-symbols-rounded style-bottom"
+              onMouseDown={() => editTurn(turn)}
+            >
+              edit
             </span>
             <span
               className="material-symbols-rounded style-bottom"
