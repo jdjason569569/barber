@@ -101,9 +101,45 @@ export default function Turn() {
     return await responseAddTurn.json();
   };
 
+  const updateTurn = async (turn) => {
+    const id  = turn.id;
+    const responseAddTurn = await fetch(`${apiUrl}/turns/turn/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(turn),
+    });
+    return await responseAddTurn.json();
+  };
+
   const addTurn = async (turn, method) => {
     setShowPoppup(false);
-    if (turn && method) {
+    if (turn.id) {
+      const responseTurn = await updateTurn(turn, method);
+      setTurnResponse(responseTurn);
+      switch (responseTurn.status) {
+        case "sameHour":
+          toast.warn(responseTurn.message, {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+          break;
+        case "success":
+          toast.success(responseTurn.message, {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+          break;
+        case "error":
+          toast.warn(responseTurn.message, {
+            autoClose: 5000,
+            position: toast.POSITION.TOP_CENTER,
+          });
+          break;
+      }
+     
+    }else{
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       switch (responseTurn.status) {

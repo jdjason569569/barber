@@ -46,6 +46,7 @@ export default function Customer() {
 
   let addCustomer = async (customer) => {
     if (customer) {
+      /**TODO response from server*/
       let responseCustomer = null;
       if (customer.id_customer) {
         responseCustomer = await updateCustomer(customer);

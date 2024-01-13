@@ -73,29 +73,38 @@ export default function PopupAddTurn({
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (input.name !== "" && validatePhoneNumber(input.phone)) {
-      const customer = customers.find((customer) => {
-        return customer.name === input.name;
-      });
-      const isValid = turns.find((turn) => {
-        return turn.customer.phone === customer.phone;
-      });
-      if (!isValid) {
+    if (turn && turn.customer.id_customer) {
+      if (input.name !== "" && validatePhoneNumber(input.phone)) {
         addTurn(createTurn(), "turnCustomerSchedule");
         setInput({});
         setIsEnabledButton(true);
       }
-      // else {
-      //   toast.warning("Ya existe un turno para este cliente", {
-      //     autoClose: 5000,
-      //     position: toast.POSITION.TOP_CENTER,
-      //   });
-      // }
+    } else {
+      if (input.name !== "" && validatePhoneNumber(input.phone)) {
+        const customer = customers.find((customer) => {
+          return customer.name === input.name;
+        });
+        const isValid = turns.find((turn) => {
+          return turn.customer.phone === customer.phone;
+        });
+        if (!isValid) {
+          addTurn(createTurn(), "turnCustomerSchedule");
+          setInput({});
+          setIsEnabledButton(true);
+        }
+        // else {
+        //   toast.warning("Ya existe un turno para este cliente", {
+        //     autoClose: 5000,
+        //     position: toast.POSITION.TOP_CENTER,
+        //   });
+        // }
+      }
     }
   };
 
   const createTurn = () => {
     return {
+      id:  turn ? turn.id :  null,
       id_customer: selectCustomer.id_customer,
       name: input.name.toLowerCase(),
       phone: input.phone,
@@ -226,7 +235,9 @@ export default function PopupAddTurn({
               hidden={isEnabledButton}
               className="btn-sm rounded create-turn"
             >
-              Asignar turno
+              {turn && turn.customer.id_customer
+                ? "Editar turno"
+                : "asignar Turno"}
             </button>
             <button
               className="btn-sm rounded cancel-turn"
