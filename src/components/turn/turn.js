@@ -138,7 +138,7 @@ export default function Turn() {
           });
           break;
       }
-     
+     setTurn(null);
     }else{
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
@@ -178,18 +178,19 @@ export default function Turn() {
     }
   };
 
-  const deleteTurn = async (id) => {
-    const deleteTurn = await fetch(`${apiUrl}/turns/${id}`, {
-      method: "DELETE",
+  const disableTurn = async (id) => {
+    const disableTurn = await fetch(`${apiUrl}/turns/disable/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const responseDeleteTurn = await deleteTurn.json();
+    const responseDisableTurn = await disableTurn.json();
     const response = {
-      value: responseDeleteTurn,
+      value: responseDisableTurn,
     };
     setTurnResponse(response);
+    //TODO response server
     toast.error("Eliminaste un turno", {
       autoClose: 5000,
       position: toast.POSITION.TOP_CENTER,
@@ -409,7 +410,7 @@ export default function Turn() {
                         key={turn.id}
                         id={turn.id}
                         turn={turn}
-                        deleteTurn={deleteTurn}
+                        disableTurn={disableTurn}
                         completeTurn={completeTurn}
                         editTurn={editTurn}
                       />

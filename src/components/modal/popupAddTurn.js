@@ -10,7 +10,6 @@ export default function PopupAddTurn({
   listCustomers,
   turn,
 }) {
-  const apiUrl = process.env.REACT_APP_API;
   const [input, setInput] = useState({
     id_customer: null,
     name: null,
@@ -21,7 +20,6 @@ export default function PopupAddTurn({
 
   const [isEnabledButton, setIsEnabledButton] = useState(true);
   const [selectCustomer, setSelectCustomer] = useState("");
-  const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [inputValueSearch, setInputValueSearch] = useState("");
   const turns = listTurns;
   const customers = listCustomers;
@@ -104,7 +102,7 @@ export default function PopupAddTurn({
 
   const createTurn = () => {
     return {
-      id:  turn ? turn.id :  null,
+      id: turn ? turn.id : null,
       id_customer: selectCustomer.id_customer,
       name: input.name.toLowerCase(),
       phone: input.phone,
@@ -218,6 +216,13 @@ export default function PopupAddTurn({
               onChange={handlePhone}
             />
             <input
+              disabled={turn && turn.customer.id_customer ? true : false}
+              className="turn-input"
+              type="time"
+              value={input.date_register ?? ""}
+              onChange={handleDateRegister}
+            ></input>
+            <input
               className="turn-input"
               type="number"
               placeholder="precio $"
@@ -225,12 +230,6 @@ export default function PopupAddTurn({
               value={input.price ?? ""}
               onChange={handlePrice}
             />
-            <input
-              className="turn-input"
-              type="time"
-              value={input.date_register ?? ""}
-              onChange={handleDateRegister}
-            ></input>
             <button
               hidden={isEnabledButton}
               className="btn-sm rounded create-turn"

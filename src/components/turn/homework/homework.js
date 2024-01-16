@@ -3,7 +3,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
 
-export default function Homeworks({ id, deleteTurn, completeTurn, editTurn, turn }) {
+export default function Homeworks({ id, disableTurn, completeTurn, editTurn, turn }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -73,7 +73,7 @@ export default function Homeworks({ id, deleteTurn, completeTurn, editTurn, turn
             </span>
             <span
               className="material-symbols-rounded style-bottom"
-              onMouseDown={() => deleteTurn(id)}
+              onMouseDown={() => disableTurn(id)}
             >
               delete
             </span>
