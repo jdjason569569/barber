@@ -1,6 +1,6 @@
 .turn-container {
     align-items: center;
-    background-color: var(--red-color);
+    background-color: var(--gray-color);
     border-radius: 7px;
     border: 2px solid  var(--white-color);
     color:  var(--white-color);
@@ -40,6 +40,10 @@
 
 .turn-container-completed {
     background-color: var(--green-color);;
+}
+
+.turn-container-cancel {
+    background-color: var(--red-color);;
 }
 
 .turn-container-is-scheduled {

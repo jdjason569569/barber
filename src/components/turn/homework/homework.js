@@ -40,7 +40,7 @@ export default function Homeworks({ id, disableTurn, completeTurn, editTurn, tur
         className={
           turn.completed
             ? "turn-container turn-container-completed"
-            : "turn-container"
+            :  turn.disable ?  "turn-container turn-container-cancel" : "turn-container"
         }
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>

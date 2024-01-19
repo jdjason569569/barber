@@ -7,12 +7,9 @@ export default function ScheduleCard({ turn }) {
         className={
           turn.completed
             ? "turn-container turn-container-completed"
-            : "turn-container"
+            :  turn.disable ?  "turn-container turn-container-cancel" : "turn-container"
         }
       >
-        <div className="text-style" style={{ marginLeft: "5%" }}>
-          {turn.order}
-        </div>
         <div className="turn-text text-style">{turn.customer.name}</div>
         
       </div>
