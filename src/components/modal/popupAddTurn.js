@@ -82,7 +82,10 @@ export default function PopupAddTurn({
         const customer = customers.find((customer) => {
           return customer.name === input.name;
         });
-        const isValid = turns.find((turn) => {
+        const isValid = turns.some((turn) => {
+          if(turn.completed){
+            return false;
+          }
           return turn.customer.phone === customer.phone;
         });
         if (!isValid) {
