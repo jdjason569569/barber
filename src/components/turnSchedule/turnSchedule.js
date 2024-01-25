@@ -19,22 +19,23 @@ export default function TurnSchedule() {
   useEffect(() => {
     const getturnById = async () => {
       try {
-       console.log(startDate);
+        console.log(startDate);
         const idUser = await getUserById();
         if (idUser) {
           const responseturnByUser = await fetch(
-            `${apiUrl}/turns/turncustomer/schedule/${idUser}/${encodeURIComponent(startDate.toISOString())}`, 
+            `${apiUrl}/turns/turncustomer/schedule/${idUser}/${encodeURIComponent(
+              startDate.toISOString()
+            )}`
           );
           const responseturnByUserJson = await responseturnByUser.json();
           setTurns(responseturnByUserJson);
-          
         }
       } catch (error) {
         //console.error(error);
       }
     };
     getturnById();
-  }, [startDate]);
+  }, [idFirebaseUser ,startDate]);
 
   /**
    * Allow return an user by firebase code
@@ -56,12 +57,8 @@ export default function TurnSchedule() {
         onChange={(date) => setStartDate(date)}
       />
       {turns.map((turn) => (
-                      <ScheduleCard
-                        
-                        turn={turn}
-                        
-                      />
-                    ))}
+        <ScheduleCard turn={turn} />
+      ))}
     </>
   );
 }
