@@ -35,7 +35,7 @@ export default function TurnSchedule() {
       }
     };
     getturnById();
-  }, [turns ,startDate]);
+  }, [startDate]);
 
   /**
    * Allow return an user by firebase code
