@@ -111,19 +111,19 @@ export default function Home({ name }) {
           </span>
           <span
             className={`material-symbols-rounded ${
-              stats ? "turn-botton turn-botton-selected" : "turn-botton"
-            }`}
-            onClick={() => changeView("seeStats")}
-          >
-            query_stats
-          </span>
-          <span
-            className={`material-symbols-rounded ${
               turnSchedule ? "turn-botton turn-botton-selected" : "turn-botton"
             }`}
             onClick={() => changeView("turnSchedule")}
           >
             calendar_month
+          </span>
+          <span
+            className={`material-symbols-rounded ${
+              stats ? "turn-botton turn-botton-selected" : "turn-botton"
+            }`}
+            onClick={() => changeView("seeStats")}
+          >
+            query_stats
           </span>
           <span
             className={`material-symbols-rounded ${

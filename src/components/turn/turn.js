@@ -304,7 +304,7 @@ export default function Turn() {
           });
         }
       } else {
-        toast.error("No puedes mover un turno con turnos ya completados", {
+        toast.error("No puedes mover un turno por encima de turnos ya atendidos", {
           autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
