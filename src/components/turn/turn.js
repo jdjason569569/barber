@@ -236,13 +236,13 @@ export default function Turn() {
 
   const handleDragEnd = async (event) => {
     try {
-      const turnNoSchedule = turns.filter((turn) => !turn.isSchedule);
       const { active, over } = event;
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
+      const isAlreadyComplete = turns.slice(newIndex, oldIndex + 1).some(turn => turn.completed === true);
       const turnSelected = turns.find((turn) => turn.id === active.id);
       const oldTurn = turns.find((turn) => turn.id === over.id);
-      const arrayOrder = arrayMove(turnNoSchedule, oldIndex, newIndex);
+      const arrayOrder = arrayMove(turns, oldIndex, newIndex);
       const obj = {
         arrayOrder,
         turns,
@@ -250,7 +250,7 @@ export default function Turn() {
       if (oldIndex === newIndex) {
         return;
       }
-      if (!turnSelected.isSchedule) {
+      if (!isAlreadyComplete) {
         if (!oldTurn.completed) {
           if (!turnSelected.completed) {
             if (oldIndex > newIndex) {
@@ -304,7 +304,7 @@ export default function Turn() {
           });
         }
       } else {
-        toast.error("No puedes mover una tarjeta creada manualmente", {
+        toast.error("No puedes mover un turno con turnos ya completados", {
           autoClose: 5000,
           position: toast.POSITION.TOP_CENTER,
         });
