@@ -9,16 +9,16 @@
   background-color: var(--green-color);
 }
 
-.icon-scheduled {
+.icon-cancel {
   width: 20px;
   height: 20px;
-  background-color: var(--orange-color);
+  background-color: var(--red-color);
 }
 
 .icon-avaliable {
   width: 20px;
   height: 20px;
-  background-color: var(--red-color);
+  background-color: var(--gray-color);
 }
 
 .information {

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import ScheduleCard from "./scheduleCard/scheduleCard";
+import "react-datepicker/dist/react-datepicker.css";
+import "./turnSchedule.css";
+import CardInformation from "../modal/cardInformation";
 
 export default function TurnSchedule() {
   const apiUrl = process.env.REACT_APP_API;
@@ -19,7 +21,6 @@ export default function TurnSchedule() {
   useEffect(() => {
     const getturnById = async () => {
       try {
-        console.log(startDate);
         const idUser = await getUserById();
         if (idUser) {
           const responseturnByUser = await fetch(
@@ -35,7 +36,7 @@ export default function TurnSchedule() {
       }
     };
     getturnById();
-  }, [apiUrl , idFirebaseUser ,startDate]);
+  }, [apiUrl, idFirebaseUser, startDate]);
 
   /**
    * Allow return an user by firebase code
@@ -52,13 +53,20 @@ export default function TurnSchedule() {
 
   return (
     <>
-      <DatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-      />
-      {turns.map((turn) => (
-        <ScheduleCard turn={turn} />
-      ))}
+      <div>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+        />
+      </div>
+      <div className="container-schedule">
+        <CardInformation></CardInformation>
+      </div>
+      <div className="container-turn-schedule">
+        {turns.map((turn) => (
+          <ScheduleCard turn={turn} />
+        ))}
+      </div>
     </>
   );
 }

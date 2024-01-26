@@ -1,13 +1,16 @@
-.turn-container {
+.turn-container-schedule {
     align-items: center;
     background-color: var(--gray-color);
     border-radius: 7px;
     border: 2px solid  var(--white-color);
+    box-shadow: 2px 2px 5px 1px gray;
     color:  var(--white-color);
     display: flex;
-    margin-right: 8%;
-    margin-left: 10px;
-    box-shadow: 2px 2px 5px 1px gray;
+    margin-top: 2%;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding: 5%;
+   
 }
 
 .text-style{
@@ -19,12 +22,12 @@
 .turn-text {
     align-items: flex-start;
     display: flex;
-    width: 80%;
+    width: 60%;
     height: auto;
-    justify-content: center;
 }
 
-.text-date {
+.text-date-schedule {
+    width: 40%;
     font-size: 10px;
 }
 
@@ -38,11 +41,11 @@
     font-size: 30px;
 }
 
-.turn-container-completed {
+.turn-container-schedule-completed {
     background-color: var(--green-color);;
 }
 
-.turn-container-cancel {
+.turn-container-schedule-cancel {
     background-color: var(--red-color);;
 }
 
