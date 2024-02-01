@@ -6,6 +6,7 @@ import Turn from "../turn/turn";
 import { useState } from "react";
 import Customer from "../customer/customer";
 import TurnSchedule from "../turnSchedule/turnSchedule";
+import Statistics from "../statistics/statistics";
 
 /**
  * Component that gives input to the application
@@ -79,7 +80,7 @@ export default function Home({ name }) {
       case "createCustomer":
         return <Customer />;
       case "seeStats":
-        return null;
+        return <Statistics/>;
       case "turnSchedule":
         return <TurnSchedule/>;
       case "config":
