@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import ScheduleCard from "./scheduleCard/scheduleCard";
 import "react-datepicker/dist/react-datepicker.css";
 import "./turnSchedule.css";
-import CardInformation from "../modal/cardInformation";
+import CardInformation from "../modal/cardInformation/cardInformation";
 
 export default function TurnSchedule() {
   const apiUrl = process.env.REACT_APP_API;

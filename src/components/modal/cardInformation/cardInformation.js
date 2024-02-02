@@ -1,4 +1,4 @@
-import "../modal/cardInformation.css";
+import "../cardInformation/cardInformation.css";
 
 
 export default function CardInformation() {

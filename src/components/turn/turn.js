@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
-import PopupAddTurn from "../modal/popupAddTurn";
+import PopupAddTurn from "../modal/addTurn/popupAddTurn"; 
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);

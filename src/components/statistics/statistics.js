@@ -1,30 +1,28 @@
 import { useState } from "react";
 
 import "./statistics.css";
-const apiUrl = process.env.REACT_APP_API;
+import CustomerTimes from "../modal/customerTImes/customerTimes";
 
 export default function Statistics() {
-  //const [userTime, setUserTime] = useState(0);
-  const [a, setA] = useState([]);
+  const [showCustomerTimes, setShowCustomerTimes] = useState(false);
 
-  const search = async () => {
-    const responseCutomers = await fetch(`${apiUrl}/statistics/usertime`);
-    const response = await responseCutomers.json();
-    setA(response);
+  const showCustomerTimesMethod = () => {
+    setShowCustomerTimes(false);
   };
 
   return (
     <>
       <div>
-        <button className="btn-sm rounded cancel-turn" onClick={() => search()}>
-          Consultar
+        <button
+          onClick={() => setShowCustomerTimes(true)}
+        >
+          Clientes + veces
         </button>
-        {a.map((a) => (
-          <div key={a.id}>
-             <p>ID: {a.id}</p>
-             <p>Nombre: {a.date_register}</p>
-          </div>
-        ))}
+        {showCustomerTimes && (
+          <CustomerTimes 
+          upPopup={showCustomerTimes}
+          showCustomerTimesMethod={showCustomerTimesMethod}/>
+        )}
       </div>
     </>
   );

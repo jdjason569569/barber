@@ -1,5 +1,5 @@
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import "../modal/popupAddTurn.css";
+import "../addTurn/popupAddTurn.css";
 import { useState, useEffect } from "react";
 
 export default function PopupAddTurn({
