@@ -1,0 +1,57 @@
+
+.times-list-content{
+    background: var(--white-color);
+    border-radius: 20px;
+    border: solid 2px var(--blue-color);
+    display: flex;
+    height: 60vh;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 2%;
+    margin-right: 2%;
+    overflow-y: scroll;
+    padding: 0 1% 1% 1%;
+    box-shadow: 2px 2px 5px 1px gray;
+}
+
+.times-container {
+    align-items: center;
+    background-color: var(--blue-color);
+    border-radius: 7px;
+    border: 2px solid var(--white-color);
+    cursor: pointer;
+    color: var(--white-color);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 3%;
+    box-shadow: 2px 2px 5px 1px gray;
+  }
+
+  .times-text {
+    align-items: flex-start;
+    display: flex;
+    height: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-left: 5%;
+  }
+
+  .times-style-name{
+    color: var(--white-color);
+    font-weight: bolder;
+    font-size: 20px;
+  }
+  
+  .text-style-completed{
+    color: var(--white-color);
+    font-weight: bolder;
+    font-size: 30px;
+  }
+
+  .modal-footer{
+    display: block;
+  }

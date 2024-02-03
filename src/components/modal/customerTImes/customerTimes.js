@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import "./customerTimes.css";
 export default function CustomerTimes({ upPopup, showCustomerTimesMethod }) {
-  const [a, setA] = useState([]);
+  const [customerTimes, setCustomerTimes] = useState([]);
 
   const apiUrl = process.env.REACT_APP_API;
 
@@ -10,7 +10,7 @@ export default function CustomerTimes({ upPopup, showCustomerTimesMethod }) {
     const search = async () => {
       const responseCutomers = await fetch(`${apiUrl}/statistics/usertime`);
       const response = await responseCutomers.json();
-      setA(response);
+      setCustomerTimes(response);
     };
     search();
   }, []);
@@ -22,23 +22,29 @@ export default function CustomerTimes({ upPopup, showCustomerTimesMethod }) {
   return (
     <>
       <Modal className="content" isOpen={upPopup}>
-        <ModalHeader>Agregar un horario especifico</ModalHeader>
+        <ModalHeader>Clientes y turnos</ModalHeader>
         <ModalBody>
-          <form>
-            {a.map((a) => (
-              <div key={a.id_customer}>
-                <p>Nombre: {a.name}</p>
-                <p>turnos completos: {a.cantidad_turnos_completos}</p>
+          <div className="times-list-content">
+            {customerTimes.map((value) => (
+              <div className={"times-container"} key={value.id_customer}>
+                <div className="times-text">
+                  <h5 className="times-style-name">{value.name}</h5>
+                  <p className="text-style-completed">
+                    {value.cantidad_turnos_completos}
+                  </p>
+                </div>
               </div>
             ))}
-            <button
-              className="btn-sm rounded cancel-turn"
-              onMouseDown={() => showPoPup(false)}
-            >
-              Cancelar
-            </button>
-          </form>
+          </div>
         </ModalBody>
+        <ModalFooter>
+          <button
+            className="btn-sm rounded cancel-turn"
+            onMouseDown={() => showPoPup(false)}
+          >
+            Ok
+          </button>
+        </ModalFooter>
       </Modal>
     </>
   );
