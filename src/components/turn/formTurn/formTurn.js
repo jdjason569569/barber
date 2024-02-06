@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import "./formTurn.css";
 
 export default function Formturn({ addTurn, customer, schedule }) {
@@ -26,7 +27,11 @@ export default function Formturn({ addTurn, customer, schedule }) {
 
   const validatePhoneNumber = (phone) => {
     const numeric = /^\d{10}$/;
-    return numeric.test(parseInt(phone)) ? true : false;
+    const response = numeric.test(parseInt(phone)) ? true : false;
+    if(!response){
+      toast.error("Debe ingresar un numero de telefono de 10 cifras")
+    }
+    return response
   };
 
   const handleSend = (e) => {

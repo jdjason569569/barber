@@ -1,6 +1,7 @@
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../addTurn/popupAddTurn.css";
 import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function PopupAddTurn({
   upPopup,
@@ -83,7 +84,7 @@ export default function PopupAddTurn({
           return customer.name === input.name;
         });
         const isValid = turns.some((turn) => {
-          if(turn.completed){
+          if (turn.completed) {
             return false;
           }
           return turn.customer.phone === customer.phone;
@@ -92,13 +93,12 @@ export default function PopupAddTurn({
           addTurn(createTurn(), "turnCustomerSchedule");
           setInput({});
           setIsEnabledButton(true);
+        } else {
+          toast.warning("Ya existe un turno para este cliente", {
+            autoClose: 3000,
+            position: toast.POSITION.BOTTOM_CENTER,
+          });
         }
-        // else {
-        //   toast.warning("Ya existe un turno para este cliente", {
-        //     autoClose: 5000,
-        //     position: toast.POSITION.TOP_CENTER,
-        //   });
-        // }
       }
     }
   };

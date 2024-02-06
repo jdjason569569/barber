@@ -7,15 +7,15 @@ export default function CardInformation() {
     <>
           <div className="content">
             <div className="icon-avaliable"></div>
-            <div className="information">Cita disponible</div>
+            <div className="information">Turno sin atender</div>
           </div>
           <div className="content">
             <div className="icon-cancel"></div>
-            <div className="information">Cita cancelada</div>
+            <div className="information">Turno cancelada</div>
           </div>
           <div className="content">
             <div className="icon-completed"></div>
-            <div className="information">Cita atendida</div>
+            <div className="information">Turno atendida</div>
           </div>
     </>
   );

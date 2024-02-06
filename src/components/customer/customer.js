@@ -31,10 +31,10 @@ export default function Customer() {
           const responseCutomers = await fetch(
             `${apiUrl}/customer/byuser/${idUser}`
           );
-          const responseCustomersJson  = await responseCutomers.json();
+          const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
           setIsLoading(false);
-        } else{
+        } else {
           setIsLoading(false);
         }
       } catch (error) {
@@ -52,33 +52,22 @@ export default function Customer() {
         responseCustomer = await updateCustomer(customer);
         setCustomerResponse(responseCustomer);
         !responseCustomer
-          ? toast.error("Error al actualizar un cliente", {
-              autoClose: 5000,
-              position: toast.POSITION.TOP_CENTER,
-            })
-          : toast.success("Actualizaste un cliente", {
-              autoClose: 5000,
-              position: toast.POSITION.TOP_CENTER,
-            });
+          ? toast.error("Error al actualizar un cliente")
+          : toast.success("Actualizaste un cliente");
         setCustomer(null);
       } else {
         responseCustomer = await saveCustomer(customer);
         setCustomerResponse(responseCustomer);
         !responseCustomer
-          ? toast.error("Ya aexiste un cliente con el numero", {
-              autoClose: 5000,
-              position: toast.POSITION.TOP_CENTER,
-            })
-          : toast.success("Agregaste un cliente", {
-              autoClose: 5000,
-              position: toast.POSITION.TOP_CENTER,
-            });
+          ? toast.error("Ya aexiste un cliente con el numero")
+          : toast.success("Agregaste un cliente");
       }
     }
   };
 
   const editCustomer = (customer) => {
     setCustomer(customer);
+    toast.success("Ya puedes editar un cliente");
   };
 
   const saveCustomer = async (customer) => {
@@ -134,7 +123,10 @@ export default function Customer() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+      />
       <Formturn addTurn={addCustomer} customer={customer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>

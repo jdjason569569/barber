@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 import EmptyList from "../emptyList/emptyList";
 import Loader from "../loader/loader";
-import PopupAddTurn from "../modal/addTurn/popupAddTurn"; 
+import PopupAddTurn from "../modal/addTurn/popupAddTurn";
 
 export default function Turn() {
   const [turns, setTurns] = useState([]);
@@ -31,7 +31,7 @@ export default function Turn() {
   const sensors = useSensors(touchSensor);
   const [customers, setCustomers] = useState([]);
   const [searchCustomers, setSearchCustomers] = useState([]);
-  const [showPoppup, setShowPoppup] = useState(false); 
+  const [showPoppup, setShowPoppup] = useState(false);
   const [turn, setTurn] = useState(null);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function Turn() {
   };
 
   const updateTurn = async (turn) => {
-    const id  = turn.id;
+    const id = turn.id;
     const responseAddTurn = await fetch(`${apiUrl}/turns/turn/${id}`, {
       method: "PUT",
       headers: {
@@ -120,46 +120,28 @@ export default function Turn() {
       setTurnResponse(responseTurn);
       switch (responseTurn.status) {
         case "sameHour":
-          toast.warn(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.warn(responseTurn.message);
           break;
         case "success":
-          toast.success(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.success(responseTurn.message);
           break;
         case "error":
-          toast.warn(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.warn(responseTurn.message);
           break;
       }
-     setTurn(null);
-    }else{
+      setTurn(null);
+    } else {
       const responseTurn = await saveTurn(turn, method);
       setTurnResponse(responseTurn);
       switch (responseTurn.status) {
         case "sameHour":
-          toast.warn(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.warn(responseTurn.message);
           break;
         case "success":
-          toast.success(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.success(responseTurn.message);
           break;
         case "error":
-          toast.warn(responseTurn.message, {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.warn(responseTurn.message);
           break;
       }
     }
@@ -191,8 +173,8 @@ export default function Turn() {
     };
     setTurnResponse(response);
     //TODO response server
-    toast.error("Eliminaste un turno", {
-      autoClose: 5000,
+    toast.error("Cancelaste un turno", {
+      autoClose: 3000,
       position: toast.POSITION.TOP_CENTER,
     });
   };
@@ -221,13 +203,13 @@ export default function Turn() {
           body: JSON.stringify(turn),
         });
         setTurnResponse(response);
-        toast.success("Haz completado una cita", {
-          autoClose: 5000,
+        toast.success("Haz completado un turno", {
+          autoClose: 3000,
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
-        toast.error("Para completar la cita, de ser menor a la hora actual", {
-          autoClose: 5000,
+        toast.error("Para completar un turno, de ser menor a la hora actual", {
+          autoClose: 3000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
@@ -239,7 +221,9 @@ export default function Turn() {
       const { active, over } = event;
       const oldIndex = turns.findIndex((turn) => turn.id === active.id);
       const newIndex = turns.findIndex((turn) => turn.id === over.id);
-      const isAlreadyComplete = turns.slice(newIndex, oldIndex + 1).some(turn => turn.completed === true);
+      const isAlreadyComplete = turns
+        .slice(newIndex, oldIndex + 1)
+        .some((turn) => turn.completed === true);
       const turnSelected = turns.find((turn) => turn.id === active.id);
       const oldTurn = turns.find((turn) => turn.id === over.id);
       const arrayOrder = arrayMove(turns, oldIndex, newIndex);
@@ -274,12 +258,12 @@ export default function Turn() {
                   if (responseUpdateTask.status === "success") {
                     setTurnResponse(responseUpdateTask);
                     toast.success(responseUpdateTask.message, {
-                      autoClose: 5000,
+                      autoClose: 3000,
                       position: toast.POSITION.TOP_CENTER,
                     });
                   } else {
                     toast.error(responseUpdateTask.message, {
-                      autoClose: 5000,
+                      autoClose: 3000,
                       position: toast.POSITION.TOP_CENTER,
                     });
                   }
@@ -287,27 +271,27 @@ export default function Turn() {
               }
             } else {
               toast.error("No puedes mover un turno de arriba hacia abajo", {
-                autoClose: 5000,
+                autoClose: 3000,
                 position: toast.POSITION.TOP_CENTER,
               });
             }
           } else {
             toast.error("No puedes mover una tarjeta atendida", {
-              autoClose: 5000,
+              autoClose: 3000,
               position: toast.POSITION.TOP_CENTER,
             });
           }
         } else {
-          toast.error("No puedes mover por encima de una tarjeta atendida", {
-            autoClose: 5000,
-            position: toast.POSITION.TOP_CENTER,
-          });
+          toast.error("No puedes mover por encima de una tarjeta atendida");
         }
       } else {
-        toast.error("No puedes mover un turno por encima de turnos ya atendidos", {
-          autoClose: 5000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(
+          "No puedes mover un turno por encima de turnos ya atendidos",
+          {
+            autoClose: 3000,
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -330,23 +314,22 @@ export default function Turn() {
       if (responseUpdateTask.status === "success") {
         setTurnResponse(responseUpdateTask);
         toast.success(responseUpdateTask.message, {
-          autoClose: 5000,
+          autoClose: 3000,
           position: toast.POSITION.TOP_CENTER,
         });
       } else {
         toast.error(responseUpdateTask.message, {
-          autoClose: 5000,
+          autoClose: 3000,
           position: toast.POSITION.TOP_CENTER,
         });
       }
     } else {
       toast.error("No tienes turnos que aplazar", {
-        autoClose: 5000,
+        autoClose: 3000,
         position: toast.POSITION.TOP_CENTER,
       });
     }
   };
-
 
   const showPoppupMethod = () => {
     setShowPoppup(false);
@@ -354,12 +337,12 @@ export default function Turn() {
 
   const editTurn = (turn) => {
     setTurn(turn);
-    setShowPoppup(true)
+    setShowPoppup(true);
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer position="bottom-center" autoClose={3000} />
       <div className="container-turn">
         <div className="conatiner-search">
           <button
@@ -372,7 +355,7 @@ export default function Turn() {
             className="btn-sm rounded style-schedule-button"
             onClick={() => setShowPoppup(true)}
           >
-            Agregar horario
+            Agregar turno
           </button>
           {showPoppup && (
             <PopupAddTurn
