@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { auth } from "../firebase";
 import { useEffect, useState } from 'react';
 
@@ -7,7 +7,10 @@ import SignUp from '../components/signUp/signUp';
 import Home from '../components/home/home';
 import { ProtectedRoute } from '../components/shared/protectedRoute';
 
+
+
 export function MyRoutes() {
+
     const [userName, setUserName] = useState(null);
     
     useEffect(() => {
@@ -17,15 +20,15 @@ export function MyRoutes() {
     });
 
     return (
-        <Router>
-            <Routes>
-                <Route path='/' element={<Navigate to="/login" />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/signup' element={<SignUp />} />
-                <Route element={<ProtectedRoute name={userName} />}>
-                    <Route path='/home' element={<Home name={userName} />} />
-                </Route>
-            </Routes>
-        </Router>
+         <Router>
+             <Routes>
+                 <Route  path='*' element={<Login />}></Route>
+                 <Route element={<ProtectedRoute name={userName} />}>
+                     <Route exact path='/home' element={<Home name={userName} />}></Route>
+                 </Route>
+                 <Route exact path='/signup'  element={<SignUp />}></Route>
+             </Routes>
+         </Router>
     );
 }
+
