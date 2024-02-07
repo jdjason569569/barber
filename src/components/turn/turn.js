@@ -173,10 +173,7 @@ export default function Turn() {
     };
     setTurnResponse(response);
     //TODO response server
-    toast.error("Cancelaste un turno", {
-      autoClose: 3000,
-      position: toast.POSITION.TOP_CENTER,
-    });
+    toast.error("Cancelaste un turno");
   };
 
   const completeTurn = async (turn) => {
@@ -203,15 +200,9 @@ export default function Turn() {
           body: JSON.stringify(turn),
         });
         setTurnResponse(response);
-        toast.success("Haz completado un turno", {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success("Haz completado un turno");
       } else {
-        toast.error("Para completar un turno, de ser menor a la hora actual", {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error("Para completar un turno, de ser menor a la hora actual");
       }
     }
   };
@@ -257,40 +248,24 @@ export default function Turn() {
                   const responseUpdateTask = await updateArray.json();
                   if (responseUpdateTask.status === "success") {
                     setTurnResponse(responseUpdateTask);
-                    toast.success(responseUpdateTask.message, {
-                      autoClose: 3000,
-                      position: toast.POSITION.TOP_CENTER,
-                    });
+                    toast.success(responseUpdateTask.message);
                   } else {
-                    toast.error(responseUpdateTask.message, {
-                      autoClose: 3000,
-                      position: toast.POSITION.TOP_CENTER,
-                    });
+                    toast.error(responseUpdateTask.message);
                   }
                 }
               }
             } else {
-              toast.error("No puedes mover un turno de arriba hacia abajo", {
-                autoClose: 3000,
-                position: toast.POSITION.TOP_CENTER,
-              });
+              toast.error("No puedes mover un turno de arriba hacia abajo");
             }
           } else {
-            toast.error("No puedes mover una tarjeta atendida", {
-              autoClose: 3000,
-              position: toast.POSITION.TOP_CENTER,
-            });
+            toast.error("No puedes mover una tarjeta atendida");
           }
         } else {
           toast.error("No puedes mover por encima de una tarjeta atendida");
         }
       } else {
         toast.error(
-          "No puedes mover un turno por encima de turnos ya atendidos",
-          {
-            autoClose: 3000,
-            position: toast.POSITION.TOP_CENTER,
-          }
+          "No puedes mover un turno por encima de turnos ya atendidos"
         );
       }
     } catch (error) {
@@ -313,21 +288,12 @@ export default function Turn() {
       const responseUpdateTask = await updateArray.json();
       if (responseUpdateTask.status === "success") {
         setTurnResponse(responseUpdateTask);
-        toast.success(responseUpdateTask.message, {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.success(responseUpdateTask.message);
       } else {
-        toast.error(responseUpdateTask.message, {
-          autoClose: 3000,
-          position: toast.POSITION.TOP_CENTER,
-        });
+        toast.error(responseUpdateTask.message);
       }
     } else {
-      toast.error("No tienes turnos que aplazar", {
-        autoClose: 3000,
-        position: toast.POSITION.TOP_CENTER,
-      });
+      toast.error("No tienes turnos que aplazar");
     }
   };
 
