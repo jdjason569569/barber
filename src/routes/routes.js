@@ -23,9 +23,9 @@ export function MyRoutes() {
          <Router>
              <Routes>
                  <Route  path='*' element={<Login />}></Route>
-                 <Route element={<ProtectedRoute name={userName} />}>
+                
                      <Route exact path='/home' element={<Home name={userName} />}></Route>
-                 </Route>
+                 
                  <Route exact path='/signup'  element={<SignUp />}></Route>
              </Routes>
          </Router>
