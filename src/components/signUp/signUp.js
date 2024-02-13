@@ -14,6 +14,7 @@ export default function SignUp() {
     name: "",
     email: "",
     pass: "",
+    session: "",
   });
   const [name, setName] = useState(null);
   const [error, setError] = useState([]);
@@ -36,29 +37,32 @@ export default function SignUp() {
         values.pass
       );
       const user = responseRegister.user;
-      const responseUpdate = await updateProfile(user, {
+      await updateProfile(user, {
         displayName: values.name,
       });
-      if (responseUpdate && apiUrl) {
-       const response =  await fetch(`${apiUrl}/user`, {
+
+      if (responseRegister && apiUrl) {
+        const userObject = {};
+        userObject.id_firebase = user.uid;
+        userObject.email = values.email;
+        userObject.config = {
+          sessions: values.session,
+        };
+        const response = await fetch(`${apiUrl}/user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            id_firebase: user.uid,
-            email: values.email,
-          }),
+          body: JSON.stringify(userObject),
         });
-        if(response){
+        if (response) {
+          auth.signOut();
           navigate("/");
-          return auth.signOut();
         }
       }
     } catch (error) {
       // console.log(error);
     }
-   
   };
 
   return (
@@ -86,6 +90,15 @@ export default function SignUp() {
           placeholder="Password"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, pass: event.target.value }))
+          }
+        />
+      </div>
+      <div className="signup-form">
+        <InputControl
+          placeholder="Sesiones"
+          type={"number"}
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, session: event.target.value }))
           }
         />
       </div>

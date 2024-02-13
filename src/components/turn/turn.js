@@ -311,12 +311,12 @@ export default function Turn() {
       <ToastContainer position="bottom-center" autoClose={3000} />
       <div className="container-turn">
         <div className="conatiner-search">
-          <button
+          {/* <button
             onClick={postponeTurns}
             className="btn-sm rounded hold-over-botton"
           >
             Aplazar turnos (10 min)
-          </button>
+          </button> */}
           <button
             className="btn-sm rounded style-schedule-button"
             onClick={() => setShowPoppup(true)}
