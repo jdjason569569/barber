@@ -12,8 +12,10 @@ import Statistics from "../statistics/statistics";
  * Component that gives input to the application
  */
 
-export default function Home({ name }) {
+export default function Home({ user }) {
   const navigate = useNavigate();
+  const userView = user;
+  const apiUrl = process.env.REACT_APP_API;
   const [option, setOption] = useState("createTurn");
   const [turn, setTurn] = useState(true);
   const [customer, setCustomer] = useState(false);
@@ -22,8 +24,25 @@ export default function Home({ name }) {
   const [config, setConfig] = useState(false);
   const [title, setTitle] = useState("Gestion de Turnos");
 
-  const exit = () => {
+  const exit = async () => {
+    
+      if (userView) {
+        const increase = {
+          increaseVar: "0",
+        };
+        const respGetUserById = await fetch(`${apiUrl}/user/${userView}`);
+        const responseJson = await respGetUserById.json();
+        await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(increase),
+        });
+      }
+   
     navigate("/");
+
     return auth.signOut();
   };
 
@@ -80,9 +99,9 @@ export default function Home({ name }) {
       case "createCustomer":
         return <Customer />;
       case "seeStats":
-        return <Statistics/>;
+        return <Statistics />;
       case "turnSchedule":
-        return <TurnSchedule/>;
+        return <TurnSchedule />;
       case "config":
         return null;
       default:
@@ -93,6 +112,7 @@ export default function Home({ name }) {
   return (
     <>
       <div className="container-home">
+        {userView}
         <div className="container-options">
           <span
             className={`material-symbols-rounded ${
@@ -134,14 +154,15 @@ export default function Home({ name }) {
           >
             settings
           </span>
-          {name && (
-            <span
+          
+            <button
+              type="submit"
               className="material-symbols-rounded turn-botton"
               onClick={exit}
             >
               exit_to_app
-            </span>
-          )}
+            </button>
+          
         </div>
         <div className="style-text-title">{title}</div>
       </div>

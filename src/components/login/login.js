@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 import { InputControl } from "../shared/inputControl/inputControl";
 import "../login/login.css";
@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const apiUrl = process.env.REACT_APP_API;
 
   const [values, setValues] = useState({
     email: "",
@@ -26,23 +27,42 @@ export default function Login() {
   });
 
   const authUser = async () => {
+    console.log("authUser");
     if (!values.email || !values.pass) {
       toast.error("Datos incompletos");
       return;
     }
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.pass);
-      navigate("/home");
+      const response = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.pass
+      );
+
+      if (response) {
+        const increase = {
+          increaseVar: "1",
+        };
+        const respGetUserById = await fetch(
+          `${apiUrl}/user/${response.user.uid}`
+        );
+        const responseJson = await respGetUserById.json();
+        if (responseJson) {
+          await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(increase),
+          });
+          navigate("/home");
+        }
+      } else {
+        toast.warn("sessiones excedidas");
+      }
     } catch (error) {
       toast.error(error.message);
     }
-  };
-
-  const handleEmail = (event) => {
-    setValues({ ...values, email: event.target.value });
-  };
-  const handlePass = (event) => {
-    setValues({ ...values, pass: event.target.value });
   };
 
   const togglePassword = () => {
@@ -61,14 +81,18 @@ export default function Login() {
             <InputControl
               type="text"
               placeholder="Tu correo"
-              onChange={handleEmail}
+              onChange={(event) => {
+                setValues({ ...values, email: event.target.value });
+              }}
             ></InputControl>
           </div>
           <div className="form-group">
             <InputControl
               type={showPassword ? "text" : "password"}
               placeholder="Contraseña"
-              onChange={handlePass}
+              onChange={(event) => {
+                setValues({ ...values, pass: event.target.value });
+              }}
             ></InputControl>
             <button
               className="btn btn-light btn-sm btn-pass"

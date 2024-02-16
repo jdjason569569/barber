@@ -1,35 +1,35 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "../firebase";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import Login from '../components/login/login';
-import SignUp from '../components/signUp/signUp';
-import Home from '../components/home/home';
-import { ProtectedRoute } from '../components/shared/protectedRoute';
-
-
+import Login from "../components/login/login";
+import SignUp from "../components/signUp/signUp";
+import Home from "../components/home/home";
+import { ProtectedRoute } from "../components/shared/protectedRoute";
 
 export function MyRoutes() {
+  const [user, setUser] = useState("holamundo");
 
-    const [userName, setUserName] = useState(null);
-    
-    useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-            user ? setUserName(user.displayName) : setUserName(null);
-        }); 
-    });
+  useEffect(() => {
+    const authenticate = async () => {
+      await auth.onAuthStateChanged((user) => {
+        user ? setUser(user.uid) : setUser(null);
+      });
+    };
 
-    return (
-         <Router>
-             <Routes>
-                 <Route  path='/' element={<Login />}></Route>
-                 <Route element={<ProtectedRoute name={userName} />}>
-                     <Route exact path='/home' element={<Home name={userName} />}></Route>
-                 </Route>
-                 <Route exact path='/signup'  element={<SignUp />}></Route>
-                 <Route  path='*' element={<Login />}></Route>
-             </Routes>
-         </Router>
-    );
+    authenticate();
+  }, []);
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route element={<ProtectedRoute name={user} />}>
+          <Route exact path="/home" element={<Home user={user} />}></Route>
+        </Route>
+        <Route exact path="/signup" element={<SignUp />}></Route>
+        <Route path="*" element={<Login />}></Route>
+      </Routes>
+    </Router>
+  );
 }
-
