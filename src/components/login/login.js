@@ -18,13 +18,13 @@ export default function Login() {
     pass: "",
   });
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigate("/home");
-      }
-    }, []);
-  });
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigate("/home");
+  //     }
+  //   }, []);
+  // });
 
   const authUser = async () => {
     console.log("authUser");
@@ -48,17 +48,23 @@ export default function Login() {
         );
         const responseJson = await respGetUserById.json();
         if (responseJson) {
-          await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(increase),
-          });
-          navigate("/home");
+          const responsUser = await fetch(
+            `${apiUrl}/user/${responseJson.id_users}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(increase),
+            }
+          );
+          const reponseUserJson = await responsUser.json();
+          if (reponseUserJson.status === "error") {
+            toast.warn(reponseUserJson.message);
+          } else {
+            navigate("/home");
+          }
         }
-      } else {
-        toast.warn("sessiones excedidas");
       }
     } catch (error) {
       toast.error(error.message);
