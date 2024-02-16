@@ -18,13 +18,13 @@ export default function Login() {
     pass: "",
   });
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigate("/home");
-  //     }
-  //   }, []);
-  // });
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigate("/home");
+      }
+    }, []);
+  });
 
   const authUser = async () => {
     console.log("authUser");
