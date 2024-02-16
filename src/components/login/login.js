@@ -41,7 +41,7 @@ export default function Login() {
 
       if (response) {
         const increase = {
-          increaseVar: "1",
+          increaseVar: true,
         };
         const respGetUserById = await fetch(
           `${apiUrl}/user/${response.user.uid}`

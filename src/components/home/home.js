@@ -28,7 +28,7 @@ export default function Home({ user }) {
     
       if (userView) {
         const increase = {
-          increaseVar: "0",
+          increaseVar: false,
         };
         const respGetUserById = await fetch(`${apiUrl}/user/${userView}`);
         const responseJson = await respGetUserById.json();
