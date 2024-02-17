@@ -27,6 +27,7 @@ export default function Home({ user }) {
   const exit = async () => {
     
       if (userView) {
+        localStorage.removeItem('path');
         const increase = {
           increaseVar: false,
         };

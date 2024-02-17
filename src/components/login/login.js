@@ -1,40 +1,35 @@
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
-import {useRouteMatch } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useRouteMatch } from "react-router-dom";
 
 import { InputControl } from "../shared/inputControl/inputControl";
 import "../login/login.css";
 import logo from "../../assets/barber.jpg";
 import { ToastContainer, toast } from "react-toastify";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const apiUrl = process.env.REACT_APP_API;
-  
 
-const { pathname, search, hash } = useLocation();
-
-
+  const { pathname, search, hash } = useLocation();
 
   const [values, setValues] = useState({
     email: "",
     pass: "",
   });
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigate("/home");
-  //     }
-  //   }, []);
-  // });
+  useEffect(() => {
+    const path = localStorage.getItem("path");
+    if (path) {
+      navigate("/home");
+    }
+  }, []);
 
   const authUser = async () => {
-    
     console.log("pathname ", window.location.href);
     if (!values.email || !values.pass) {
       toast.error("Datos incompletos");
@@ -70,6 +65,7 @@ const { pathname, search, hash } = useLocation();
           if (reponseUserJson.status === "error") {
             toast.warn(reponseUserJson.message);
           } else {
+            localStorage.setItem("path", "/home");
             navigate("/home");
           }
         }
