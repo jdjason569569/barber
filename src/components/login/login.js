@@ -34,8 +34,8 @@ const { pathname, search, hash } = useLocation();
   // });
 
   const authUser = async () => {
-    const url = pathname + search + hash;
-    console.log("pathname ", url);
+    
+    console.log("pathname ", window.location.href);
     if (!values.email || !values.pass) {
       toast.error("Datos incompletos");
       return;
