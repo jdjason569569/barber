@@ -51,6 +51,7 @@ export default function SignUp() {
         const response = await fetch(`${apiUrl}/user`, {
           method: "POST",
           headers: {
+            'Origin': 'https://master--si-senor-barber.netlify.app',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(userObject),

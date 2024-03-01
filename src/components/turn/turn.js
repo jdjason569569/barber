@@ -94,6 +94,7 @@ export default function Turn() {
     const responseAddTurn = await fetch(`${apiUrl}/turns/${method}`, {
       method: "POST",
       headers: {
+        'Origin': 'https://master--si-senor-barber.netlify.app',
         "Content-Type": "application/json",
       },
       body: JSON.stringify(turn),
@@ -106,6 +107,7 @@ export default function Turn() {
     const responseAddTurn = await fetch(`${apiUrl}/turns/turn/${id}`, {
       method: "PUT",
       headers: {
+        'Origin': 'https://master--si-senor-barber.netlify.app',
         "Content-Type": "application/json",
       },
       body: JSON.stringify(turn),
@@ -164,6 +166,7 @@ export default function Turn() {
     const disableTurn = await fetch(`${apiUrl}/turns/disable/${id}`, {
       method: "PUT",
       headers: {
+        'Origin': 'https://master--si-senor-barber.netlify.app',
         "Content-Type": "application/json",
       },
     });
@@ -195,6 +198,7 @@ export default function Turn() {
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
           method: "PUT",
           headers: {
+            'Origin': 'https://master--si-senor-barber.netlify.app',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(turn),
@@ -240,6 +244,7 @@ export default function Turn() {
                     {
                       method: "PUT",
                       headers: {
+                        'Origin': 'https://master--si-senor-barber.netlify.app',
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify(obj),
@@ -281,6 +286,7 @@ export default function Turn() {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
         headers: {
+          'Origin': 'https://master--si-senor-barber.netlify.app',
           "Content-Type": "application/json",
         },
         body: JSON.stringify(turnNoSchedule),

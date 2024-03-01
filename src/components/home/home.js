@@ -36,6 +36,7 @@ export default function Home({ user }) {
         await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
           method: "PUT",
           headers: {
+            'Origin': 'https://master--si-senor-barber.netlify.app',
             "Content-Type": "application/json",
           },
           body: JSON.stringify(increase),
