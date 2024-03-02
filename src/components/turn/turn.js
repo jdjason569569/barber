@@ -10,6 +10,7 @@ import {
   useSensor,
   closestCenter,
   TouchSensor,
+  MouseSensor
 } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -33,6 +34,12 @@ export default function Turn() {
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [showPoppup, setShowPoppup] = useState(false);
   const [turn, setTurn] = useState(null);
+  const sensorMouse = useSensor(MouseSensor, {
+    activationConstraint: {
+      delay: 5000, // Tiempo de espera antes de la activación
+      tolerance: 10, // Tolerancia de movimiento
+    },
+  });
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -342,6 +349,7 @@ export default function Turn() {
         </div>
         <DndContext
           sensors={sensors}
+          sensorMouse = {[sensorMouse]}
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
