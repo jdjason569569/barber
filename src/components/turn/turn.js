@@ -4,7 +4,7 @@ import "./turn.css";
 import { useEffect, useState } from "react";
 import Homeworks from "./homework/homework";
 import { ToastContainer, toast } from "react-toastify";
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import {
   DndContext,
   useSensors,
@@ -34,6 +34,7 @@ export default function Turn() {
   const [searchCustomers, setSearchCustomers] = useState([]);
   const [showPoppup, setShowPoppup] = useState(false);
   const [turn, setTurn] = useState(null);
+  const [enableCards, setEnableCards] = useState(true);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -95,7 +96,7 @@ export default function Turn() {
     const responseAddTurn = await fetch(`${apiUrl}/turns/${method}`, {
       method: "POST",
       headers: {
-        'Origin': 'https://master--si-senor-barber.netlify.app',
+        Origin: "https://master--si-senor-barber.netlify.app",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(turn),
@@ -108,7 +109,7 @@ export default function Turn() {
     const responseAddTurn = await fetch(`${apiUrl}/turns/turn/${id}`, {
       method: "PUT",
       headers: {
-        'Origin': 'https://master--si-senor-barber.netlify.app',
+        Origin: "https://master--si-senor-barber.netlify.app",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(turn),
@@ -167,7 +168,7 @@ export default function Turn() {
     const disableTurn = await fetch(`${apiUrl}/turns/disable/${id}`, {
       method: "PUT",
       headers: {
-        'Origin': 'https://master--si-senor-barber.netlify.app',
+        Origin: "https://master--si-senor-barber.netlify.app",
         "Content-Type": "application/json",
       },
     });
@@ -199,7 +200,7 @@ export default function Turn() {
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
           method: "PUT",
           headers: {
-            'Origin': 'https://master--si-senor-barber.netlify.app',
+            Origin: "https://master--si-senor-barber.netlify.app",
             "Content-Type": "application/json",
           },
           body: JSON.stringify(turn),
@@ -245,7 +246,7 @@ export default function Turn() {
                     {
                       method: "PUT",
                       headers: {
-                        'Origin': 'https://master--si-senor-barber.netlify.app',
+                        Origin: "https://master--si-senor-barber.netlify.app",
                         "Content-Type": "application/json",
                       },
                       body: JSON.stringify(obj),
@@ -287,7 +288,7 @@ export default function Turn() {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
         headers: {
-          'Origin': 'https://master--si-senor-barber.netlify.app',
+          Origin: "https://master--si-senor-barber.netlify.app",
           "Content-Type": "application/json",
         },
         body: JSON.stringify(turnNoSchedule),
@@ -313,6 +314,14 @@ export default function Turn() {
     setShowPoppup(true);
   };
 
+  const enableCardsMethod = () => {
+    setEnableCards(false)
+  };
+
+  const disableCardsMethod = () => {
+    setEnableCards(true)
+  };
+
   return (
     <>
       <ToastContainer position="bottom-center" autoClose={3000} />
@@ -329,6 +338,12 @@ export default function Turn() {
             onClick={() => setShowPoppup(true)}
           >
             Agregar turno
+          </button>
+          <button
+            className="btn-sm rounded style-schedule-button"
+            onClick={() => enableCardsMethod()}
+          >
+            deshabilitar
           </button>
           {showPoppup && (
             <PopupAddTurn
@@ -371,6 +386,8 @@ export default function Turn() {
                         disableTurn={disableTurn}
                         completeTurn={completeTurn}
                         editTurn={editTurn}
+                        enableCards={enableCards}
+                        disableCardsMethod={disableCardsMethod}
                       />
                     ))}
                   </SortableContext>

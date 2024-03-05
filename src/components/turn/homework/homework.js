@@ -3,13 +3,26 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useEffect, useState } from "react";
 
-export default function Homeworks({ id, disableTurn, completeTurn, editTurn, turn }) {
+export default function Homeworks({
+  id,
+  disableTurn,
+  completeTurn,
+  editTurn,
+  turn,
+  enableCards,
+  disableCardsMethod
+}) {
+
+  
+
+
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+    useSortable({ id, disabled: enableCards });
 
   const [dateMoment, setDateMoment] = useState(null);
 
   useEffect(() => {
+
     let currentDate = new Date(turn.date_register);
     let hours = 0;
     let minutes = 0;
@@ -27,6 +40,7 @@ export default function Homeworks({ id, disableTurn, completeTurn, editTurn, tur
       minutes.toString().padStart(2, "0");
 
     setDateMoment(horaFormateada);
+    disableCardsMethod();
   }, [turn]);
 
   const style = {
@@ -34,13 +48,18 @@ export default function Homeworks({ id, disableTurn, completeTurn, editTurn, tur
     transition,
   };
 
+ 
+
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
+      
       <div
         className={
           turn.completed
             ? "turn-container turn-container-completed"
-            :  turn.disable ?  "turn-container turn-container-cancel" : "turn-container"
+            : turn.disable
+            ? "turn-container turn-container-cancel"
+            : "turn-container"
         }
       >
         <div className="text-style" style={{ marginLeft: "5%" }}>
