@@ -55,7 +55,7 @@
   border-radius: 20px;
   border: solid 2px var(--blue-color);
   display: flex;
-  height: 70vh;
+  height: 60vh;
   flex-direction: column;
   margin: 2%;
   overflow-y: scroll;

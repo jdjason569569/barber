@@ -25,7 +25,6 @@ export default function Home({ user }) {
   const [title, setTitle] = useState("Gestion de Turnos");
 
   const exit = async () => {
-    
       if (userView) {
         localStorage.removeItem('path');
         const increase = {
@@ -114,8 +113,7 @@ export default function Home({ user }) {
   return (
     <>
       <div className="container-home">
-        {userView}
-        <div className="container-options">
+        <div>
           <span
             className={`material-symbols-rounded ${
               customer ? "turn-botton turn-botton-selected" : "turn-botton"
@@ -156,14 +154,13 @@ export default function Home({ user }) {
           >
             settings
           </span>
-          
-            <button
+            <span
               type="submit"
               className="material-symbols-rounded turn-botton"
               onClick={exit}
             >
               exit_to_app
-            </button>
+            </span>
           
         </div>
         <div className="style-text-title">{title}</div>

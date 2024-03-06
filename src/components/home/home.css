@@ -12,11 +12,6 @@
     position: relative;
 }
 
-.container-options{
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
 .style-text-title{
     margin-top: 10px;
     font-size: 20px;
