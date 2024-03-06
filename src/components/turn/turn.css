@@ -59,7 +59,6 @@
   flex-direction: column;
   margin: 2%;
   overflow-y: scroll;
-  padding-right: 10%;
   position: relative;
 }
 
@@ -84,7 +83,6 @@
   background-color: var(--blue-color);
   color: var(--white-color);
   border-radius: 20px;
-  width: 95%;
   padding: 7px;
   margin: 0;
 }
@@ -109,9 +107,6 @@
   border-color: var(--blue-color) transparent transparent transparent;
   
 }
-
-
-
 /* Animación */
 @keyframes up {
   0%,

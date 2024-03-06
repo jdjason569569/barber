@@ -365,10 +365,6 @@ export default function Turn() {
         >
           <div className="turn-list-content">
             <h5 className="turn-title">Turnos disponibles</h5>
-            <div className="arrow-container">
-              <div className="arrow-up"></div>
-              <div className="arrow-down"></div>
-            </div>
             {isLoading ? (
               <Loader></Loader>
             ) : (

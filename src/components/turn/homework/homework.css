@@ -5,8 +5,6 @@
     border: 2px solid  var(--white-color);
     color:  var(--white-color);
     display: flex;
-    margin-right: 8%;
-    margin-left: 10px;
     box-shadow: 2px 2px 5px 1px var(--gray-color);;
 }
 
