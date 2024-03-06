@@ -20,10 +20,13 @@
 
 .conatiner-search {
   display: flex;
-  flex-direction: column;
+  height: 5vh;
+  gap: 15px;
+  justify-content: center;
   margin-left: 5%;
   margin-right: 5%;
-  height: 120px;
+  margin-bottom: 5%;
+  margin-top: 5%;
 }
 
 .hold-over-botton {
@@ -43,7 +46,7 @@
   color: var(--white-color);
   box-shadow: 2px 2px 5px 1px gray;
   margin-top: 10px;
-  padding: 2px;
+  padding: 7px;
 }
 
 .turn-component {
@@ -87,63 +90,10 @@
   margin: 0;
 }
 
-.arrow-container {
-  position: absolute;
-  right: 20px;
-  margin-top: 40%;
+.move-turns{
+  background-color: var(--green-color);
 }
 
-.arrow-up {
-  border-style: solid;
-  border-width: 0 10px 20px 10px;
-  border-color: transparent transparent var(--blue-color);
-  margin-bottom: 5px;
-  
-}
-
-.arrow-down {
-  border-style: solid;
-  border-width: 20px 10px 0 10px;
-  border-color: var(--blue-color) transparent transparent transparent;
-  
-}
-/* Animación */
-@keyframes up {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-100px);
-  }
-  60% {
-    transform: translateY(-50px);
-  }
-}
-
-@keyframes down {
-  0%,
-  20%,
-  50%,
-  80%,
-  100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(100px);
-  }
-  60% {
-    transform: translateY(50px);
-  }
-}
-
-.arrow-up {
-  animation: up 4s infinite;
-}
-
-.arrow-down {
-  animation: down 4s infinite;
+.disabled-turns{
+  background-color: var(--red-color);
 }

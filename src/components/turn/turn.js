@@ -315,7 +315,7 @@ export default function Turn() {
   };
 
   const enableCardsMethod = () => {
-    setEnableCards(false)
+    setEnableCards(!enableCards)
   };
 
   const disableCardsMethod = () => {
@@ -340,10 +340,10 @@ export default function Turn() {
             Agregar turno
           </button>
           <button
-            className="btn-sm rounded style-schedule-button"
+            className={enableCards ? "btn-sm rounded style-schedule-button move-turns" : "btn-sm rounded style-schedule-button disabled-turns"}
             onClick={() => enableCardsMethod()}
           >
-            deshabilitar
+            {enableCards ?  'Mover turno' : 'Cancelar'}
           </button>
           {showPoppup && (
             <PopupAddTurn

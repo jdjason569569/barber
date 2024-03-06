@@ -13,8 +13,6 @@ export default function Homeworks({
   disableCardsMethod
 }) {
 
-  
-
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id, disabled: enableCards });
