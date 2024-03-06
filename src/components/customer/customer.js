@@ -138,7 +138,7 @@ export default function Customer() {
         ) : (
           <div className="content-customer">
             {customers.length > 0 ? (
-              <div className="content-customer">
+              <div>
                 {customers.map((customer) => (
                   <div
                     key={customer.id_customer}
