@@ -51,6 +51,9 @@ export default function Login() {
             `${apiUrl}/user/${responseJson.id_users}`,
             {
               method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify(increase),
             }
           );

@@ -95,6 +95,9 @@ export default function Turn() {
     };
     const responseAddTurn = await fetch(`${apiUrl}/turns/${method}`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(turn),
     });
     return await responseAddTurn.json();
@@ -104,6 +107,9 @@ export default function Turn() {
     const id = turn.id;
     const responseAddTurn = await fetch(`${apiUrl}/turns/turn/${id}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(turn),
     });
     return await responseAddTurn.json();
@@ -159,6 +165,9 @@ export default function Turn() {
   const disableTurn = async (id) => {
     const disableTurn = await fetch(`${apiUrl}/turns/disable/${id}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const responseDisableTurn = await disableTurn.json();
     const response = {
@@ -187,6 +196,9 @@ export default function Turn() {
         turn.completed = !turn.completed;
         const response = await fetch(`${apiUrl}/turns/completed/${idStatus}`, {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(turn),
         });
         setTurnResponse(response);
@@ -229,6 +241,9 @@ export default function Turn() {
                     `${apiUrl}/turns/order/update/${newIndex}`,
                     {
                       method: "PUT",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
                       body: JSON.stringify(obj),
                     }
                   );
@@ -267,6 +282,9 @@ export default function Turn() {
     if (turnNoSchedule.length > 0) {
       const updateArray = await fetch(`${apiUrl}/turns/postpone`, {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(turnNoSchedule),
       });
       const responseUpdateTask = await updateArray.json();

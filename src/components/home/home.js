@@ -34,6 +34,9 @@ export default function Home({ user }) {
       const responseJson = await respGetUserById.json();
       await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
         method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(increase),
       });
     }
