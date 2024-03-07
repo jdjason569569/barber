@@ -114,10 +114,7 @@ export default function Customer() {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-      />
+      <ToastContainer position="bottom-center" autoClose={3000} />
       <Formturn addTurn={addCustomer} customer={customer} schedule={true} />
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
@@ -137,18 +134,18 @@ export default function Customer() {
                       <p className="text-style-mail">{customer.phone}</p>
                     </div>
                     <div className="icon-container">
-                      <span
-                        className="material-symbols-rounded style-bottom"
+                      <button
+                        className="material-symbols-rounded style-bottom-customer"
                         onMouseDown={() => editCustomer(customer)}
                       >
                         edit
-                      </span>
-                      <span
-                        className="material-symbols-rounded style-bottom"
+                      </button>
+                      <button
+                        className="material-symbols-rounded style-bottom-customer"
                         onMouseDown={() => disableCustomer(customer)}
                       >
                         delete
-                      </span>
+                      </button>
                     </div>
                   </div>
                 ))}

@@ -68,7 +68,7 @@ export default function Homeworks({
         {turn.completed ? (
           <div className="icon-container-homework">
             <span
-              className="material-symbols-rounded style-bottom"
+              className="material-symbols-rounded style-bottom-homework"
               onMouseDown={() => completeTurn(turn)}
             >
               check
@@ -77,19 +77,19 @@ export default function Homeworks({
         ) : (
           <div className="icon-container-homework">
             <span
-              className="material-symbols-rounded style-bottom"
+              className="material-symbols-rounded style-bottom-homework"
               onMouseDown={() => completeTurn(turn)}
             >
               pending_actions
             </span>
             <span
-              className="material-symbols-rounded style-bottom"
+              className="material-symbols-rounded style-bottom-homework"
               onMouseDown={() => editTurn(turn)}
             >
               edit
             </span>
             <span
-              className="material-symbols-rounded style-bottom"
+              className="material-symbols-rounded style-bottom-homework"
               onMouseDown={() => disableTurn(id)}
             >
               delete
