@@ -41,9 +41,7 @@ export default function Home({ user }) {
           body: JSON.stringify(increase),
         });
       }
-   
     navigate("/");
-
     return auth.signOut();
   };
 
@@ -155,7 +153,6 @@ export default function Home({ user }) {
             settings
           </span>
             <span
-              type="submit"
               className="material-symbols-rounded turn-botton"
               onClick={exit}
             >

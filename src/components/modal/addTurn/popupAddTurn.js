@@ -197,7 +197,7 @@ export default function PopupAddTurn({
               </option>
             ))}
           </select>
-          <form className="turn-form" onSubmit={handleSend}>
+          <form className="turn-form-popup" onSubmit={handleSend}>
             <input
               disabled
               className="turn-input"
