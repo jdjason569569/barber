@@ -74,10 +74,6 @@ export default function Customer() {
     customer.user = await getUserById();
     const responseAddTurn = await fetch(`${apiUrl}/customer`, {
       method: "POST",
-      headers: {
-        'Origin': 'https://master--si-senor-barber.netlify.app',
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(customer),
     });
     return await responseAddTurn.json();
@@ -87,10 +83,6 @@ export default function Customer() {
     const id = customer.id_customer;
     const responseUpateTurn = await fetch(`${apiUrl}/customer/${id}`, {
       method: "PUT",
-      headers: {
-        'Origin': 'https://master--si-senor-barber.netlify.app',
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify(customer),
     });
     return await responseUpateTurn.json();
@@ -102,10 +94,6 @@ export default function Customer() {
       `${apiUrl}/customer/disable/${id}`,
       {
         method: "PUT",
-        headers: {
-          'Origin': 'https://master--si-senor-barber.netlify.app',
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(customer),
       }
     );
