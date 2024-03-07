@@ -25,18 +25,18 @@ export default function Home({ user }) {
   const [title, setTitle] = useState("Gestion de Turnos");
 
   const exit = async () => {
-      if (userView) {
-        localStorage.removeItem('path');
-        const increase = {
-          increaseVar: false,
-        };
-        const respGetUserById = await fetch(`${apiUrl}/user/${userView}`);
-        const responseJson = await respGetUserById.json();
-        await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
-          method: "PUT",
-          body: JSON.stringify(increase),
-        });
-      }
+    if (userView) {
+      localStorage.removeItem("path");
+      const increase = {
+        increaseVar: false,
+      };
+      const respGetUserById = await fetch(`${apiUrl}/user/${userView}`);
+      const responseJson = await respGetUserById.json();
+      await fetch(`${apiUrl}/user/${responseJson.id_users}`, {
+        method: "PUT",
+        body: JSON.stringify(increase),
+      });
+    }
     navigate("/");
     return auth.signOut();
   };
@@ -148,13 +148,9 @@ export default function Home({ user }) {
           >
             settings
           </span>
-            <span
-              className="material-symbols-rounded turn-botton"
-              onClick={exit}
-            >
-              exit_to_app
-            </span>
-          
+          <button className="material-symbols-rounded turn-botton" onClick={exit}>
+            exit_to_app
+          </button>
         </div>
         <div className="style-text-title">{title}</div>
       </div>
