@@ -53,15 +53,12 @@
     background-color: var(--orange-color);;
 }
 
-.icon-container-homework {
-    display: flex;
-    gap: 10%;
-    padding: 10%;
-    
-  }
 
   .style-bottom{
     border-radius: 10px;
   }
 
+  .style-bottom:active{
+    color: blue;
+  }
 

@@ -50,13 +50,17 @@
 
 .icon-container-homework {
     display: flex;
-    gap: 10%;
+    gap: 20%;
     padding: 10%;
     
   }
 
   .style-bottom-homework{
     border-radius: 10px;
+  }
+
+  .style-bottom-homework:active{
+    color: blue;
   }
 
 
