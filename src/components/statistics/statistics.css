@@ -1,0 +1,85 @@
+
+
+.stats-list-content{
+    background: var(--white-color);
+    border-radius: 20px;
+    border: solid 2px var(--blue-color);
+    display: flex;
+    height: 50vh;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    margin-left: 2%;
+    margin-right: 2%;
+    overflow-y: scroll;
+    padding: 0 1% 1% 1%;
+    box-shadow: 2px 2px 5px 1px gray;
+}
+
+.stats-container {
+  align-items: center;
+  background-color: var(--blue-color);
+  border-radius: 7px;
+  border: 2px solid var(--white-color);
+  cursor: pointer;
+  color: var(--white-color);
+  display: flex;
+  justify-content: space-between;
+  padding: 3%;
+  box-shadow: 2px 2px 5px 1px gray;
+}
+
+.content-stats{
+  width: 100%;
+}
+
+.stats-text {
+  align-items: flex-start;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: auto;
+  justify-content: center;
+  margin-left: 5%;
+}
+
+.icon-container{
+  display: flex;
+  gap: 50%;
+  margin-right: 10%;
+}
+
+.style-bottom-stats{
+  border-radius: 10px;
+}
+
+.style-bottom-stats:active {
+  color: var(--blue-color);
+}
+
+
+.text-style-name-stats{
+  color: var(--white-color);
+  font-weight: bolder;
+  font-size: 20px;
+}
+
+.text-style-mail-stats{
+  color: var(--white-color);
+  font-weight: bolder;
+  font-size: 10px;
+  position: absolute;
+  top: 90%;
+}
+
+.stats-title {
+  position: sticky;
+  top: 0;
+  background-color: var(--red-color);
+  color: var(--white-color);
+  border-radius: 20px;
+  width: 100%;
+  padding: 7px;
+  margin: 0;
+  z-index: 100;
+}

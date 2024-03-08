@@ -1,29 +1,49 @@
 import { useState } from "react";
 
 import "./statistics.css";
+import { QUESTIONS } from "../../constants";
 import CustomerTimes from "../modal/customerTImes/customerTimes";
 
 export default function Statistics() {
-  const [showCustomerTimes, setShowCustomerTimes] = useState(false);
+  const [showstatsTimes, setShowstatsTimes] = useState(false);
+  const [query, setquery] = useState("");
 
   const showCustomerTimesMethod = () => {
-    setShowCustomerTimes(false);
+    setquery("");
+    setShowstatsTimes(false);
+  };
+
+  const buildQuery = (value, query) => {
+    setquery(query);
+    setShowstatsTimes(value);
   };
 
   return (
     <>
-      <div>
-        <button
-          onClick={() => setShowCustomerTimes(true)}
-        >
-          Clientes + veces
-        </button>
-        {showCustomerTimes && (
-          <CustomerTimes 
-          upPopup={showCustomerTimes}
-          showCustomerTimesMethod={showCustomerTimesMethod}/>
-        )}
+      <div className="content-stats">
+        <div>
+          {QUESTIONS.map((question) => (
+            <div
+              key={question.id}
+              className={"stats-container"}
+              onClick={() => buildQuery(true, question.query)}
+            >
+              <div className="icon-container">{question.text}</div>
+            </div>
+          ))}
+        </div>
       </div>
+      {
+        <div>
+          {showstatsTimes && (
+            <CustomerTimes
+              query={query}
+              upPopup={showstatsTimes}
+              showCustomerTimesMethod={showCustomerTimesMethod}
+            />
+          )}
+        </div>
+      }
     </>
   );
 }

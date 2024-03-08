@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import "./customerTimes.css";
-export default function CustomerTimes({ upPopup, showCustomerTimesMethod }) {
+export default function CustomerTimes({ upPopup, 
+  showCustomerTimesMethod, query }) {
   const [customerTimes, setCustomerTimes] = useState([]);
 
   const apiUrl = process.env.REACT_APP_API;
 
   useEffect(() => {
     const search = async () => {
-      const responseCutomers = await fetch(`${apiUrl}/statistics/usertime`);
+      const responseCutomers = await fetch(`${apiUrl}/statistics/${query}`);
       const response = await responseCutomers.json();
       setCustomerTimes(response);
     };

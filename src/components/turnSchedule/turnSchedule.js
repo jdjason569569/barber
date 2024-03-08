@@ -64,7 +64,7 @@ export default function TurnSchedule() {
       </div>
       <div className="container-turn-schedule">
         {turns.map((turn) => (
-          <ScheduleCard turn={turn} />
+          <ScheduleCard key={turn.id} turn={turn} />
         ))}
       </div>
     </>
