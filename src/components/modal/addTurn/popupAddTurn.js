@@ -235,7 +235,7 @@ export default function PopupAddTurn({
             />
             <button
               hidden={isEnabledButton}
-              className="btn-sm rounded create-turn"
+              className="btn-sm rounded create-turn-popup"
             >
               {turn && turn.customer.id_customer
                 ? "Editar turno"

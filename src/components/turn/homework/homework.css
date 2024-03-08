@@ -60,7 +60,7 @@
   }
 
   .style-bottom-homework:active{
-    color: blue;
+    color: var(--blue-color);
   }
 
 

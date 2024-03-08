@@ -48,6 +48,11 @@
   padding: 7px;
 }
 
+.style-schedule-button:active {
+  font-weight: bolder;
+  color: var(--white-color);
+}
+
 .turn-component {
   display: flex;
 }

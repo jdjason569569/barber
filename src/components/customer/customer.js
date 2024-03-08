@@ -58,9 +58,14 @@ export default function Customer() {
       } else {
         responseCustomer = await saveCustomer(customer);
         setCustomerResponse(responseCustomer);
-        !responseCustomer
-          ? toast.error("Ya aexiste un cliente con el numero")
-          : toast.success("Agregaste un cliente");
+        switch (responseCustomer.status) {
+          case "success":
+            toast.success(responseCustomer.message);
+            break;
+          case "error":
+            toast.warn(responseCustomer.message);
+            break;
+        }
       }
     }
   };
@@ -149,12 +154,12 @@ export default function Customer() {
                       >
                         edit
                       </button>
-                      <button
+                      {/* <button
                         className="material-symbols-rounded style-bottom-customer"
                         onMouseDown={() => disableCustomer(customer)}
                       >
                         delete
-                      </button>
+                      </button> */}
                     </div>
                   </div>
                 ))}

@@ -27,3 +27,8 @@
     font-size: 15px;
     padding: 5px;
 }
+
+.create-turn:active {
+    font-weight: bolder;
+    color: var(--white-color);
+  }

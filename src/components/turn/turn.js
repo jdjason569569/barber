@@ -300,6 +300,7 @@ export default function Turn() {
   };
 
   const showPoppupMethod = () => {
+    setTurn(null);
     setShowPoppup(false);
   };
 
@@ -309,11 +310,11 @@ export default function Turn() {
   };
 
   const enableCardsMethod = () => {
-    setEnableCards(!enableCards)
+    setEnableCards(!enableCards);
   };
 
   const disableCardsMethod = () => {
-    setEnableCards(true)
+    setEnableCards(true);
   };
 
   return (
@@ -334,10 +335,14 @@ export default function Turn() {
             Agregar turno
           </button>
           <button
-            className={enableCards ? "btn-sm rounded style-schedule-button move-turns" : "btn-sm rounded style-schedule-button disabled-turns"}
+            className={
+              enableCards
+                ? "btn-sm rounded style-schedule-button move-turns"
+                : "btn-sm rounded style-schedule-button disabled-turns"
+            }
             onClick={() => enableCardsMethod()}
           >
-            {enableCards ?  'Mover turno' : 'Cancelar'}
+            {enableCards ? "Mover turno" : "Cancelar"}
           </button>
           {showPoppup && (
             <PopupAddTurn
