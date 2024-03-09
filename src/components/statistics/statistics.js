@@ -13,9 +13,9 @@ export default function Statistics() {
     setShowstatsTimes(false);
   };
 
-  const buildQuery = (value, query) => {
+  const buildQuery = (query) => {
     setquery(query);
-    setShowstatsTimes(value);
+    setShowstatsTimes(true);
   };
 
   return (
@@ -26,7 +26,7 @@ export default function Statistics() {
             <div
               key={question.id}
               className={"stats-container"}
-              onClick={() => buildQuery(true, question.query)}
+              onClick={() => buildQuery(question.query)}
             >
               <div className="icon-container">{question.text}</div>
             </div>
