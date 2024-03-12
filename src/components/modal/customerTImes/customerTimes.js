@@ -40,6 +40,18 @@ export default function CustomerTimes({
     return showCustomerTimesMethod(value);
   };
 
+  const handleMonthChange = async (event) => {
+    const idMonth = event.target.value;
+    const idUser = await getUserById();
+    if (idUser !== null) {
+      const responseCutomers = await fetch(
+        `${apiUrl}/statistics/${query}/${idUser}/${idMonth}`
+      );
+      const response = await responseCutomers.json();
+      setCustomerTimes(response);
+    }
+  };
+
   const getUserById = async () => {
     try {
       const respGetUserById = await fetch(`${apiUrl}/user/${idFirebaseUser}`);
@@ -55,6 +67,25 @@ export default function CustomerTimes({
       <Modal className="content" isOpen={upPopup}>
         <ModalHeader>Clientes y turnos</ModalHeader>
         <ModalBody>
+          {(query === "customerGoes" || query === "bestDay") && (
+            <div>
+              <select id="month" onChange={handleMonthChange}>
+                <option value="">Selecciona un mes</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+          )}
           <div className="times-list-content">
             {customerTimes.map((value) => {
               switch (query) {
@@ -68,12 +99,13 @@ export default function CustomerTimes({
                         </p>
                       </div>
                     </div>
-                  )
-                  case "totalPay":
-                  return (
-                    <div> {value.total}</div>
-                  )
-                  
+                  );
+                case "totalPay":
+                  return <div> {value.total}</div>;
+                case "customerGoes":
+                  return <div> {customerTimes.length > 0 && <div>{value.citas_completadas} {value.name}</div>}</div>;
+                  case "bestDay":
+                  return <div> {customerTimes.length > 0 && <div>{value.dia} {value.valor_total}</div>}</div>;
               }
             })}
           </div>
