@@ -3,15 +3,8 @@
     background: var(--white-color);
     border-radius: 20px;
     border: solid 2px var(--blue-color);
-    display: flex;
-    height: 60vh;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-    margin-left: 2%;
-    margin-right: 2%;
+    height: 30vh;
     overflow-y: scroll;
-    padding: 0 1% 1% 1%;
     box-shadow: 2px 2px 5px 1px gray;
 }
 
