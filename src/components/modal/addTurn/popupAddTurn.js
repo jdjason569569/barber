@@ -170,7 +170,7 @@ export default function PopupAddTurn({
 
   return (
     <>
-      <Modal className="content" isOpen={upPopup}>
+      <Modal  isOpen={upPopup}>
         <ModalHeader>Agregar un horario especifico</ModalHeader>
         <ModalBody>
           <div className="input-group">

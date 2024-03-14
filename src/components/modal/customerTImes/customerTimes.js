@@ -64,7 +64,7 @@ export default function CustomerTimes({
 
   return (
     <>
-      <Modal className="content" isOpen={upPopup}>
+      <Modal isOpen={upPopup}>
         <ModalHeader>Clientes y turnos</ModalHeader>
         <ModalBody>
           {(query === "customerGoes" || query === "bestDay") && (

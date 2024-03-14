@@ -26,7 +26,6 @@ export default function Login() {
   }, []);
 
   const authUser = async () => {
-    console.log("pathname ", window.location.href);
     if (!values.email || !values.pass) {
       toast.error("Datos incompletos");
       return;
@@ -67,6 +66,7 @@ export default function Login() {
         }
       }
     } catch (error) {
+      navigate("/");
       toast.error(error.message);
     }
   };
