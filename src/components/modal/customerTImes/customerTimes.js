@@ -31,6 +31,7 @@ export default function CustomerTimes({
     switch (query) {
       case "totalPay":
       case "usertime":
+      case "moneyByDay":
         search();
         break;
     }
@@ -101,11 +102,33 @@ export default function CustomerTimes({
                     </div>
                   );
                 case "totalPay":
-                  return <div> {value.total}</div>;
+                  return <div key={value.id_users}> {value.total}</div>;
                 case "customerGoes":
-                  return <div> {customerTimes.length > 0 && <div>{value.citas_completadas} {value.name}</div>}</div>;
-                  case "bestDay":
-                  return <div> {customerTimes.length > 0 && <div>{value.dia} {value.valor_total}</div>}</div>;
+                  return (
+                    <div key={value.id_customer}>
+                      {customerTimes.length > 0 && (
+                        <div>
+                          {value.citas_completadas} {value.name}
+                        </div>
+                      )}
+                    </div>
+                  );
+                case "bestDay":
+                  return (
+                    <div>
+                      {customerTimes.length > 0 && (
+                        <div>
+                          {value.dia} {value.valor_total}
+                        </div>
+                      )}
+                    </div>
+                  );
+                case "moneyByDay":
+                  return (
+                    <div key={value.id_users}>
+                      {customerTimes.length > 0 && <div>{value.total}</div>}
+                    </div>
+                  );
               }
             })}
           </div>
