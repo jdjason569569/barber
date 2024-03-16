@@ -11,6 +11,7 @@ export default function TurnSchedule() {
   const [startDate, setStartDate] = useState(new Date());
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turns, setTurns] = useState([]);
+  const [money, setMoney] = useState("");
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -22,7 +23,7 @@ export default function TurnSchedule() {
     const getturnById = async () => {
       try {
         const idUser = await getUserById();
-        if (idUser) {
+        if (idUser !== null) {
           const responseturnByUser = await fetch(
             `${apiUrl}/turns/turncustomer/schedule/${idUser}/${encodeURIComponent(
               startDate.toISOString()
@@ -36,6 +37,19 @@ export default function TurnSchedule() {
       }
     };
     getturnById();
+    const searchMoneyByDay = async () => {
+      const idUser = await getUserById();
+      if (idUser !== null) {
+        const responseCutomers = await fetch(
+          `${apiUrl}/statistics/moneyByDaySchedule/${idUser}/${encodeURIComponent(
+            startDate.toISOString()
+          )}`
+        );
+        const response = await responseCutomers.json();
+        setMoney(response);
+      }
+    };
+    searchMoneyByDay();
   }, [apiUrl, idFirebaseUser, startDate]);
 
   /**
@@ -61,6 +75,11 @@ export default function TurnSchedule() {
       </div>
       <div className="container-schedule">
         <CardInformation></CardInformation>
+      </div>
+      <div>
+        {money && money.map((m) => (
+          <div key={m.id_users}> {m.total} pesos</div>
+        ))}
       </div>
       <div className="container-turn-schedule">
         {turns.map((turn) => (
