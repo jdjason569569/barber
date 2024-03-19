@@ -1,6 +1,7 @@
 import "../cardInformation/cardInformation.css";
 
 export default function CardInformation({ money }) {
+  console.log(money)
   return (
     <>
       <div className="content-information">
@@ -19,8 +20,8 @@ export default function CardInformation({ money }) {
           </div>
         </div>
         <div className="earnings">
-          {money &&
-            money.map((m) => <div key={m.id_users}> {m.total} pesos</div>)}
+          {money.length > 0 ?
+            money.map((m) => <div key={m.id_users}> {m.total} pesos</div>) : "No tienes ganancias"}
         </div>
       </div>
     </>
