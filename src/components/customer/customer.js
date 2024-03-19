@@ -15,6 +15,9 @@ export default function Customer() {
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState(null);
+  const invited = JSON.parse(localStorage.getItem('invited'));
+  
+    
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -145,9 +148,9 @@ export default function Customer() {
                   >
                     <div className="customer-text">
                       <h5 className="text-style-name">{customer.name}</h5>
-                      <p className="text-style-mail">{customer.phone}</p>
+                     {!invited ?<p className="text-style-mail">{customer.phone}</p> : null} 
                     </div>
-                    <div className="icon-container">
+                    {!invited ? <div className="icon-container">
                       <button
                         className="material-symbols-rounded style-bottom-customer"
                         onMouseDown={() => editCustomer(customer)}
@@ -160,7 +163,8 @@ export default function Customer() {
                       >
                         delete
                       </button> */}
-                    </div>
+                    </div> : null}
+                   
                   </div>
                 ))}
               </div>

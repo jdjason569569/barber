@@ -11,6 +11,7 @@ import { ToastContainer, toast } from "react-toastify";
 export default function Login() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const apiUrl = process.env.REACT_APP_API;
 
   const [values, setValues] = useState({
@@ -24,6 +25,10 @@ export default function Login() {
       navigate("/home");
     }
   }, []);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const authUser = async () => {
     if (!values.email || !values.pass) {
@@ -60,6 +65,9 @@ export default function Login() {
           if (reponseUserJson.status === "error") {
             toast.warn(reponseUserJson.message);
           } else {
+            if(isChecked){
+              localStorage.setItem("invited", isChecked);
+            }
             localStorage.setItem("path", "/home");
             navigate("/home");
           }
@@ -106,6 +114,14 @@ export default function Login() {
             >
               <span className="bi bi-eye-fill"></span>
             </button>
+          </div>
+          <div className="form-group">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
+            <label>{isChecked ? "Invitado" : ""}</label>
           </div>
           <button
             type="submit"

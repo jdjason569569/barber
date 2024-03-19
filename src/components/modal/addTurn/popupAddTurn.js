@@ -25,6 +25,7 @@ export default function PopupAddTurn({
   const turns = listTurns;
   const customers = listCustomers;
   const [searchCustomers, setSearchCustomers] = useState(listCustomers);
+  const invited = JSON.parse(localStorage.getItem('invited'));
 
   useEffect(() => {
     if (turn && turn.customer.name) {
@@ -209,7 +210,7 @@ export default function PopupAddTurn({
               value={input.name ?? ""}
               onChange={handleName}
             />
-            <input
+            {!invited ? <input
               disabled
               className="turn-input"
               type="number"
@@ -217,7 +218,7 @@ export default function PopupAddTurn({
               autoComplete="off"
               value={input.phone ?? ""}
               onChange={handlePhone}
-            />
+            /> : null}
             <input
               disabled={turn && turn.customer.id_customer ? true : false}
               className="turn-input"
