@@ -1,22 +1,28 @@
 import "../cardInformation/cardInformation.css";
 
-
-export default function CardInformation() {
-
+export default function CardInformation({ money }) {
   return (
     <>
-          <div className="content">
+      <div className="content-information">
+        <div className="card-info">
+          <div className="information">
             <div className="icon-avaliable"></div>
-            <div className="information">Turno sin atender</div>
+            <div className="info">Sin atender</div>
           </div>
-          <div className="content">
+          <div className="information">
             <div className="icon-cancel"></div>
-            <div className="information">Turno cancelada</div>
+            <div className="info">Cancelado</div>
           </div>
-          <div className="content">
+          <div className="information">
             <div className="icon-completed"></div>
-            <div className="information">Turno atendida</div>
+            <div className="info">Atendido</div>
           </div>
+        </div>
+        <div className="earnings">
+          {money &&
+            money.map((m) => <div key={m.id_users}> {m.total} pesos</div>)}
+        </div>
+      </div>
     </>
   );
 }

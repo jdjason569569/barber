@@ -74,12 +74,7 @@ export default function TurnSchedule() {
         />
       </div>
       <div className="container-schedule">
-        <CardInformation></CardInformation>
-      </div>
-      <div>
-        {money && money.map((m) => (
-          <div key={m.id_users}> {m.total} pesos</div>
-        ))}
+        <CardInformation money={money}></CardInformation>
       </div>
       <div className="container-turn-schedule">
         {turns.map((turn) => (
