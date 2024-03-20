@@ -1,64 +1,57 @@
 .turn-container-schedule {
-    align-items: center;
-    background-color: var(--gray-color);
-    border-radius: 7px;
-    border: 2px solid  var(--white-color);
-    box-shadow: 2px 2px 5px 1px gray;
-    color:  var(--white-color);
-    display: flex;
-    margin-top: 2%;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 5%;
-   
+  align-items: center;
+  background-color: var(--gray-color);
+  border-radius: 7px;
+  border: 2px solid var(--white-color);
+  box-shadow: 2px 2px 5px 1px gray;
+  display: flex;
+  color: var(--white-color);
+  display: flex;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 5%;
 }
 
-.text-style{
-    font-weight: bolder;
-    font-size: 20px;
-}
-
-
-.turn-text {
-    align-items: flex-start;
-    display: flex;
-    width: 60%;
-    height: auto;
+.turn-text-schedule {
+  align-items: flex-start;
+  display: flex;
+  font-weight: bolder;
+  font-size: 20px;
+  width: 60%;
+  height: auto;
 }
 
 .text-date-schedule {
-    width: 40%;
-    font-size: 10px;
+  font-size: 10px;
 }
 
-.turn-icon {
-    width: 25px;
-    height: 25px;
-    margin: 5px;
+.turn-icon-schedule {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
 }
 
-.material-icons {
-    font-size: 30px;
+.material-icons-schedule {
+  font-size: 30px;
 }
 
 .turn-container-schedule-completed {
-    background-color: var(--green-color);;
+  background-color: var(--green-color);
 }
 
 .turn-container-schedule-cancel {
-    background-color: var(--red-color);;
+  background-color: var(--red-color);
 }
 
 .turn-container-is-scheduled {
-    background-color: var(--orange-color);;
+  background-color: var(--orange-color);
 }
 
+.style-bottom-schedule {
+  border-radius: 10px;
+}
 
-  .style-bottom{
-    border-radius: 10px;
-  }
-
-  .style-bottom:active{
-    color: blue;
-  }
-
+.style-bottom:active {
+  color: blue;
+}

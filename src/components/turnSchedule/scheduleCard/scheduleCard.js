@@ -17,12 +17,12 @@ export default function ScheduleCard({ turn }) {
       minutes = currentDate.getMinutes();
     }
 
-    let horaFormateada =
+    let formatTime =
       hours.toString().padStart(2, "0") +
       ":" +
       minutes.toString().padStart(2, "0");
 
-    setDateMoment(horaFormateada);
+    setDateMoment(formatTime);
   }, [turn]);
   return (
     <>
@@ -33,7 +33,8 @@ export default function ScheduleCard({ turn }) {
             :  turn.disable ?  "turn-container-schedule turn-container-schedule-cancel" : "turn-container-schedule"
         }
       >
-        <div className="turn-text text-style">{turn.customer.name}</div>
+        <div className="turn-text-schedule ">{turn.customer.name}</div>
+        {turn.completed ? <div className="turn-text-schedule ">{turn.price} pesos</div> : null}
         <div className="text-date-schedule ">{dateMoment}</div>
       </div>
 

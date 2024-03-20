@@ -69,6 +69,7 @@ export default function TurnSchedule() {
     <>
       <div>
         <DatePicker
+          showIcon
           selected={startDate}
           onChange={(date) => setStartDate(date)}
         />
