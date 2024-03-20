@@ -23,6 +23,7 @@ export default function Home({ user }) {
   const [turnSchedule, setTurnSchedule] = useState(false);
   const [config, setConfig] = useState(false);
   const [title, setTitle] = useState("Gestion de Turnos");
+  const invited = JSON.parse(localStorage.getItem("invited"));
 
   const exit = async () => {
     if (userView) {
@@ -127,31 +128,40 @@ export default function Home({ user }) {
           >
             assignment_turned_in
           </span>
-          <span
-            className={`material-symbols-rounded ${
-              turnSchedule ? "turn-botton turn-botton-selected" : "turn-botton"
-            }`}
-            onClick={() => changeView("turnSchedule")}
-          >
-            calendar_month
-          </span>
-          <span
-            className={`material-symbols-rounded ${
-              stats ? "turn-botton turn-botton-selected" : "turn-botton"
-            }`}
-            onClick={() => changeView("seeStats")}
-          >
-            query_stats
-          </span>
-          <span
+          {!invited ? (
+            <span
+              className={`material-symbols-rounded ${
+                turnSchedule
+                  ? "turn-botton turn-botton-selected"
+                  : "turn-botton"
+              }`}
+              onClick={() => changeView("turnSchedule")}
+            >
+              calendar_month
+            </span>
+          ) : null}
+          {!invited ? (
+            <span
+              className={`material-symbols-rounded ${
+                stats ? "turn-botton turn-botton-selected" : "turn-botton"
+              }`}
+              onClick={() => changeView("seeStats")}
+            >
+              query_stats
+            </span>
+          ) : null}
+          {/* <span
             className={`material-symbols-rounded ${
               config ? "turn-botton turn-botton-selected" : "turn-botton"
             }`}
             onClick={() => changeView("config")}
           >
             settings
-          </span>
-          <button className="material-symbols-rounded turn-botton" onClick={exit}>
+          </span> */}
+          <button
+            className="material-symbols-rounded turn-botton"
+            onClick={exit}
+          >
             exit_to_app
           </button>
         </div>
