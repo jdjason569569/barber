@@ -66,7 +66,6 @@ export default function CustomerTimes({
   return (
     <>
       <Modal isOpen={upPopup}>
-        <ModalHeader>Clientes y turnos</ModalHeader>
         <ModalBody>
           {(query === "customerGoes" || query === "bestDay") && (
             <div>
@@ -87,18 +86,16 @@ export default function CustomerTimes({
               </select>
             </div>
           )}
-          <div className="times-list-content">
+          <div className={`times-list-content ${query}`}>
             {customerTimes.map((value) => {
               switch (query) {
                 case "usertime":
                   return (
                     <div className={"times-container"} key={value.id_customer}>
-                      <div className="times-text">
-                        <h5 className="times-style-name">{value.name}</h5>
-                        <p className="text-style-completed">
-                          {value.cantidad_turnos_completos}
-                        </p>
-                      </div>
+                      <h5 className="times-style-name">{value.name}</h5>
+                      <p className="text-style-completed">
+                        {value.cantidad_turnos_completos} turnos
+                      </p>
                     </div>
                   );
                 case "totalPay":
@@ -132,15 +129,13 @@ export default function CustomerTimes({
               }
             })}
           </div>
-        </ModalBody>
-        <ModalFooter>
           <button
             className="btn-sm rounded cancel-turn"
             onMouseDown={() => showPoPup(false)}
           >
-            Ok
+            Cerrar
           </button>
-        </ModalFooter>
+        </ModalBody>
       </Modal>
     </>
   );

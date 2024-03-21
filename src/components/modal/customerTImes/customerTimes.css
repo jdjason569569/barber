@@ -3,11 +3,21 @@
     background: var(--white-color);
     border-radius: 20px;
     border: solid 2px var(--blue-color);
-    height: 30vh;
+    
     overflow-y: scroll;
     box-shadow: 2px 2px 5px 1px gray;
 }
 
+.usertime{
+  height: 30vh;
+}
+
+.moneyByDay,
+.bestDay,
+.customerGoes,
+.totalPay{
+  height: 10vh;
+}
 .times-container {
     align-items: center;
     background-color: var(--blue-color);
@@ -18,31 +28,22 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    padding-top: 3%;
     box-shadow: 2px 2px 5px 1px gray;
   }
 
-  .times-text {
-    align-items: flex-start;
-    display: flex;
-    height: auto;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-left: 5%;
-  }
+  
 
   .times-style-name{
     color: var(--white-color);
-    font-weight: bolder;
     font-size: 20px;
+    width: 50%;
   }
   
   .text-style-completed{
     color: var(--white-color);
     font-weight: bolder;
-    font-size: 30px;
+    font-size: 10px;
+    width: 50%;
   }
 
   .modal-footer{
