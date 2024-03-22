@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { auth } from "../../../firebase";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 import "./customerTimes.css";
 export default function CustomerTimes({
   upPopup,
@@ -99,13 +99,18 @@ export default function CustomerTimes({
                     </div>
                   );
                 case "totalPay":
-                  return <div key={value.id_users}> {value.total}</div>;
+                  return (
+                    <div className="text-style-result" key={value.id_users}>
+                      En este mes has ganado: {value.total} $
+                    </div>
+                  );
                 case "customerGoes":
                   return (
-                    <div key={value.id_customer}>
+                    <div className="container-text text-style-result" key={value.id_customer}>
                       {customerTimes.length > 0 && (
-                        <div>
-                          {value.citas_completadas} {value.name}
+                        <div >
+                          <h5>{value.name}</h5>
+                          <p>{value.citas_completadas} turnos completados en el mes</p>
                         </div>
                       )}
                     </div>
@@ -114,16 +119,16 @@ export default function CustomerTimes({
                   return (
                     <div>
                       {customerTimes.length > 0 && (
-                        <div>
-                          {value.dia} {value.valor_total}
+                        <div className="text-style-result">
+                         El dia {value.dia} ganaste {value.valor_total} $
                         </div>
                       )}
                     </div>
                   );
                 case "moneyByDay":
                   return (
-                    <div key={value.id_users}>
-                      {customerTimes.length > 0 && <div>{value.total}</div>}
+                    <div className="text-style-result" key={value.id_users}>
+                      {customerTimes.length > 0 && <div>Hoy ganaste {value.total}</div>}
                     </div>
                   );
               }

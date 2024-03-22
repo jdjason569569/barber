@@ -2,7 +2,7 @@ export const QUESTIONS = [
   {
     id: 1,
     query: "usertime",
-    text: "Numero de veces que el cliente ha ido a la barberia en el mes",
+    text: "Veces que el cliente ha ido a la barberia en el mes",
   },
   { id: 2, query: "totalPay", text: "Dinero recaudado en el mes" },
   { id: 3, query: "customerGoes", text: "Cliente que mas va en el mes" },

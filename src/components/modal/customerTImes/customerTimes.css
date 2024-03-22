@@ -3,13 +3,16 @@
     background: var(--white-color);
     border-radius: 20px;
     border: solid 2px var(--blue-color);
-    
-    overflow-y: scroll;
+    overflow-y: auto;
     box-shadow: 2px 2px 5px 1px gray;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
 }
 
 .usertime{
-  height: 30vh;
+  height: 20vh;
 }
 
 .moneyByDay,
@@ -27,11 +30,9 @@
     color: var(--white-color);
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    gap: 30%;
     box-shadow: 2px 2px 5px 1px gray;
   }
-
-  
 
   .times-style-name{
     color: var(--white-color);
@@ -43,9 +44,18 @@
     color: var(--white-color);
     font-weight: bolder;
     font-size: 10px;
-    width: 50%;
   }
 
-  .modal-footer{
-    display: block;
+  .text-style-result{
+    color: var(--blue-color);
+    font-weight: bolder;
+  }
+
+  .container-text{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
+    gap: 20%;
+    flex-direction: row;
   }
