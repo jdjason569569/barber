@@ -56,3 +56,9 @@
     gap: 20%;
     flex-direction: row;
   }
+
+  .container-text-result{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+  }

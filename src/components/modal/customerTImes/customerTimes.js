@@ -100,13 +100,13 @@ export default function CustomerTimes({
                   );
                 case "totalPay":
                   return (
-                    <div className="text-style-result" key={value.id_users}>
+                    <div className="text-style-result container-text-result" key={value.id_users}>
                       En este mes has ganado: {value.total} $
                     </div>
                   );
                 case "customerGoes":
                   return (
-                    <div className="container-text text-style-result" key={value.id_customer}>
+                    <div className="container-text text-style-result container-text-result" key={value.id_customer}>
                       {customerTimes.length > 0 && (
                         <div >
                           <h5>{value.name}</h5>
@@ -119,7 +119,7 @@ export default function CustomerTimes({
                   return (
                     <div>
                       {customerTimes.length > 0 && (
-                        <div className="text-style-result">
+                        <div className="text-style-result container-text-result">
                          El dia {value.dia} ganaste {value.valor_total} $
                         </div>
                       )}
@@ -127,7 +127,7 @@ export default function CustomerTimes({
                   );
                 case "moneyByDay":
                   return (
-                    <div className="text-style-result" key={value.id_users}>
+                    <div className="text-style-result container-text-result" key={value.id_users}>
                       {customerTimes.length > 0 && <div>Hoy ganaste {value.total}</div>}
                     </div>
                   );
