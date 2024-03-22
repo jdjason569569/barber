@@ -7,6 +7,7 @@ import { useState } from "react";
 import Customer from "../customer/customer";
 import TurnSchedule from "../turnSchedule/turnSchedule";
 import Statistics from "../statistics/statistics";
+import PopupCancel from "../modal/cancel/popupCancel";
 
 /**
  * Component that gives input to the application
@@ -24,6 +25,7 @@ export default function Home({ user }) {
   const [config, setConfig] = useState(false);
   const [title, setTitle] = useState("Gestion de Turnos");
   const invited = JSON.parse(localStorage.getItem("invited"));
+  const [showPoppup, setShowPoppup] = useState(false);
 
   const exit = async () => {
     if (userView) {
@@ -108,6 +110,13 @@ export default function Home({ user }) {
     }
   };
 
+  const showCustomerTimesMethod = (value) => {
+    if(value){
+      exit();
+    }
+    setShowPoppup(false);
+  };
+
   return (
     <>
       <div className="container-home">
@@ -160,10 +169,16 @@ export default function Home({ user }) {
           </span> */}
           <button
             className="material-symbols-rounded turn-botton"
-            onClick={exit}
+            onClick={() => setShowPoppup(true)}
           >
             exit_to_app
           </button>
+          {showPoppup && (
+            <PopupCancel
+              upPopup={showPoppup}
+              showCustomerTimesMethod={showCustomerTimesMethod}
+            ></PopupCancel>
+          )}
         </div>
         <div className="style-text-title">{title}</div>
       </div>

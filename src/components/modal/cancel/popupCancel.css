@@ -1,0 +1,31 @@
+.cancel-turn {
+  box-shadow: 2px 2px 5px 1px gray;
+  background: var(--red-color);
+  border: none;
+  color: var(--white-color);
+  margin-top: 15px;
+  margin-left: 8px;
+  font-size: 15px;
+  padding: 2px;
+}
+
+.ok-popup {
+  box-shadow: 2px 2px 5px 1px gray;
+  background: var(--blue-color);
+  border: none;
+  color: var(--white-color);
+  margin-top: 15px;
+  font-size: 15px;
+  padding: 2px;
+}
+
+.ok-popup:active {
+  font-weight: bolder;
+  color: var(--white-color);
+}
+
+.text-style-cancel{
+    color: var(--blue-color);
+    font-weight: bolder;
+    margin: 0;
+  }

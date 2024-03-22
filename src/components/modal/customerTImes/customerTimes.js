@@ -94,7 +94,7 @@ export default function CustomerTimes({
                   </select>
                 </div>
               )}
-              <div className={`times-list-content ${query}`}>
+              <div className={`times-list-content`}>
                 {customerTimes.map((value) => {
                   switch (query) {
                     case "usertime":
@@ -141,12 +141,10 @@ export default function CustomerTimes({
                       );
                     case "bestDay":
                       return (
-                        <div>
+                        <div className="container-text-result">
                           {customerTimes.length > 0 && (
-                            <div className="container-text-result">
-                              <div className="text-style-result">
-                                El dia {value.dia} ganaste {value.valor_total} $
-                              </div>
+                            <div className="text-style-result">
+                              El dia {value.dia} ganaste {value.valor_total} $
                             </div>
                           )}
                         </div>

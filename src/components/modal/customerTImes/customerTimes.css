@@ -4,20 +4,11 @@
     border-radius: 20px;
     border: solid 2px var(--blue-color);
     overflow-y: auto;
+    height: 20vh;
     box-shadow: 2px 2px 5px 1px gray;
     flex-direction: column;
 }
 
-.usertime{
-  height: 20vh;
-}
-
-.moneyByDay,
-.bestDay,
-.customerGoes,
-.totalPay{
-  height: 10vh;
-}
 .times-container {
     align-items: center;
     background-color: var(--blue-color);
