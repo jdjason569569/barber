@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { auth } from "../../../firebase";
 import { Modal, ModalBody } from "reactstrap";
 import "./customerTimes.css";
+import Loader from "../../loader/loader";
 export default function CustomerTimes({
   upPopup,
   showCustomerTimesMethod,
@@ -9,6 +10,7 @@ export default function CustomerTimes({
 }) {
   const [customerTimes, setCustomerTimes] = useState([]);
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const apiUrl = process.env.REACT_APP_API;
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function CustomerTimes({
   }, [apiUrl]);
 
   useEffect(() => {
+    setIsLoading(true);
     const search = async () => {
       const idUser = await getUserById();
       if (idUser !== null) {
@@ -26,6 +29,7 @@ export default function CustomerTimes({
         );
         const response = await responseCutomers.json();
         setCustomerTimes(response);
+        setIsLoading(false);
       }
     };
     switch (query) {
@@ -67,73 +71,104 @@ export default function CustomerTimes({
     <>
       <Modal isOpen={upPopup}>
         <ModalBody>
-          {(query === "customerGoes" || query === "bestDay") && (
+          {isLoading && query !== "customerGoes" && query !== "bestDay" ? (
+            <Loader></Loader>
+          ) : (
             <div>
-              <select id="month" onChange={handleMonthChange}>
-                <option value="">Selecciona un mes</option>
-                <option value="1">Enero</option>
-                <option value="2">Febrero</option>
-                <option value="3">Marzo</option>
-                <option value="4">Abril</option>
-                <option value="5">Mayo</option>
-                <option value="6">Junio</option>
-                <option value="7">Julio</option>
-                <option value="8">Agosto</option>
-                <option value="9">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-              </select>
+              {(query === "customerGoes" || query === "bestDay") && (
+                <div>
+                  <select id="month" onChange={handleMonthChange}>
+                    <option value="">Selecciona un mes</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
+                  </select>
+                </div>
+              )}
+              <div className={`times-list-content ${query}`}>
+                {customerTimes.map((value) => {
+                  switch (query) {
+                    case "usertime":
+                      return (
+                        <div
+                          className={"times-container"}
+                          key={value.id_customer}
+                        >
+                          <h5 className="times-style-name">{value.name}</h5>
+                          <p className="text-style-completed">
+                            {value.cantidad_turnos_completos} turnos
+                          </p>
+                        </div>
+                      );
+                    case "totalPay":
+                      return (
+                        <div className="container-text-result">
+                          <div
+                            className="text-style-result"
+                            key={value.id_users}
+                          >
+                            En este mes has ganado: {value.total} $
+                          </div>
+                        </div>
+                      );
+                    case "customerGoes":
+                      return (
+                        <div className="container-text-result">
+                          <div
+                            className="container-text text-style-result"
+                            key={value.id_customer}
+                          >
+                            {customerTimes.length > 0 && (
+                              <div>
+                                <h5>{value.name}</h5>
+                                <p>
+                                  {value.citas_completadas} turnos completados
+                                  en el mes
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    case "bestDay":
+                      return (
+                        <div>
+                          {customerTimes.length > 0 && (
+                            <div className="container-text-result">
+                              <div className="text-style-result">
+                                El dia {value.dia} ganaste {value.valor_total} $
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    case "moneyByDay":
+                      return (
+                        <div className="container-text-result">
+                          <div
+                            className="text-style-result"
+                            key={value.id_users}
+                          >
+                            {customerTimes.length > 0 && (
+                              <div>Hoy ganaste {value.total}</div>
+                            )}
+                          </div>
+                        </div>
+                      );
+                  }
+                })}
+              </div>
             </div>
           )}
-          <div className={`times-list-content ${query}`}>
-            {customerTimes.map((value) => {
-              switch (query) {
-                case "usertime":
-                  return (
-                    <div className={"times-container"} key={value.id_customer}>
-                      <h5 className="times-style-name">{value.name}</h5>
-                      <p className="text-style-completed">
-                        {value.cantidad_turnos_completos} turnos
-                      </p>
-                    </div>
-                  );
-                case "totalPay":
-                  return (
-                    <div className="text-style-result container-text-result" key={value.id_users}>
-                      En este mes has ganado: {value.total} $
-                    </div>
-                  );
-                case "customerGoes":
-                  return (
-                    <div className="container-text text-style-result container-text-result" key={value.id_customer}>
-                      {customerTimes.length > 0 && (
-                        <div >
-                          <h5>{value.name}</h5>
-                          <p>{value.citas_completadas} turnos completados en el mes</p>
-                        </div>
-                      )}
-                    </div>
-                  );
-                case "bestDay":
-                  return (
-                    <div>
-                      {customerTimes.length > 0 && (
-                        <div className="text-style-result container-text-result">
-                         El dia {value.dia} ganaste {value.valor_total} $
-                        </div>
-                      )}
-                    </div>
-                  );
-                case "moneyByDay":
-                  return (
-                    <div className="text-style-result container-text-result" key={value.id_users}>
-                      {customerTimes.length > 0 && <div>Hoy ganaste {value.total}</div>}
-                    </div>
-                  );
-              }
-            })}
-          </div>
           <button
             className="btn-sm rounded cancel-turn"
             onMouseDown={() => showPoPup(false)}
