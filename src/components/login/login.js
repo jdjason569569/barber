@@ -31,6 +31,7 @@ export default function Login() {
   };
 
   const authUser = async () => {
+    values.email = values.email+"@gmail.com"
     if (!values.email || !values.pass) {
       toast.error("Datos incompletos");
       return;
