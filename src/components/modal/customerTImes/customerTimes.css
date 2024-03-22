@@ -5,9 +5,6 @@
     border: solid 2px var(--blue-color);
     overflow-y: auto;
     box-shadow: 2px 2px 5px 1px gray;
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
     flex-direction: column;
 }
 
