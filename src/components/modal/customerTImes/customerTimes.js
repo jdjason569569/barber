@@ -146,6 +146,7 @@ export default function CustomerTimes({
                             <div className="text-style-result">
                               El dia {value.dia} ganaste {value.valor_total} $
                             </div>
+                            
                           )}
                         </div>
                       );
@@ -158,6 +159,7 @@ export default function CustomerTimes({
                           >
                             {customerTimes.length > 0 && (
                               <div>Hoy ganaste {value.total}</div>
+                              
                             )}
                           </div>
                         </div>

@@ -5,6 +5,7 @@ import ScheduleCard from "./scheduleCard/scheduleCard";
 import "react-datepicker/dist/react-datepicker.css";
 import "./turnSchedule.css";
 import CardInformation from "../modal/cardInformation/cardInformation";
+import LinesChart from "../charts/lines.chart";
 
 export default function TurnSchedule() {
   const apiUrl = process.env.REACT_APP_API;
@@ -12,6 +13,7 @@ export default function TurnSchedule() {
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turns, setTurns] = useState([]);
   const [money, setMoney] = useState("");
+  const [allMoney, setAllMoney] = useState([]);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -50,6 +52,18 @@ export default function TurnSchedule() {
       }
     };
     searchMoneyByDay();
+
+    const searchMoneyAllDay = async () => {
+      const idUser = await getUserById();
+      if (idUser !== null) {
+        const responseCutomers = await fetch(
+          `${apiUrl}/statistics/moneyAllDaySchedule/${idUser}`
+        );
+        const response = await responseCutomers.json();
+        setAllMoney(response);
+      }
+    };
+    searchMoneyAllDay();
   }, [apiUrl, idFirebaseUser, startDate]);
 
   /**
@@ -67,6 +81,11 @@ export default function TurnSchedule() {
 
   return (
     <>
+    {allMoney.length > 0 && (
+        <div className="line-style">
+          <LinesChart allMoney={allMoney}></LinesChart>{" "}
+        </div>
+      )}
       <div>
         <DatePicker
           showIcon

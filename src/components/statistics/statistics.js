@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./statistics.css";
 import { QUESTIONS } from "../../constants";
 import CustomerTimes from "../modal/customerTImes/customerTimes";
-import LinesChart from "../charts/lines.chart";
+
 
 export default function Statistics() {
   const [showstatsTimes, setShowstatsTimes] = useState(false);
@@ -46,7 +46,7 @@ export default function Statistics() {
         </div>
       }
       <div>
-      <LinesChart />
+      
       </div>
     </>
   );
