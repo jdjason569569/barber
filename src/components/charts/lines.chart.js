@@ -26,11 +26,31 @@ export default function LinesChart({ allMoney }) {
   if (allMoney) {
     let money = [];
     let dias = [];
-    allMoney.forEach((value) => {
-      money.push(value.total_price);
-      dias.push(value.nombre_dia);
-  });
+    let currentDate = new Date();
+    let año = 0;
+    let mes = 0;
 
+    if (process.env.REACT_APP_ZONE === "0") {
+      año = currentDate.getUTCFullYear();
+      mes = currentDate.getUTCMonth();
+    } else {
+      año = currentDate.getFullYear();
+      mes = currentDate.getMonth() + 1;
+    }
+
+    var diasMes = new Date(año, mes, 0).getDate();
+
+    for (let i = 1; i <= diasMes; i++) {
+      money.push(0);
+      dias.push(i);
+    }
+
+    for (let i = 0; i < allMoney.length; i++) {
+      const index = dias.indexOf(allMoney[i].dia);
+      if (index !== -1) {
+        money[index] = allMoney[i].total_price
+      }
+    }
 
     var beneficios = money;
     var meses = dias;
