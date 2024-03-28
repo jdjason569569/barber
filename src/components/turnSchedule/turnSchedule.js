@@ -5,7 +5,7 @@ import ScheduleCard from "./scheduleCard/scheduleCard";
 import "react-datepicker/dist/react-datepicker.css";
 import "./turnSchedule.css";
 import CardInformation from "../modal/cardInformation/cardInformation";
-import LinesChart from "../charts/lines.chart";
+import ChartModal from "../modal/charts/chart.modal";
 
 export default function TurnSchedule() {
   const apiUrl = process.env.REACT_APP_API;
@@ -13,7 +13,7 @@ export default function TurnSchedule() {
   const [idFirebaseUser, setIdFirebaseUser] = useState(null);
   const [turns, setTurns] = useState([]);
   const [money, setMoney] = useState("");
-  const [allMoney, setAllMoney] = useState([]);
+  const [showPoppup, setShowPoppup] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -52,18 +52,6 @@ export default function TurnSchedule() {
       }
     };
     searchMoneyByDay();
-
-    const searchMoneyAllDay = async () => {
-      const idUser = await getUserById();
-      if (idUser !== null) {
-        const responseCutomers = await fetch(
-          `${apiUrl}/statistics/moneyAllDaySchedule/${idUser}`
-        );
-        const response = await responseCutomers.json();
-        setAllMoney(response);
-      }
-    };
-    searchMoneyAllDay();
   }, [apiUrl, idFirebaseUser, startDate]);
 
   /**
@@ -79,13 +67,12 @@ export default function TurnSchedule() {
     }
   };
 
+  const showChartMethod = () => {
+    setShowPoppup(false);
+  };
+
   return (
     <>
-    {allMoney.length > 0 && (
-        <div className="line-style">
-          <LinesChart allMoney={allMoney}></LinesChart>{" "}
-        </div>
-      )}
       <div>
         <DatePicker
           showIcon
@@ -93,6 +80,15 @@ export default function TurnSchedule() {
           onChange={(date) => setStartDate(date)}
         />
       </div>
+      <button
+        className="btn btn-light btn-sm rounded btn-style-chart"
+        onClick={() => setShowPoppup(true)}
+      >
+        mostrar grafica
+      </button>
+      {showPoppup && (
+        <ChartModal upPopup={showPoppup} showChartMethod={showChartMethod} />
+      )}
       <div className="container-schedule">
         <CardInformation money={money}></CardInformation>
       </div>

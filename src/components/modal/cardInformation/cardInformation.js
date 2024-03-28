@@ -1,7 +1,6 @@
 import "../cardInformation/cardInformation.css";
 
 export default function CardInformation({ money }) {
-  console.log(money)
   return (
     <>
       <div className="content-information">

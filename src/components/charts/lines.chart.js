@@ -10,6 +10,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
+import "./lines.chart.css";
 
 export default function LinesChart({ allMoney }) {
   ChartJS.register(
