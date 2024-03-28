@@ -14,13 +14,13 @@ export default function PopupCancel({ upPopup, showCustomerTimesMethod }) {
             className="btn-sm rounded ok-popup"
             onMouseDown={() => showPoPup(true)}
           >
-            Ok
+            Si
           </button>
           <button
             className="btn-sm rounded cancel-turn"
             onMouseDown={() => showPoPup(false)}
           >
-            Cancelar
+            No
           </button>
         </ModalBody>
       </Modal>

@@ -1,9 +1,9 @@
-.modal-content {
+.modal-content{
   position: relative;
-  top: 300px;
+  top: 200px;
   display: flex;
   flex-direction: column;
-  width: 80% !important;
+  width: auto !important;
   margin: 0 auto;
   border: solid 2px var(--blue-color) !important;
 }

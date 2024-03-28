@@ -60,17 +60,16 @@ export default function LinesChart({ allMoney }) {
   var midata = {
     labels: meses,
     datasets: [
-      // Cada una de las líneas del gráfico
       {
         label: "Ganancias por dias atendidos",
         data: beneficios,
         tension: 0.5,
         fill: true,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        pointRadius: 5,
-        pointBorderColor: "rgba(255, 99, 132)",
-        pointBackgroundColor: "rgba(255, 99, 132)",
+        borderColor: "#4C61D9",
+        backgroundColor: "#cccccc",
+        pointRadius: 4,
+        pointBorderColor: "#4C61D9",
+        pointBackgroundColor: "#4C61D9",
       },
     ],
   };
@@ -79,9 +78,10 @@ export default function LinesChart({ allMoney }) {
     scales: {
       y: {
         min: 0,
+        ticks: { color: "#000000" },
       },
       x: {
-        ticks: { color: "rgb(255, 99, 132)" },
+        ticks: { color: "#000000" },
       },
     },
   };

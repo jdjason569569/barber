@@ -20,7 +20,7 @@ export default function CardInformation({ money }) {
         </div>
         <div className="earnings">
           {money.length > 0 ?
-            money.map((m) => <div key={m.id_users}> {m.total} pesos</div>) : "No tienes ganancias"}
+            money.map((m) => <div key={m.id_users}> {m.total} pesos</div>) : "Hoy no tienes ganancias"}
         </div>
       </div>
     </>
