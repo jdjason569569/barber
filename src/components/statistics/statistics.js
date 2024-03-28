@@ -49,23 +49,6 @@ export default function Statistics() {
             </div>
           ))}
         </div>
-        <div>
-          <input
-            type="text"
-            placeholder="Has una pregunta"
-            name="texto"
-            maxLength="80"
-            autoComplete="off"
-            value={input.name ?? ""}
-            onChange={handleName}
-          />
-          <button
-            className="btn btn-light btn-sm btn-pass"
-            onClick={sendOpenIa}
-          >enviar</button>
-
-          {customerTimes}
-        </div>
       </div>
       {
         <div>
