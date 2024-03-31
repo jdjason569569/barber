@@ -22,8 +22,19 @@ export default function ScheduleCard({ turn }) {
       ":" +
       minutes.toString().padStart(2, "0");
 
-    setDateMoment(formatTime);
+    setDateMoment(aMpM(formatTime));
   }, [turn]);
+
+
+  const aMpM = (hour24) => {
+    let hora = hour24.split(':');
+    let horaNum = parseInt(hora[0]);
+    let minutos = hora[1];
+    let ampm = horaNum >= 12 ? 'PM' : 'AM';
+    horaNum = horaNum % 12 || 12;
+    let horaAMPM = horaNum + ':' + minutos + ' ' + ampm;
+    return horaAMPM;
+  }
   return (
     <>
       <div

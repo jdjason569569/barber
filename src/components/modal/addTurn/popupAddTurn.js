@@ -2,6 +2,7 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import "../addTurn/popupAddTurn.css";
 import { useState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import DatePicker from "react-datepicker";
 
 export default function PopupAddTurn({
   upPopup,
@@ -18,6 +19,8 @@ export default function PopupAddTurn({
     price: null,
     date_register: null,
   });
+
+  const [inputHour, setInputHour] = useState("");
 
   const [isEnabledButton, setIsEnabledButton] = useState(true);
   const [selectCustomer, setSelectCustomer] = useState("");
@@ -146,12 +149,28 @@ export default function PopupAddTurn({
     });
   };
 
-  const handleDateRegister = (event) => {
+  const handleDateRegister = (date) => {
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    const time = hour.toString().padStart(2, "0") +
+    ":" +
+    minutes.toString().padStart(2, "0");
+    setInputHour(aMpM(time));
     setInput({
       ...input,
-      date_register: event.target.value,
+      date_register: time,
     });
   };
+
+  const aMpM = (hour24) => {
+    let hora = hour24.split(':');
+    let horaNum = parseInt(hora[0]);
+    let minutos = hora[1];
+    let ampm = horaNum >= 12 ? 'PM' : 'AM';
+    horaNum = horaNum % 12 || 12;
+    let horaAMPM = horaNum + ':' + minutos + ' ' + ampm;
+    return horaAMPM;
+  }
 
   const searchCustomerByName = (name) => {
     return customers.find((customer) => customer.name === name);
@@ -220,14 +239,23 @@ export default function PopupAddTurn({
               value={input.phone ?? ""}
               onChange={handlePhone}
             /> : null}
-            <input
+            {/* <input
               disabled={turn && turn.customer.id_customer ? true : false}
               className="turn-input"
               type="time"
-              pattern="[0-9]{2}:[0-9]{2}\s(AM|PM)"
               value={input.date_register ?? ""}
               onChange={handleDateRegister}
-            ></input>
+            ></input> */}
+            <DatePicker
+                className="turn-input"
+                onChange={(date) => handleDateRegister(date)}
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={30}
+                timeCaption="Hora"
+                dateFormat="h:mm aa"
+                placeholderText={inputHour ? inputHour : "Ingresa hora"}
+              />
             <input
               className="turn-input"
               type="number"

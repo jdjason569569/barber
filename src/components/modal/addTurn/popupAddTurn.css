@@ -8,6 +8,10 @@
   border: solid 2px var(--blue-color) !important;
 }
 
+.react-datepicker-wrapper{
+  width: 100% !important;
+}
+
 .turn-form-popup {
   align-items: center;
   border-radius: 20px;
