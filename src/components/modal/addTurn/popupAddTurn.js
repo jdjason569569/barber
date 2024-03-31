@@ -224,6 +224,7 @@ export default function PopupAddTurn({
               disabled={turn && turn.customer.id_customer ? true : false}
               className="turn-input"
               type="time"
+              pattern="[0-9]{2}:[0-9]{2}\s(AM|PM)"
               value={input.date_register ?? ""}
               onChange={handleDateRegister}
             ></input>

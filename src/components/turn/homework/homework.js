@@ -10,17 +10,14 @@ export default function Homeworks({
   editTurn,
   turn,
   enableCards,
-  disableCardsMethod
+  disableCardsMethod,
 }) {
-
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id, disabled: enableCards });
 
   const [dateMoment, setDateMoment] = useState(null);
 
   useEffect(() => {
-
     let currentDate = new Date(turn.date_register);
     let hours = 0;
     let minutes = 0;
@@ -46,11 +43,8 @@ export default function Homeworks({
     transition,
   };
 
- 
-
   return (
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      
       <div
         className={
           turn.completed
@@ -63,7 +57,10 @@ export default function Homeworks({
         <div className="text-style" style={{ marginLeft: "5%" }}>
           {turn.order}
         </div>
-        <div className="turn-text text-style">{turn.customer.name}</div>
+        <div className="container-turn-text turn-text">
+          <div className="turn-text">{turn.customer.name}</div>
+          <div className="turn-text-phone">{turn.customer.phone}</div>
+        </div>
         <div className="text-date">{dateMoment}</div>
         {turn.completed ? (
           <div className="icon-container-homework">

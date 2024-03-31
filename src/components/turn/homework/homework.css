@@ -1,66 +1,68 @@
 .turn-container {
-    align-items: center;
-    background-color: var(--gray-color);
-    border-radius: 7px;
-    border: 2px solid  var(--white-color);
-    color:  var(--white-color);
-    display: flex;
-    box-shadow: 2px 2px 5px 1px var(--gray-color);;
+  align-items: center;
+  background-color: var(--gray-color);
+  border-radius: 7px;
+  border: 2px solid var(--white-color);
+  color: var(--white-color);
+  display: flex;
+  box-shadow: 2px 2px 5px 1px var(--gray-color);
+}
+
+.container-turn-text {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: auto;
+  justify-content: center;
+}
+
+.turn-text {
+  font-size: 20px;
+}
+.turn-text-phone {
+    font-size: 10px;
+  }
+
+.text-date {
+  font-size: 10px;
+}
+
+.turn-icon {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+}
+
+.material-icons {
+  font-size: 30px;
+}
+
+.turn-container-completed {
+  background-color: var(--green-color);
+}
+
+.turn-container-cancel {
+  background-color: var(--red-color);
+}
+
+.turn-container-is-scheduled {
+  background-color: var(--orange-color);
+}
+
+.icon-container-homework {
+  display: flex;
+  gap: 20%;
+  padding: 10%;
+}
+
+.style-bottom-homework {
+  border-radius: 10px;
+}
+
+.style-bottom-homework:active {
+  color: var(--blue-color);
 }
 
 .text-style{
     font-weight: bolder;
-    font-size: 20px;
 }
-
-
-.turn-text {
-    align-items: flex-start;
-    display: flex;
-    width: 80%;
-    height: auto;
-    justify-content: center;
-}
-
-.text-date {
-    font-size: 10px;
-}
-
-.turn-icon {
-    width: 25px;
-    height: 25px;
-    margin: 5px;
-}
-
-.material-icons {
-    font-size: 30px;
-}
-
-.turn-container-completed {
-    background-color: var(--green-color);;
-}
-
-.turn-container-cancel {
-    background-color: var(--red-color);;
-}
-
-.turn-container-is-scheduled {
-    background-color: var(--orange-color);;
-}
-
-.icon-container-homework {
-    display: flex;
-    gap: 20%;
-    padding: 10%;
-    
-  }
-
-  .style-bottom-homework{
-    border-radius: 10px;
-  }
-
-  .style-bottom-homework:active{
-    color: var(--blue-color);
-  }
-
-
