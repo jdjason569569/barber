@@ -1,4 +1,4 @@
-.modal-content{
+.modal-content {
   position: relative;
   top: 200px;
   display: flex;
@@ -8,7 +8,7 @@
   border: solid 2px var(--blue-color) !important;
 }
 
-.react-datepicker-wrapper{
+.react-datepicker-wrapper {
   width: 100% !important;
 }
 
@@ -64,10 +64,41 @@
   color: var(--white-color);
 }
 
-
-
 .form-select {
   width: 80% !important;
   margin: 0 auto;
   margin-bottom: 2px;
+}
+
+.input-group-add {
+  background-color: var(--blue-color);
+  border-radius: 20px;
+  color: var(--white-color);
+  font-size: 10px;
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin-left: 10%;
+  text-align: center;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.title-client-add {
+  padding: 10px;
+}
+.style-bottom-add {
+  border-radius: 10px;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  padding: 10px;
+}
+
+.style-bottom-add:active {
+  color: var(--blue-color);
+}
+
+.container-search {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }
