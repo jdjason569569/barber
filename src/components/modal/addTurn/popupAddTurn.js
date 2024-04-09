@@ -200,9 +200,14 @@ export default function PopupAddTurn({
 
   const handleInputChange = (event) => {
     setInputValueSearch(event.target.value.toLowerCase());
-    const filterResult = customers.filter((customer) =>
-      customer.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
+    const filterResult = customers.filter((customer) => {
+      return (
+        customer.name
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase()) ||
+        customer.phone.includes(event.target.value.toLowerCase())
+      );
+    });
     setSearchCustomers(filterResult);
   };
 
