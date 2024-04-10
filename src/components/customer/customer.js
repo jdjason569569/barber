@@ -15,9 +15,9 @@ export default function Customer() {
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [customer, setCustomer] = useState(null);
-  const invited = JSON.parse(localStorage.getItem('invited'));
-  
-    
+  const invited = JSON.parse(localStorage.getItem("invited"));
+  const [inputValueSearch, setInputValueSearch] = useState("");
+  const [searchCustomers, setSearchCustomers] = useState(customers);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -36,6 +36,7 @@ export default function Customer() {
           );
           const responseCustomersJson = await responseCutomers.json();
           setCustomers(responseCustomersJson);
+          setSearchCustomers(responseCustomersJson);
           setIsLoading(false);
         } else {
           setIsLoading(false);
@@ -129,42 +130,70 @@ export default function Customer() {
     }
   };
 
+  const handleInputChange = (event) => {
+    setInputValueSearch(event.target.value.toLowerCase());
+    const filterResult = customers.filter((customer) => {
+      return (
+        customer.name
+          .toLowerCase()
+          .includes(event.target.value.toLowerCase()) ||
+        customer.phone.includes(event.target.value.toLowerCase())
+      );
+    });
+    setSearchCustomers(filterResult);
+  };
+
   return (
     <>
       <ToastContainer position="bottom-center" autoClose={3000} />
       <Formturn addTurn={addCustomer} customer={customer} schedule={true} />
+      <div className="container-search-customer">
+        <div className="input-group-add-customer">
+          <span className="title-client-add-customer">Buscar</span>
+          <input
+            type="text"
+            value={inputValueSearch}
+            onChange={handleInputChange}
+            aria-label="First name"
+            className="form-control"
+          />
+        </div>
+      </div>
       <div className="customer-list-content">
         <h5 className="customer-title">Clientes</h5>
         {isLoading ? (
           <Loader></Loader>
         ) : (
           <div className="content-customer">
-            {customers.length > 0 ? (
+            {searchCustomers.length > 0 ? (
               <div>
-                {customers.map((customer) => (
+                {searchCustomers.map((customer) => (
                   <div
                     key={customer.id_customer}
                     className={"customer-container"}
                   >
                     <div className="customer-text">
                       <h5 className="text-style-name">{customer.name}</h5>
-                     {!invited ?<p className="text-style-mail">{customer.phone}</p> : null} 
+                      {!invited ? (
+                        <p className="text-style-mail">{customer.phone}</p>
+                      ) : null}
                     </div>
-                    {!invited ? <div className="icon-container">
-                      <button
-                        className="material-symbols-rounded style-bottom-customer"
-                        onMouseDown={() => editCustomer(customer)}
-                      >
-                        edit
-                      </button>
-                      {/* <button
+                    {!invited ? (
+                      <div className="icon-container">
+                        <button
+                          className="material-symbols-rounded style-bottom-customer"
+                          onMouseDown={() => editCustomer(customer)}
+                        >
+                          edit
+                        </button>
+                        {/* <button
                         className="material-symbols-rounded style-bottom-customer"
                         onMouseDown={() => disableCustomer(customer)}
                       >
                         delete
                       </button> */}
-                    </div> : null}
-                   
+                      </div>
+                    ) : null}
                   </div>
                 ))}
               </div>

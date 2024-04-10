@@ -10,7 +10,7 @@
     height: 50vh;
     flex-direction: column;
     align-items: center;
-    margin-top: 10%;
+    margin-top: 1%;
     margin-left: 2%;
     margin-right: 2%;
     overflow-y: auto;
@@ -84,4 +84,27 @@
   padding: 7px;
   margin: 0;
   z-index: 100;
+}
+
+.container-search-customer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.input-group-add-customer {
+  background-color: var(--blue-color);
+  border-radius: 20px;
+  color: var(--white-color);
+  font-size: 10px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 6%;
+  margin-left: 2%;
+  text-align: center;
+  box-shadow: 1px 1px 5px gray;
+}
+
+.title-client-add-customer {
+  padding: 10px;
 }
